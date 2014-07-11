@@ -12,7 +12,7 @@ import java.util.List;
 public class District extends Location{
 
 	//List to hold suburbs in district
-	private List<Suburb> suburbs = new ArrayList<Suburb>();
+
 	
 	public District(int id, String name) {
 		super (id, name);
@@ -21,21 +21,6 @@ public class District extends Location{
 	/**
 	 * @return the suburbs
 	 */
-	public List<Suburb> getSuburbs() {
-		return suburbs;
-	}
 
-	/**
-	 * @param suburbs the suburbs to set
-	 */
-	public void setSuburbs(List<Suburb> suburbs) {
-		this.suburbs = suburbs;
-	}
-	
-	//Add single suburb to list
-	public void addSuburb(Suburb suburb)
-	{
-		suburbs.add(suburb);
-	}
 
 }
