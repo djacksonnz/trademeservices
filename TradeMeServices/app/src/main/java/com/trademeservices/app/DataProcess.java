@@ -147,7 +147,7 @@ public class DataProcess {
         listing.setStartPrice(data.getInt("StartPrice"));
         listing.setStartDate(data.getString("StartDate"));
         listing.setEndDate(data.getString("EndDate"));
-        listing.setFeatured(data.getBoolean("IsFeatured"));
+        //listing.setFeatured(data.getBoolean("IsFeatured"));
         listing.setCatName(data.getString("CategoryName"));
         listing.setRegionID(data.getInt("RegionId"));
         listing.setRegion(data.getString("Region"));

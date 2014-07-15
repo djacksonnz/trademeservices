@@ -1,5 +1,6 @@
 package com.trademeservices.app;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.androidquery.util.XmlDom;
 import com.trademeservices.app.cat.Categories;
 import com.trademeservices.app.location.District;
 import com.trademeservices.app.location.Region;
+import com.trademeservices.app.search.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -229,10 +231,15 @@ public class MainActivity extends ActionBarActivity {
 
         EditText keywordsIn = (EditText) findViewById(R.id.keywordInput);
         keywords = keywordsIn.getText().toString();
-
+        Intent intent = new Intent(this, SearchResults.class);
+        intent.putExtra("location", district);
+        intent.putExtra("cat", cat);
+        intent.putExtra("keywords", keywords);
+        startActivity(intent);
         Log.i("out", keywords + " " + Integer.toString(region) + " " + Integer.toString(district) + " " + cat);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
