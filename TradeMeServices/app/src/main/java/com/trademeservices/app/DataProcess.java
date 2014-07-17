@@ -78,7 +78,7 @@ public class DataProcess {
             try {
                 img = currListing.getString("PictureHref");
             } catch (Exception ex) {
-                img = "NoImg";
+                img = "http://www.tmsandbox.co.nz/images/NewSearchCards/LVIcons/noPhoto_160x120.png";
             }
 
             Results res = new Results(currListing.getInt("ListingId"), currListing.getString("Title"),

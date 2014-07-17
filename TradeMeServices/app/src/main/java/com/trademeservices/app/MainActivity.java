@@ -232,7 +232,8 @@ public class MainActivity extends ActionBarActivity {
         EditText keywordsIn = (EditText) findViewById(R.id.keywordInput);
         keywords = keywordsIn.getText().toString();
         Intent intent = new Intent(this, SearchResults.class);
-        intent.putExtra("location", district);
+        intent.putExtra("district", district);
+        intent.putExtra("region", region);
         intent.putExtra("cat", cat);
         intent.putExtra("keywords", keywords);
         startActivity(intent);

@@ -28,14 +28,13 @@ public class Listing extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         listingId = bundle.getInt("id");
+
         asyncJsonSearch();
     }
 
     public void asyncJsonSearch(){
         String url = new Constants().getBASE_ADDR() + "Listings/" + Integer.toString(listingId) + ".json";
-//        if (keywords != null) {
-//            url += "&search_string=" + keywords;
-//        }
+
         Log.i("out", url);
         aq.ajax(url, JSONObject.class, this, "jsonCallbackSearch");
 

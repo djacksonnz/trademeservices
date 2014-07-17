@@ -58,7 +58,7 @@ public class InitLoad extends Activity {
     }
 
     public void asyncJsonReg(){
-        String url = new Constants().getBASE_ADDR() + "TmAreas.json";
+        String url = new Constants().getBASE_ADDR() + "Localities.json?with_counts=false";
         aq.ajax(url, JSONArray.class, this, "jsonCallbackReg");
 
     }
