@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ public class SearchResults extends ActionBarActivity {
     private int region;
     private String keywords;
     private Data data = Data.getInstance();
+    private int page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,12 @@ public class SearchResults extends ActionBarActivity {
         keywords = extras.getString("keywords");
         district = extras.getInt("district");
         region = extras.getInt("region");
-
+        page = 1;
         asyncJsonSearch();
     }
 
     public void asyncJsonSearch(){
-        String url = new Constants().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst";//region=" + Integer.toString(district);
+        String url = new Constants().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst&rows="+ Integer.toString(new Constants().getPAGE_SIZE()) + "&page=" + Integer.toString(page);//region=" + Integer.toString(district);
         if (keywords != "") {
             url += "&search_string=" + keywords;
         }
@@ -87,11 +89,15 @@ public class SearchResults extends ActionBarActivity {
     {
         TextView searchLbl = (TextView) findViewById(R.id.searchingLbl);
         searchLbl.setVisibility(View.GONE);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
+        final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
+
         boolean place = true;
-        ScrollView sv = new ScrollView(this);
+        final ScrollView sv = new ScrollView(this);
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.VERTICAL);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
         for (Results r : data.getResults().getResults())
         {
             GridLayout rl = new GridLayout(this);
@@ -119,9 +125,7 @@ public class SearchResults extends ActionBarActivity {
                     .execute(r.getPic());
 
             TextView text = new TextView(this);
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+
             text.setMaxWidth(size.x - 200);
             text.setText(r.getTitle());
                       rl.addView(img);
@@ -129,6 +133,24 @@ public class SearchResults extends ActionBarActivity {
 
             lay.addView(rl);
         }
+        Button btn =  new Button(this);
+            btn.setText("More");
+            btn.setMaxWidth(size.x);
+            btn.setMinimumWidth(size.x);
+            btn.setMinHeight(200);
+            btn.setMaxHeight(200);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    page++;
+                    layout.removeView(sv);
+                    TextView searchLbl = (TextView) findViewById(R.id.searchingLbl);
+                    searchLbl.setVisibility(View.VISIBLE);
+                    asyncJsonSearch();
+                }
+            });
+
+        lay.addView(btn);
         sv.addView(lay);
         layout.addView(sv);
     }
