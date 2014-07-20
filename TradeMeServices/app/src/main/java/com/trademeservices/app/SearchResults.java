@@ -46,20 +46,24 @@ public class SearchResults extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+        GetTerms();
+        page = 1;
+        asyncJsonSearch();
+    }
+
+    //Get terms that were passed from the search activity
+    private void GetTerms()
+    {
         Bundle extras = getIntent().getExtras();
         cat = extras.getString("cat");
         keywords = extras.getString("keywords");
         district = extras.getInt("district");
         region = extras.getInt("region");
-        page = 1;
-        asyncJsonSearch();
     }
 
     public void asyncJsonSearch(){
-        String url = new Constants().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst&rows="+ Integer.toString(new Constants().getPAGE_SIZE()) + "&page=" + Integer.toString(page);//region=" + Integer.toString(district);
-        if (keywords != "") {
-            url += "&search_string=" + keywords;
-        }
+        String url = new Variables().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst&rows="+ Integer.toString(new Variables().getPAGE_SIZE()) + "&page=" + Integer.toString(page);
+
         if (region != 0 && region != 100)
         {
             url += "&region=" + Integer.toString(region);
@@ -69,7 +73,6 @@ public class SearchResults extends ActionBarActivity {
             url += "&district=" + Integer.toString(district);
         }
 
-        Log.i("out", url);
         aq.ajax(url, JSONObject.class, this, "jsonCallbackSearch");
 
     }
@@ -90,14 +93,20 @@ public class SearchResults extends ActionBarActivity {
         TextView searchLbl = (TextView) findViewById(R.id.searchingLbl);
         searchLbl.setVisibility(View.GONE);
         final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-
+        final TextView infoText = new TextView(this);
+        infoText.setMaxWidth(data.getVariables().getDeviceWidth());
+        int totalPages = data.getResults().getTotal() / data.getResults().getPageSize();
+        int showing = data.getResults().getPage() * data.getResults().getPageSize();
+        infoText.setText("Total results:" + Integer.toString(data.getResults().getTotal()) +
+                " | Page " + Integer.toString(data.getResults().getPage()) + " of " + totalPages + " | " + Integer.toString((showing - 24)) + " - " + Integer.toString(showing));
+        infoText.setTextSize(15);
+        infoText.setBackgroundColor(Color.GRAY);
+        layout.addView(infoText);
         boolean place = true;
         final ScrollView sv = new ScrollView(this);
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.VERTICAL);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+
         for (Results r : data.getResults().getResults())
         {
             GridLayout rl = new GridLayout(this);
@@ -126,7 +135,7 @@ public class SearchResults extends ActionBarActivity {
 
             TextView text = new TextView(this);
 
-            text.setMaxWidth(size.x - 200);
+            text.setMaxWidth(data.getVariables().getDeviceWidth() - 200);
             text.setText(r.getTitle());
                       rl.addView(img);
                       rl.addView(text);
@@ -135,8 +144,7 @@ public class SearchResults extends ActionBarActivity {
         }
         Button btn =  new Button(this);
             btn.setText("More");
-            btn.setMaxWidth(size.x);
-            btn.setMinimumWidth(size.x);
+            btn.setMinimumWidth(data.getVariables().getDeviceWidth());
             btn.setMinHeight(200);
             btn.setMaxHeight(200);
             btn.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +152,7 @@ public class SearchResults extends ActionBarActivity {
                 public void onClick(View view) {
                     page++;
                     layout.removeView(sv);
+                    layout.removeView(infoText);
                     TextView searchLbl = (TextView) findViewById(R.id.searchingLbl);
                     searchLbl.setVisibility(View.VISIBLE);
                     asyncJsonSearch();

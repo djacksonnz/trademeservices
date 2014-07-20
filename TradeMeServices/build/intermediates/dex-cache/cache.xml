@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\pre-dexed\debug\android-query-full.0.26.7-425583b784b1e9633e2654c22f246e96bbc0d11c.jar"
+        jar="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\libs\android-query-full.0.26.7.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="4055bed8ed6f6aa573fa3e7d979c66101c48e182"/>
+    <item
+        dex="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\pre-dexed\debug\support-v4-19.0.1-f12cf36e62817252848969ed7bc30741636580a6.jar"
+        jar="C:\Users\Dave\AppData\Local\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.0.1\support-v4-19.0.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="587da9a481ffd341d2fa091704489b89845ddacd"/>
+    <item
+        dex="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\pre-dexed\debug\classes-d7a7a39d79b2639a082d3c6e02b69727cc92c54a.jar"
+        jar="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\19.0.1\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b1701c49371231e0423b7588539f24bdab485019"/>
+    <item
+        dex="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\pre-dexed\debug\classes-0e46d24b5a146f2107b6f384b358baf75bd091b1.jar"
+        jar="C:\Users\Dave\Desktop\Temp work\TradeMeServices\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.0.1\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f71a6822470c9eb659d4f4a6cb57b780b35f058b"/>
+
+</pre-dex-items>

@@ -7,10 +7,12 @@ import com.trademeservices.app.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -35,12 +37,22 @@ public class InitLoad extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_load);
+        GetDeviceScreenSize();
         asyncJsonCat();
 
     }
 
+    private void GetDeviceScreenSize()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        data.getVariables().setDeviceHeight(size.x);
+        data.getVariables().setDeviceWidth(size.y);
+    }
+
     public void asyncJsonCat(){
-        String url = new Constants().getBASE_ADDR() + "Categories/9334.json?with_counts=false";
+        String url = new Variables().getBASE_ADDR() + "Categories/9334.json?with_counts=false";
         aq.ajax(url, JSONObject.class, this, "jsonCallbackCat");
 
     }
@@ -58,7 +70,7 @@ public class InitLoad extends Activity {
     }
 
     public void asyncJsonReg(){
-        String url = new Constants().getBASE_ADDR() + "Localities.json?with_counts=false";
+        String url = new Variables().getBASE_ADDR() + "Localities.json?with_counts=false";
         aq.ajax(url, JSONArray.class, this, "jsonCallbackReg");
 
     }

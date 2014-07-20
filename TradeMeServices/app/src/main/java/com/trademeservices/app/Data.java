@@ -18,6 +18,7 @@ public class Data {
     private SearchResults results;
     private List<Categories> categories  = new ArrayList<Categories>();
     private Listing listing;
+    private Variables variables = new Variables();
 
     protected Data(){}
 
@@ -70,5 +71,13 @@ public class Data {
 
     public void setListing(Listing listing) {
         this.listing = listing;
+    }
+
+    public Variables getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Variables variables) {
+        this.variables = variables;
     }
 }
