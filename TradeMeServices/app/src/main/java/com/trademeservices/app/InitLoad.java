@@ -7,6 +7,7 @@ import com.trademeservices.app.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,13 @@ public class InitLoad extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences appInfo = this.getSharedPreferences("appInfo", 0);
+        boolean firstRun = appInfo.getBoolean("firstRun", true);
+
+        if (firstRun)
+        {
+            //load api info to database
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_load);
         GetDeviceScreenSize();
