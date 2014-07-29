@@ -33,21 +33,26 @@ public class InitLoad extends Activity {
 
     private Data data = Data.getInstance();
     private AQuery aq = new AQuery(this);
+    private SharedPreferences appInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences appInfo = this.getSharedPreferences("appInfo", 0);
-        boolean firstRun = appInfo.getBoolean("firstRun", true);
 
-        if (firstRun)
-        {
-            //load api info to database
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_load);
-        GetDeviceScreenSize();
-        asyncJsonCat();
 
+        appInfo = this.getSharedPreferences("appInfo", 0);
+        boolean firstRun = appInfo.getBoolean("firstRun", true);
+
+        if (firstRun) {
+            //load api info to database
+            SharedPreferences.Editor editor = appInfo.edit();
+            editor.putBoolean("firstRun", false);
+            editor.commit();
+            asyncJsonCat();
+            GetDeviceScreenSize();
+
+        }
     }
 
     private void GetDeviceScreenSize()
@@ -55,8 +60,12 @@ public class InitLoad extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        data.getVariables().setDeviceHeight(size.x);
-        data.getVariables().setDeviceWidth(size.y);
+        SharedPreferences.Editor editor = appInfo.edit();
+        editor.putInt("deviceHeight", size.x);
+        editor.putInt("deviceWidth", size.y);
+        editor.commit();
+        //data.getVariables().setDeviceHeight(size.x);
+        //data.getVariables().setDeviceWidth(size.y);
     }
 
     public void asyncJsonCat(){
