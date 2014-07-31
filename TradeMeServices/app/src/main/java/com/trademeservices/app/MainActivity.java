@@ -93,6 +93,7 @@ public class MainActivity extends ActionBarActivity {
     private void DistrictSpinner(int pos, Spinner s)
     {
         s.setVisibility(View.VISIBLE);
+
         String[] array_spinner = new String[data.getRegionList().get(pos).getDistricts().size() + 1];
 
         for (int j = 0; j < array_spinner.length - 1; j++ )
@@ -106,29 +107,30 @@ public class MainActivity extends ActionBarActivity {
         s.setSelection(array_spinner.length - 1);
     }
 
-    private void SubCatSpinner(int pos, Spinner s)
-    {
-        s.setVisibility(View.VISIBLE);
-        String[] array_spinner = new String[data.getCategories().get(pos).getSubCats().size() + 1];
-
-        for (int j = 0; j < array_spinner.length - 1; j++ )
-        {
-            array_spinner[j] = data.getCategories().get(pos).getSubCats().get(j).getName();
-        }
-
-        array_spinner[array_spinner.length - 1] = "All";
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
-        s.setAdapter(adapter);
-        s.setSelection(array_spinner.length - 1);
-    }
+//    private void SubCatSpinner(int pos, Spinner s)
+//    {
+//        s.setVisibility(View.VISIBLE);
+//        String[] array_spinner = new String[data.getCategories().get(pos).getSubCats().size() + 1];
+//
+//        for (int j = 0; j < array_spinner.length - 1; j++ )
+//        {
+//            array_spinner[j] = data.getCategories().get(pos).getSubCats().get(j).getName();
+//        }
+//
+//        array_spinner[array_spinner.length - 1] = "All";
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
+//        s.setAdapter(adapter);
+//        s.setSelection(array_spinner.length - 1);
+//    }
 
     private void CatSpinner()
     {
-        String[] array_spinner = new String[data.getCategories().size() + 1];
+        List<Categories> cats = new Database(this).getCat("9334-");
+        String[] array_spinner = new String[cats.size() + 1];
 
         for (int i = 0; i < array_spinner.length - 1; i++ )
         {
-            array_spinner[i] = data.getCategories().get(i).getName();
+            array_spinner[i] = cats.get(i).getName();
         }
         array_spinner[array_spinner.length - 1] = "All";
 
@@ -142,17 +144,17 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Spinner s = (Spinner) findViewById(R.id.subCatSpinner);
-
-                if (i != data.getCategories().size()) {
-                    if (data.getCategories().get(i).getSubCats().size() != 0) {
-                        SubCatSpinner(i, s);
-                    }
-                }
-                else
-                {
-                    s.setVisibility(View.GONE);
-                }
+//                Spinner s = (Spinner) findViewById(R.id.subCatSpinner);
+//
+//                if (i != data.getCategories().size()) {
+//                    if (data.getCategories().get(i).getSubCats().size() != 0) {
+//                        SubCatSpinner(i, s);
+//                    }
+//                }
+//                else
+//                {
+//                    s.setVisibility(View.GONE);
+//                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -216,14 +218,14 @@ public class MainActivity extends ActionBarActivity {
                     }
                     else
                     {
-                        String subCatName = s.getSelectedItem().toString();
-                        for (Categories c : data.getCategories().get(i).getSubCats())
-                        {
-                            if (c.getName() == subCatName)
-                            {
-                                cat = c.getNumber();
-                            }
-                        }
+//                        String subCatName = s.getSelectedItem().toString();
+//                        for (Categories c : data.getCategories().get(i).getSubCats())
+//                        {
+//                            if (c.getName() == subCatName)
+//                            {
+//                                cat = c.getNumber();
+//                            }
+//                        }
                     }
                 }
             }

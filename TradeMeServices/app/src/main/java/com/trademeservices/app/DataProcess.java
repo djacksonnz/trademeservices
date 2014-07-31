@@ -1,5 +1,7 @@
 package com.trademeservices.app;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.trademeservices.app.cat.Categories;
@@ -94,48 +96,79 @@ public class DataProcess {
 //        }
     }
 
-    public void ProcessCategories(JSONObject data) throws JSONException {
+    public void ProcessCategories(JSONObject data, Context ctx) throws JSONException {
 
+//        JSONArray catArray = data.getJSONArray("Subcategories");
+//
+//        for (int i = 0; i < catArray.length(); i++)
+//        {
+//            JSONObject catObj = catArray.getJSONObject(i);
+//            Categories newCat = new Categories(catObj.getString("Name"), catObj.getString("Number"), catObj.getString("Path"), catObj.getBoolean("HasClassifieds"));
+//            if (catObj.has("Subcategories"))
+//            {
+//                JSONArray subList = catObj.getJSONArray("Subcategories");
+//                newCat = SubCatProcess(newCat, subList);
+//            }
+//            _data.addCategories(newCat);
+//        }
+
+        //Make JSON array from the first lot of sub categories from services section
         JSONArray catArray = data.getJSONArray("Subcategories");
-
+        //Iterate through objects in catArray
         for (int i = 0; i < catArray.length(); i++)
         {
+            //Pull i object from JSON array
             JSONObject catObj = catArray.getJSONObject(i);
-            Categories newCat = new Categories(catObj.getString("Name"), catObj.getString("Number"), catObj.getString("Path"), catObj.getBoolean("HasClassifieds"));
+            //Get values from JSON object
+            String name = catObj.getString("Name");
+            String number = catObj.getString("Number");
+            String path = catObj.getString("Path");
+            boolean hasClassifieds = catObj.optBoolean("HasClassifieds");
+            boolean hasLegal = catObj.optBoolean("HasLegalNotice");
+            boolean isRestricted = catObj.optBoolean("IsRestricted");
+            String mainCat = "9334-";
+            //Make new Categories object using values
+            Categories newCat = new Categories(name,number,path,hasClassifieds,hasLegal,isRestricted, mainCat);
+            //Insert newCat into database
+            new Database(ctx).InsertCat(newCat);
+            //See if catObj has any sub categories
             if (catObj.has("Subcategories"))
             {
+                //If it does get the array of subCats
                 JSONArray subList = catObj.getJSONArray("Subcategories");
-                newCat = SubCatProcess(newCat, subList);
+                //Call subCat process method passing in the list of subCats, parent number, and the context
+                SubCatProcess(subList, number, ctx);
             }
-            _data.addCategories(newCat);
         }
 
-//        for (Categories cat : categories)
-//        {
-//            Log.i("out",cat.getName());
-//            for (Categories subCat : cat.getSubCats())
-//            {
-//               Log.i("out", subCat.getName());
-//            }
-//        }
     }
 
-    private Categories SubCatProcess(Categories newCat, JSONArray subList) throws JSONException
+    private void SubCatProcess(JSONArray subList, String parentNum, Context ctx) throws JSONException
     {
         for (int y = 0; y < subList.length(); y++)
         {
             JSONObject subCatObj = subList.getJSONObject(y);
-            Categories newSubCat = new Categories(subCatObj.getString("Name"), subCatObj.getString("Number"), subCatObj.getString("Path"), subCatObj.getBoolean("HasClassifieds"));
+            String name = subCatObj.getString("Name");
+            String number = subCatObj.getString("Number");
+            String path = subCatObj.getString("Path");
+            boolean hasClassifieds = subCatObj.optBoolean("HasClassifieds");
+            boolean hasLegal = subCatObj.optBoolean("HasLegalNotice");
+            boolean isRestricted = subCatObj.optBoolean("IsRestricted");
+            String parentCat = parentNum;
+
+            Categories newCat = new Categories(name,number,path,hasClassifieds,hasLegal,
+                    isRestricted, parentCat);
+
+            new Database(ctx).InsertCat(newCat);
+
 
             if (subCatObj.has("Subcategories"))
             {
                 JSONArray nextSubList = subCatObj.getJSONArray("Subcategories");
-                newSubCat = SubCatProcess(newSubCat, nextSubList);
-            }
-            newCat.AddSubCat(newSubCat);
-        }
 
-        return newCat;
+                SubCatProcess(nextSubList, number, ctx);
+            }
+        }
     }
 
     public void ProcessListing(JSONObject data) throws JSONException

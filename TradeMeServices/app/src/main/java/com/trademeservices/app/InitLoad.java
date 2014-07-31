@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class InitLoad extends Activity {
     private Data data = Data.getInstance();
     private AQuery aq = new AQuery(this);
     private SharedPreferences appInfo;
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +47,21 @@ public class InitLoad extends Activity {
         boolean firstRun = appInfo.getBoolean("firstRun", true);
 
         if (firstRun) {
-            //load api info to database
+            //Create database on device
+            db = new Database(this);
+            //Load api info to database
             SharedPreferences.Editor editor = appInfo.edit();
             editor.putBoolean("firstRun", false);
             editor.commit();
             asyncJsonCat();
             GetDeviceScreenSize();
-
+        } else
+        {
+            asyncJsonReg();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
+
     }
 
     private void GetDeviceScreenSize()
@@ -77,8 +86,7 @@ public class InitLoad extends Activity {
     public void jsonCallbackCat(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
         if(json != null){
-            new DataProcess().ProcessCategories(json);
-            Log.i("out", "success 1");
+            new DataProcess().ProcessCategories(json, this);
             asyncJsonReg();
         }else{
             //ajax error, show error code
@@ -110,6 +118,30 @@ public class InitLoad extends Activity {
         super.onPostCreate(savedInstanceState);
 
     }
+
+    //Makes sure user cant go back to splash screen
+    @Override
+   public void onResume()
+    {
+        super.onResume();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        //Log.w(TAG, "App stopped");
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        //Log.w(TAG, "App destoryed");
+
+        super.onDestroy();
+    }
+
 
 
 }

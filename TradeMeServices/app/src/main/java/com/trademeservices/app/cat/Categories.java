@@ -8,23 +8,32 @@ import java.util.List;
  */
 
 public class Categories {
+
+    //Fields of categories
     private String name;
     private String number;
     private String path;
-    private List<Categories> subCats = new ArrayList<Categories>();
     private boolean hasClassifieds;
+    private boolean isRestricted;
+    private boolean hasLegal;
+    private String mainCat;
 
-    public Categories(String name, String number, String path, boolean hasClassifieds)
+    public Categories(String name, String number, String path, boolean hasClassifieds,
+                      boolean isRestricted, boolean hasLegal, String mainCat)
     {
         this.name = name;
         this.number = number;
         this.path = path;
         this.hasClassifieds = hasClassifieds;
+        this.isRestricted = isRestricted;
+        this.hasLegal = hasLegal;
+        this.mainCat = mainCat;
     }
 
-    public void AddSubCat(Categories subCat)
+    @Override
+    public String toString()
     {
-        subCats.add(subCat);
+        return name + ", " + number + ", "  + path;
     }
 
     public boolean GetHasClassifieds() {
@@ -43,7 +52,15 @@ public class Categories {
         return path;
     }
 
-    public List<Categories> getSubCats() {
-        return subCats;
+    public boolean isRestricted() {
+        return isRestricted;
+    }
+
+    public boolean isHasLegal() {
+        return hasLegal;
+    }
+
+    public String getMainCat() {
+        return mainCat;
     }
 }
