@@ -806,8 +806,8 @@ June 2014.
     </sdk:platform>
 
     <sdk:platform>
-        <!-- Generated at Mon Jun 23 19:20:57 2014 from git_lmp-preview-release @ 1242878 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Fri Jul 11 18:20:46 2014 from git_lmp-preview-dev @ 1272903 -->
+        <sdk:revision>3</sdk:revision>
         <sdk:description>Android SDK Platform L</sdk:description>
         <sdk:version>L</sdk:version>
         <sdk:api-level>20</sdk:api-level>
@@ -816,14 +816,14 @@ June 2014.
             <sdk:major>22</sdk:major>
         </sdk:min-tools-rev>
         <sdk:layoutlib>
-            <sdk:api>10</sdk:api>
+            <sdk:api>11</sdk:api>
             <sdk:revision>1</sdk:revision>
         </sdk:layoutlib>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>69376002</sdk:size>
-                <sdk:checksum type="sha1">5ccfe967693b8f601ea5ce6391faa831e401faa2</sdk:checksum>
-                <sdk:url>android-L_r01.zip</sdk:url>
+                <sdk:size>69421660</sdk:size>
+                <sdk:checksum type="sha1">76b6da426db06b2e2901dbc5e02d210ba83753c4</sdk:checksum>
+                <sdk:url>android-L_r03.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-preview-license"/>
@@ -1043,14 +1043,14 @@ June 2014.
     </sdk:sample>
 
     <sdk:sample>
-        <!-- Generated at Mon Jun 23 19:17:53 2014 from git_klp-modular-release @ 1246132 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Wed Jul 23 12:59:18 2014 from git_klp-modular-mr0-release @ 1298572 -->
+        <sdk:revision>2</sdk:revision>
         <sdk:api-level>20</sdk:api-level>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>42909921</sdk:size>
-                <sdk:checksum type="sha1">bccd70e8a5af552fdafe84037c83342fe3aa462b</sdk:checksum>
-                <sdk:url>samples-20_r01.zip</sdk:url>
+                <sdk:size>49718791</sdk:size>
+                <sdk:checksum type="sha1">4b906c46057ee8f502b4f27c23670fd87a49d6ff</sdk:checksum>
+                <sdk:url>samples-20_r02.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-license"/>

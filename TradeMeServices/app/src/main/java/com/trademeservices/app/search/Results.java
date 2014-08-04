@@ -21,6 +21,22 @@ public class Results {
 	private String title;
 	private String cat;
 	private String pic;
+    //start date
+    //end date
+    //featured
+    //galley
+    //bold
+    //highlighted
+    //homepage
+    //asat
+    //regionid
+    //district id
+    //subtitle
+    //on watchlist
+    //totalreviews
+    //positive reviews
+
+
 	
 	public Results(int id, String title, String cat, String pic) {
 		this.id = id;
