@@ -14,30 +14,10 @@ import java.util.ListIterator;
 
 public class Region extends Location {
 
-	//List to hold all districts for the region
-	private List<District> districts = new ArrayList<District>();
-	
 	//Constructor takes in int and string returns none
 	public Region(int id, String name) {
 		super(id, name);
 	}
 
-	/**
-	 * @return the districts
-	 */
-	public List<District> getDistricts() {
-		return districts;
-	}
 
-	/**
-	 * @param districts the districts to set
-	 */
-	public void setDistricts(List<District> districts) {
-		this.districts = districts;
-	}
-
-	//Add single district
-	public void addDistrict(District district) {
-		districts.add(district);
-	}
 }

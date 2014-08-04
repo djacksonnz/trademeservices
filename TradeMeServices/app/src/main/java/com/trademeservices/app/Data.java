@@ -16,9 +16,9 @@ public class Data {
     private static Data instance = null;
     private List<Region> regionList = new ArrayList<Region>();
     private SearchResults results;
-    private List<Categories> categories  = new ArrayList<Categories>();
+    //private List<Categories> categories  = new ArrayList<Categories>();
     private Listing listing;
-    private Variables variables = new Variables();
+    private Constants constants = new Constants();
 
     protected Data(){}
 
@@ -51,19 +51,19 @@ public class Data {
     public void setResults(SearchResults results) {
         this.results = results;
     }
+//
+//    public List<Categories> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(List<Categories> categories) {
+//        this.categories = categories;
+//    }
 
-    public List<Categories> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Categories> categories) {
-        this.categories = categories;
-    }
-
-    public void addCategories(Categories cat)
-    {
-        categories.add(cat);
-    }
+//   public void addCategories(Categories cat)
+//    {
+//        categories.add(cat);
+//    }
 
     public Listing getListing() {
         return listing;
@@ -73,11 +73,11 @@ public class Data {
         this.listing = listing;
     }
 
-    public Variables getVariables() {
-        return variables;
+    public Constants getConstants() {
+        return constants;
     }
 
-    public void setVariables(Variables variables) {
-        this.variables = variables;
+    public void setConstants(Constants constants) {
+        this.constants = constants;
     }
 }

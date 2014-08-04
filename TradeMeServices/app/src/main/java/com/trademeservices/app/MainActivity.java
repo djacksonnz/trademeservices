@@ -1,5 +1,6 @@
 package com.trademeservices.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -34,7 +36,7 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
 
     private Data data = Data.getInstance();
-    private AQuery aq = new AQuery(this);
+    private Context ctx = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         PopulateSpinners();
-
-
     }
 
     private void PopulateSpinners()
@@ -52,34 +52,46 @@ public class MainActivity extends ActionBarActivity {
         CatSpinner();
     }
 
+    //Method that populates and controls the region spinner/dropdown
     private void RegionSpinner()
     {
-        String[] array_spinner = new String[data.getRegionList().size()];
-
-        for (int i = 0; i < array_spinner.length; i++ )
-        {
-            array_spinner[i] = data.getRegionList().get(i).getName();
-        }
-
-        Spinner s = (Spinner) findViewById(R.id.regionSpinner);
+        //Get regions from database
+        List<Region> regions = new Database(ctx).GetRegions();
+        //Get spinner from activity
+        final Spinner spinner = (Spinner)this.findViewById(R.id.regionSpinner);
+        //Make new adapter holding Region list as its type
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
-                array_spinner);
-
-        s.setAdapter(adapter);
-        s.setSelection(array_spinner.length - 1);
-
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                regions);
+        //Set spinner values to adapter
+        spinner.setAdapter(adapter);
+        //Set inital value to be "All"
+        spinner.setSelection(regions.size() - 1);
+        //Method for on selection changed
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                //Get selected region object
+                Region region = (Region) spinner.getSelectedItem();
+                //Get the district spinner
                 Spinner s = (Spinner) findViewById(R.id.districtSpinner);
 
-                if (data.getRegionList().get(i).getDistricts().size() != 0)
-                {
-                    DistrictSpinner(i,s);
+                //If its not equal to 100 (All selection)
+                if (region.getId() != 100){
+                    //Get list of districts where there region is the selected region
+                    List<District> districts = new Database(ctx).GetDistricts(region.getId());
+
+                    //If there is at least 1 district
+                    if (districts.size() > 0)
+                    {
+                        //Add a record for all districts
+                        districts.add(0, new District(100,"All",region.getId()));
+                        //Process district spinner
+                        DistrictSpinner(i,s, districts);
+                    }
                 }
                 else
                 {
+                    //If all is selected set district spinner to invisible
                     s.setVisibility(View.GONE);
                 }
             }
@@ -90,72 +102,71 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    private void DistrictSpinner(int pos, Spinner s)
+    //Method that populates and controls the region spinner/dropdown
+    private void DistrictSpinner(int pos, Spinner s, List<District> districts)
     {
         s.setVisibility(View.VISIBLE);
+        //Create adapter from district list
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                districts);
 
-        String[] array_spinner = new String[data.getRegionList().get(pos).getDistricts().size() + 1];
-
-        for (int j = 0; j < array_spinner.length - 1; j++ )
-        {
-            array_spinner[j] = data.getRegionList().get(pos).getDistricts().get(j).getName();
-        }
-
-        array_spinner[array_spinner.length - 1] = "All";
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
         s.setAdapter(adapter);
-        s.setSelection(array_spinner.length - 1);
+        s.setSelection(0);
     }
 
-//    private void SubCatSpinner(int pos, Spinner s)
-//    {
-//        s.setVisibility(View.VISIBLE);
-//        String[] array_spinner = new String[data.getCategories().get(pos).getSubCats().size() + 1];
-//
-//        for (int j = 0; j < array_spinner.length - 1; j++ )
-//        {
-//            array_spinner[j] = data.getCategories().get(pos).getSubCats().get(j).getName();
-//        }
-//
-//        array_spinner[array_spinner.length - 1] = "All";
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinner);
-//        s.setAdapter(adapter);
-//        s.setSelection(array_spinner.length - 1);
-//    }
+    //Display and populate sub cat spinner
+    private void SubCatSpinner(int pos, Spinner s, List<Categories> subCats)
+    {
+        s.setVisibility(View.VISIBLE);
+        //Create adapter from cats list
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                subCats);
+        //Set spinner values to be the values in array adapter
+        s.setAdapter(spinnerArrayAdapter);
+        //Select All to be default value
+        s.setSelection(subCats.size() - 1);
+    }
 
+    //Populates drop down lists for the search screen - Main cats here
     private void CatSpinner()
     {
-        List<Categories> cats = new Database(this).getCat("9334-");
-        String[] array_spinner = new String[cats.size() + 1];
-
-        for (int i = 0; i < array_spinner.length - 1; i++ )
-        {
-            array_spinner[i] = cats.get(i).getName();
-        }
-        array_spinner[array_spinner.length - 1] = "All";
-
-        Spinner s = (Spinner) findViewById(R.id.catSpinner);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
-                array_spinner);
-        s.setAdapter(adapter);
-        s.setSelection(array_spinner.length - 1);
-
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //Pull list of main categories from the database by sending the main cat through 9334- is every thing in services
+        List<Categories> cats = new Database(ctx).getCat("9334-");
+        //Get spinner from the view
+        final Spinner spinner = (Spinner)this.findViewById(R.id.catSpinner);
+        //Create adapter from cats list
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                cats);
+        //Set spinner values to be the values in array adapter
+        spinner.setAdapter(spinnerArrayAdapter);
+        //Listener for when selection is changed, this will initate and show subcat spinner
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Get the selected category object
+                Categories selectedMain = (Categories)spinner.getSelectedItem();
+                //Get subcat spinner from Activity
+                Spinner s = (Spinner) findViewById(R.id.subCatSpinner);
 
-//                Spinner s = (Spinner) findViewById(R.id.subCatSpinner);
-//
-//                if (i != data.getCategories().size()) {
-//                    if (data.getCategories().get(i).getSubCats().size() != 0) {
-//                        SubCatSpinner(i, s);
-//                    }
-//                }
-//                else
-//                {
-//                    s.setVisibility(View.GONE);
-//                }
+                //If selected cat is all, make sure second spinner is hidden, if not get the sub cats
+                if (!selectedMain.getName().equals("All")) {
+                    //Get the subCategories for the selected cat by passing in the number of the main cat
+                    List<Categories> subCats = new Database(ctx).getCat(selectedMain.getNumber());
+
+                    //If there is a result add all and then call SubCatSpinner to process display
+                    if (subCats.size() > 0) {
+                        //Add a record for All sub cats, providing info from the main selected as path and number
+                        subCats.add(new Categories("All",selectedMain.getNumber(),selectedMain.getPath(),true,false,false,selectedMain.getMainCat()));
+                        SubCatSpinner(i,s,subCats);
+                    }
+                }
+                else
+                {
+                    //Set spinner to invisible if All is selected
+                    s.setVisibility(View.GONE);
+                }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
@@ -163,74 +174,34 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    //Method to gather and submit search terms
     public void searchClick(View view)
     {
-        String cat = "";
-        String keywords = "";
-        int region = 0;
+        Spinner regionSpin = (Spinner)this.findViewById(R.id.regionSpinner);
+        Spinner districtSpin = (Spinner)this.findViewById(R.id.districtSpinner);
+        Spinner catSpin = (Spinner)this.findViewById(R.id.catSpinner);
+        Spinner subCatSpin = (Spinner)this.findViewById(R.id.subCatSpinner);
+
+        String cat;
+        if (subCatSpin.getVisibility() == View.VISIBLE) {
+            Categories selected = (Categories) subCatSpin.getSelectedItem();
+            cat = selected.getNumber();
+        }
+        else {
+            Categories selected = (Categories) catSpin.getSelectedItem();
+            cat = selected.getNumber();
+        }
+
+        Region selRegion = (Region)regionSpin.getSelectedItem();
+        int region = selRegion.getId();
+
         int district = 0;
-
-        Spinner s = (Spinner) findViewById(R.id.regionSpinner);
-        String regionName = s.getSelectedItem().toString();
-        int pos = 0;
-        for (int i = 0; i < data.getRegionList().size(); i++)
-        {
-            if (data.getRegionList().get(i).getName() == regionName)
-            {
-                region = data.getRegionList().get(i).getId();
-                pos = i;
-                break;
-            }
+        if (districtSpin.getVisibility() == View.VISIBLE) {
+            District selDistrict = (District) districtSpin.getSelectedItem();
+            district = selDistrict.getId();
         }
 
-        String districtName;
-        s = (Spinner) findViewById(R.id.districtSpinner);
-        if (s.getVisibility() != View.GONE)
-        {
-            districtName = s.getSelectedItem().toString();
-            for (District d : data.getRegionList().get(pos).getDistricts())
-            {
-                if (d.getName() == districtName)
-                {
-                    district = d.getId();
-                }
-            }
-        }
-
-        s = (Spinner) findViewById(R.id.catSpinner);
-
-        if (s.getSelectedItem().toString() == "All")
-        {
-            cat = "9334-";
-        }
-        else
-        {
-            String catName = s.getSelectedItem().toString();
-            pos = 0;
-            for (int i = 0; i < data.getCategories().size(); i++)
-            {
-                if (data.getCategories().get(i).getName() == catName)
-                {
-                    s = (Spinner) findViewById(R.id.subCatSpinner);
-                    if (s.getVisibility() == View.GONE || s.getSelectedItem().toString() == "All")
-                    {
-                        cat = data.getCategories().get(i).getNumber();
-                    }
-                    else
-                    {
-//                        String subCatName = s.getSelectedItem().toString();
-//                        for (Categories c : data.getCategories().get(i).getSubCats())
-//                        {
-//                            if (c.getName() == subCatName)
-//                            {
-//                                cat = c.getNumber();
-//                            }
-//                        }
-                    }
-                }
-            }
-        }
-
+        String keywords = "";
         EditText keywordsIn = (EditText) findViewById(R.id.keywordInput);
         keywords = keywordsIn.getText().toString();
         Intent intent = new Intent(this, SearchResults.class);
@@ -240,7 +211,6 @@ public class MainActivity extends ActionBarActivity {
         intent.putExtra("keywords", keywords);
         startActivity(intent);
         Log.i("out", keywords + " " + Integer.toString(region) + " " + Integer.toString(district) + " " + cat);
-
     }
 
 
@@ -250,6 +220,11 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    //Method that controls the pressing of the back button, not designed to go back from here
+    @Override
+    public void onBackPressed(){
     }
 
     @Override

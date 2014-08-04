@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +60,7 @@ public class SearchResults extends ActionBarActivity {
     }
 
     public void asyncJsonSearch(){
-        String url = new Variables().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst&rows="+ Integer.toString(new Variables().getPAGE_SIZE()) + "&page=" + Integer.toString(page);
+        String url = new Constants().getBASE_ADDR() + "Search/General.json?buy=All&category="+cat+"&condition=All&expired=false&pay=All&photo_size=Thumbnail&return_metadata=false&shipping_method=All&sort_order=FeaturedFirst&rows="+ Integer.toString(new Constants().getPAGE_SIZE()) + "&page=" + Integer.toString(page);
 
         if (region != 0 && region != 100)
         {
@@ -94,7 +92,7 @@ public class SearchResults extends ActionBarActivity {
         searchLbl.setVisibility(View.GONE);
         final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         final TextView infoText = new TextView(this);
-        infoText.setMaxWidth(data.getVariables().getDeviceWidth());
+        //infoText.setMaxWidth(data.getConstants().getDeviceWidth());
         int totalPages = data.getResults().getTotal() / data.getResults().getPageSize();
         int showing = data.getResults().getPage() * data.getResults().getPageSize();
         infoText.setText("Total results:" + Integer.toString(data.getResults().getTotal()) +
@@ -135,7 +133,7 @@ public class SearchResults extends ActionBarActivity {
 
             TextView text = new TextView(this);
 
-            text.setMaxWidth(data.getVariables().getDeviceWidth() - 200);
+            //text.setMaxWidth(data.getConstants().getDeviceWidth() - 200);
             text.setText(r.getTitle());
                       rl.addView(img);
                       rl.addView(text);
@@ -144,7 +142,7 @@ public class SearchResults extends ActionBarActivity {
         }
         Button btn =  new Button(this);
             btn.setText("More");
-            btn.setMinimumWidth(data.getVariables().getDeviceWidth());
+            //btn.setMinimumWidth(data.getConstants().getDeviceWidth());
             btn.setMinHeight(200);
             btn.setMaxHeight(200);
             btn.setOnClickListener(new View.OnClickListener() {

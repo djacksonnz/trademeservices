@@ -11,6 +11,7 @@ import com.trademeservices.app.listing.Member;
 import com.trademeservices.app.listing.Photo;
 import com.trademeservices.app.location.District;
 import com.trademeservices.app.location.Region;
+import com.trademeservices.app.location.Suburb;
 import com.trademeservices.app.search.Results;
 import com.trademeservices.app.search.SearchResults;
 
@@ -28,38 +29,55 @@ public class DataProcess {
 
     private Data _data = Data.getInstance();
 
-    public void ProcessLocations(JSONArray data) throws JSONException {
-
+    //Method to process through locations and add them to the database
+    public void ProcessLocations(JSONArray data, Context ctx) throws JSONException {
+        //Iterate through regions pulled from api
         for (int i = 0; i < data.length(); i++)
         {
+            //Get region at location i
             JSONObject regionData = data.getJSONObject(i);
+            //Make a new region object
             Region reg = new Region(regionData.getInt("LocalityId"), regionData.getString("Name"));
-
+            //Insert region into database
+            new Database(ctx).InsertRegion(reg);
+            //Get array of districts for region
             JSONArray districtObj = regionData.getJSONArray("Districts");
 
             for (int j = 0; j < districtObj.length(); j++)
             {
+                //Get district at location j
                 JSONObject districtData = districtObj.getJSONObject(j);
+                //create a new district object from the JSON result
                 District dis = new District(districtData.getInt("DistrictId"),
-                        districtData.getString("Name"));
+                        districtData.getString("Name"), reg.getId());
+                //Insert into database
+                new Database(ctx).InsertDistrict(dis);
+                //Get array of suburbs
+                JSONArray suburbObj = districtData.getJSONArray("Suburbs");
 
-                reg.addDistrict(dis);
+                for (int k = 0; k < suburbObj.length(); k++)
+                {
+                    //Get suburb at location k
+                    JSONObject suburbData = suburbObj.getJSONObject(k);
+                    //Create new suburb object using values in JSON
+                    Suburb sub = new Suburb(suburbData.getInt("SuburbId"),
+                            suburbData.getString("Name"), dis.getId());
+                    //Insert into database
+                    new Database(ctx).InsertSuburb(sub);
+                    //Get array of adjacent suburbs
+//                    JSONArray ajSub = suburbData.getJSONArray("AdjacentSuburbs");
+//                    //Iterate through results
+//                    for (int l = 0; l <= ajSub.length(); l++)
+//                    {
+//                        //Get the ids of the main sub and of the ajacent ones
+//                        int mainSubId = sub.getId();
+//                        int ajSubId = ajSub.getInt(l);
+//                        //Insert record into database
+//                        new Database(ctx).InsertAdjacentSuburb(mainSubId, ajSubId);
+//                    }
+                }
             }
-            _data.addRegionList(reg);
         }
-
-//        for (Region r : _data.getRegionList())
-//        {
-//            Log.i("out",r.getName());
-//            for (District d : r.getDistricts())
-//            {
-//                Log.i("out", "      " + d.getName());
-//                for (Suburb s : d.getSuburbs())
-//                {
-//                    Log.i("out", "          " + s.getName());
-//                }
-//            }
-//        }
     }
 
     public void ProcessSearchResults(JSONObject data) throws JSONException
@@ -87,33 +105,15 @@ public class DataProcess {
                     currListing.getString("Category"), img);
             _data.getResults().addResult(res);
         }
-
-
-//        Log.i("out", "Total Results: " + Integer.toString(results.getTotal()));
-//        for (Results r : results.getResults())
-//        {
-//            Log.i("out", r.getTitle());
-//        }
     }
 
+    //Method for processing main categories, takes json object and Activity context
     public void ProcessCategories(JSONObject data, Context ctx) throws JSONException {
-
-//        JSONArray catArray = data.getJSONArray("Subcategories");
-//
-//        for (int i = 0; i < catArray.length(); i++)
-//        {
-//            JSONObject catObj = catArray.getJSONObject(i);
-//            Categories newCat = new Categories(catObj.getString("Name"), catObj.getString("Number"), catObj.getString("Path"), catObj.getBoolean("HasClassifieds"));
-//            if (catObj.has("Subcategories"))
-//            {
-//                JSONArray subList = catObj.getJSONArray("Subcategories");
-//                newCat = SubCatProcess(newCat, subList);
-//            }
-//            _data.addCategories(newCat);
-//        }
 
         //Make JSON array from the first lot of sub categories from services section
         JSONArray catArray = data.getJSONArray("Subcategories");
+        //Insert a record for selecting all categories
+        new Database(ctx).InsertCat(new Categories("All","9334-","/Services",true,false,false,"9334-"));
         //Iterate through objects in catArray
         for (int i = 0; i < catArray.length(); i++)
         {
@@ -143,11 +143,15 @@ public class DataProcess {
 
     }
 
+    //Method for processing subcategories, takes a list of subcategories, the parent its from, and the Activity context
     private void SubCatProcess(JSONArray subList, String parentNum, Context ctx) throws JSONException
     {
+        //Iterate throught all items in the JSONArray subList
         for (int y = 0; y < subList.length(); y++)
         {
+            //Pull the object for each one
             JSONObject subCatObj = subList.getJSONObject(y);
+            //Get values to put into the database
             String name = subCatObj.getString("Name");
             String number = subCatObj.getString("Number");
             String path = subCatObj.getString("Path");
@@ -155,17 +159,18 @@ public class DataProcess {
             boolean hasLegal = subCatObj.optBoolean("HasLegalNotice");
             boolean isRestricted = subCatObj.optBoolean("IsRestricted");
             String parentCat = parentNum;
-
+            //Make a new categories object using values obtained above
             Categories newCat = new Categories(name,number,path,hasClassifieds,hasLegal,
                     isRestricted, parentCat);
-
+            //Insert newCat into database
             new Database(ctx).InsertCat(newCat);
 
-
+            //Check to see if categorie object (subCatObj) has a subCategories section
             if (subCatObj.has("Subcategories"))
             {
+                //If it does get the sub cats as an array
                 JSONArray nextSubList = subCatObj.getJSONArray("Subcategories");
-
+                //Run subcat process method (this method)
                 SubCatProcess(nextSubList, number, ctx);
             }
         }

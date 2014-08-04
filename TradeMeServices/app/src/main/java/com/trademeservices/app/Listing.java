@@ -1,12 +1,10 @@
 package com.trademeservices.app;
 
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +43,7 @@ public class Listing extends ActionBarActivity {
     }
 
     public void asyncJsonSearch(){
-        String url = new Variables().getBASE_ADDR() + "Listings/" + Integer.toString(listingId) + ".json";
+        String url = new Constants().getBASE_ADDR() + "Listings/" + Integer.toString(listingId) + ".json";
 
         Log.i("out", url);
         aq.ajax(url, JSONObject.class, this, "jsonCallbackSearch");
@@ -73,7 +71,7 @@ public class Listing extends ActionBarActivity {
         TextView nwTxt = new TextView(this);
         nwTxt.setText(data.getListing().getTitle());
         nwTxt.setBackgroundColor(Color.GRAY);
-        nwTxt.setWidth(data.getVariables().getDeviceWidth());
+        //nwTxt.setWidth(data.getConstants().getDeviceWidth());
         nwTxt.setTextSize(20);
         layout.addView(nwTxt);
 
@@ -86,7 +84,7 @@ public class Listing extends ActionBarActivity {
         {
             GridLayout gl = new GridLayout(this);
             gl.setBackgroundColor(Color.LTGRAY);
-            gl.setMinimumWidth(data.getVariables().getDeviceWidth());
+            //gl.setMinimumWidth(data.getConstants().getDeviceWidth());
             TextView attText = new TextView(this);
             TextView attVal = new TextView(this);
            // int width =  / 3;
@@ -96,15 +94,15 @@ public class Listing extends ActionBarActivity {
             attText.setText(a.getDisplayName());
             attVal.setText(a.getValue());
 
-            attText.setWidth(data.getVariables().getDeviceWidth());
-            attVal.setWidth(data.getVariables().getDeviceWidth());
+            //.setWidth(data.getConstants().getDeviceWidth());
+            //attVal.setWidth(data.getConstants().getDeviceWidth());
 
             gl.setColumnCount(1);
             gl.setRowCount(3);
             ImageView div = new ImageView(this);
 
             div.setMinimumHeight(2);
-            div.setMinimumWidth(data.getVariables().getDeviceWidth());
+            //div.setMinimumWidth(data.getConstants().getDeviceWidth());
             div.setBackgroundColor(Color.BLACK);
             attText.setTextColor(Color.DKGRAY);
             attText.setTypeface(null, Typeface.BOLD_ITALIC);

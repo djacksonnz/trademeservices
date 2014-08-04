@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.trademeservices.app.cat.Categories;
+import com.trademeservices.app.location.District;
+import com.trademeservices.app.location.Region;
+import com.trademeservices.app.location.Suburb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +38,14 @@ public class Database extends SQLiteOpenHelper {
     {
         Log.i("out",
                 "making 1");
-        //Create District table
+        //Create Regions table
         db.execSQL("CREATE TABLE regions ( \n" +
                 "    id   INT  PRIMARY KEY\n" +
                 "              NOT NULL\n" +
                 "              UNIQUE,\n" +
                 "    name TEXT NOT NULL \n" +
                 ");\n");
-        //Create Region table
+        //Create Districts table
         db.execSQL("CREATE TABLE districts ( \n" +
                 "    id       INT  PRIMARY KEY\n" +
                 "                  NOT NULL\n" +
@@ -99,16 +102,14 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop all tables on update
         db.execSQL("DROP TABLE IF EXISTS category");
-
         db.execSQL("DROP TABLE IF EXISTS ajacentSub");
-        db.execSQL("DROP TABLE IF EXISTS regionDistricts");
-        db.execSQL("DROP TABLE IF EXISTS districtSuburbs");
         db.execSQL("DROP TABLE IF EXISTS regions");
         db.execSQL("DROP TABLE IF EXISTS districts");
         db.execSQL("DROP TABLE IF EXISTS suburbs");
         onCreate(db);
     }
 
+    //Method to insert categories into database
     public void InsertCat(Categories cat)
     {
         //Log out to logcat the record that is being inserted
@@ -126,6 +127,64 @@ public class Database extends SQLiteOpenHelper {
         values.put("mainCat", cat.getMainCat());
         //Put values into category table
         db.insert("category", null, values);
+        db.close();
+    }
+
+    //Method to insert district record into database
+    public void InsertDistrict(District d)
+    {
+        //Get the device database
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Get values from passed in district and store in a ContentValue
+        ContentValues values = new ContentValues();
+        values.put("id",d.getId());
+        values.put("name",d.getName());
+        values.put("regionId",d.GetRegionId());
+        //Put values into District table
+        db.insert("districts", null, values);
+        db.close();
+
+    }
+
+    //Method to insert region record into database
+    public void InsertRegion(Region r)
+    {
+        //Get the device database
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Get values from passed in district and store in a ContentValue
+        ContentValues values = new ContentValues();
+        values.put("id", r.getId());
+        values.put("name", r.getName());
+        //Put values into District table
+        db.insert("regions", null, values);
+        db.close();
+    }
+
+    //Method to insert suburb record into database
+    public void InsertSuburb(Suburb s)
+    {
+        //Get the device database
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Get values from passed in district and store in a ContentValue
+        ContentValues values = new ContentValues();
+        values.put("id", s.getId());
+        values.put("name", s.getName());
+        values.put("districtId", s.GetDistrictId());
+        //Put values into District table
+        db.insert("suburbs", null, values);
+        db.close();
+
+    }
+
+    public void InsertAdjacentSuburb(int mainSub, int adjSub)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Get values from passed in district and store in a ContentValue
+        ContentValues values = new ContentValues();
+        values.put("baseId",mainSub);
+        values.put("ajSub",adjSub);
+        //Put values into District table
+        db.insert("ajacentSub", null, values);
         db.close();
     }
 
@@ -157,7 +216,58 @@ public class Database extends SQLiteOpenHelper {
 
         //Return the selected categories
         return selectedCat;
+    }
 
+    //Method to pull all regions from database
+    public List<Region> GetRegions()
+    {
+        //Make list to hold regions
+        List<Region> regions = new ArrayList<Region>();
+
+        //Make db connection and excecute query
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM regions", null);
+
+        //Iterate through all results and insert returned region into regions list
+        if (c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(0);
+                String name = c.getString(1);
+
+                regions.add(new Region(id,name));
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        //Return the regions
+        return regions;
+    }
+
+    public List<District> GetDistricts(int fromRegionId)
+    {
+        //Make list to hold regions
+        List<District> districts = new ArrayList<District>();
+
+        //Make db connection and excecute query
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM districts WHERE regionId = " + fromRegionId, null);
+
+        //Iterate through all results and insert returned region into regions list
+        if (c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(0);
+                String name = c.getString(1);
+                int regionId = c.getInt(2);
+
+                districts.add(new District(id,name,regionId));
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        //Return the regions
+        return districts;
     }
 
 

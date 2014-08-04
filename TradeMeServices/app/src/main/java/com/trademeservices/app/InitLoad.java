@@ -4,19 +4,12 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.trademeservices.app.util.SystemUiHider;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -49,62 +42,73 @@ public class InitLoad extends Activity {
         if (firstRun) {
             //Create database on device
             db = new Database(this);
-            //Load api info to database
+            //Set first run to false in appInfo prefrences
             SharedPreferences.Editor editor = appInfo.edit();
             editor.putBoolean("firstRun", false);
             editor.commit();
+            //Load api info to database
             asyncJsonCat();
+            //Set screen size of device
             GetDeviceScreenSize();
-        } else
-        {
-            asyncJsonReg();
+        } else {
+            //If app has already been installed or no update, just start main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
 
     }
 
-    private void GetDeviceScreenSize()
-    {
+    //Method that gets device screen size and stores it in local vars
+    private void GetDeviceScreenSize() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        //Add to shared prefrences appInfo
         SharedPreferences.Editor editor = appInfo.edit();
         editor.putInt("deviceHeight", size.x);
         editor.putInt("deviceWidth", size.y);
         editor.commit();
-        //data.getVariables().setDeviceHeight(size.x);
-        //data.getVariables().setDeviceWidth(size.y);
     }
 
+    //Async method to call for the categories from the API
     public void asyncJsonCat(){
-        String url = new Variables().getBASE_ADDR() + "Categories/9334.json?with_counts=false";
+        //Set url getting address from constants class
+        String url = new Constants().getBASE_ADDR() + "Categories/9334.json?with_counts=false";
+        //Run AndroidQuery AJAX call running to jsonCallbackCat when it is completed
         aq.ajax(url, JSONObject.class, this, "jsonCallbackCat");
-
     }
 
+    //Method called when cat async call is completed
     public void jsonCallbackCat(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
+        //Check to see if there was a JSON object returned
         if(json != null){
+            //Process category data via DataProcess class passing in the recieved JSON and this
             new DataProcess().ProcessCategories(json, this);
+            //Start Location ASYNC call
             asyncJsonReg();
         }else{
-            //ajax error, show error code
+            //ajax error, show error code if there is no JSON
             Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
         }
     }
 
+    //Method for JSON location async call
     public void asyncJsonReg(){
-        String url = new Variables().getBASE_ADDR() + "Localities.json?with_counts=false";
+        //Set url getting base from constants class
+        String url = new Constants().getBASE_ADDR() + "Localities.json?with_counts=false";
+        //Run AndroidQuery AJAX call running to jsonCallbackReg when it is completed
         aq.ajax(url, JSONArray.class, this, "jsonCallbackReg");
-
     }
 
+    //Method called when region async call is completed
     public void jsonCallbackReg(String url, JSONArray json, AjaxStatus status) throws JSONException
     {
+        //Check to see if there was a JSON object returned
         if(json != null){
-            new DataProcess().ProcessLocations(json);
-            Log.i("out", "success 2");
+            //Process region, district and suburb info by passing to DataProcess
+            new DataProcess().ProcessLocations(json, this);
+            //Start MainActivity (search) as all is loaded into database now
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }else{
@@ -117,15 +121,6 @@ public class InitLoad extends Activity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-    }
-
-    //Makes sure user cant go back to splash screen
-    @Override
-   public void onResume()
-    {
-        super.onResume();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

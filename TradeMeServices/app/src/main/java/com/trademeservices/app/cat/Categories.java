@@ -33,7 +33,7 @@ public class Categories {
     @Override
     public String toString()
     {
-        return name + ", " + number + ", "  + path;
+        return name;
     }
 
     public boolean GetHasClassifieds() {

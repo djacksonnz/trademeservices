@@ -11,16 +11,15 @@ import java.util.List;
 
 public class District extends Location{
 
-	//List to hold suburbs in district
-
+    private int regionId;
 	
-	public District(int id, String name) {
+	public District(int id, String name, int regionId) {
 		super (id, name);
+        this.regionId = regionId;
 	}
 
-	/**
-	 * @return the suburbs
-	 */
-
-
+    public int GetRegionId()
+    {
+        return regionId;
+    }
 }
