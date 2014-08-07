@@ -218,6 +218,36 @@ public class Database extends SQLiteOpenHelper {
         return selectedCat;
     }
 
+    public Categories getSpecCat(String catId)
+    {
+        //Make list to hold selected cats
+        Categories selectedCat = null;
+
+        //Make db connection and excecute query
+        SQLiteDatabase db=this.getReadableDatabase();
+        catId.replace("-", "\\-");
+        Cursor c = db.rawQuery("SELECT * FROM category WHERE number = '" + catId + "'", null);
+
+        //Iterate through all results and insert returned categories into selectedCat
+        if (c.moveToFirst())
+        {
+            do {
+                String name = c.getString(0);
+                String number = c.getString(1);
+                String path = c.getString(2);
+                boolean hasClassifieds = (c.getInt(5) == 1);
+                boolean hasLegal = (c.getInt(4) == 1);
+                boolean isRestricted = (c.getInt(3) == 1);
+                String mainCatVal = c.getString(6);
+                selectedCat = new Categories(name,number,path,hasClassifieds,hasLegal,isRestricted,mainCatVal);
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        //Return the selected categories
+        return selectedCat;
+    }
+
     //Method to pull all regions from database
     public List<Region> GetRegions()
     {

@@ -1,8 +1,6 @@
 package com.trademeservices.app;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.trademeservices.app.cat.Categories;
 import com.trademeservices.app.listing.Attribute;
@@ -20,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,31 +79,77 @@ public class DataProcess {
         }
     }
 
-    public void ProcessSearchResults(JSONObject data) throws JSONException
+    //Method that takes the response of the search results and puts it into a SearchResult class and returns
+    public SearchResults ProcessSearchResults(JSONObject data, Context ctx) throws JSONException
     {
+        //Get general search result info
+        int totalCount = data.optInt("TotalCount");
+        int page = data.optInt("Page");
+        int pageSize = data.optInt("PageSize");
+        //Make list of categories for the response of found categories
+        List<Categories> foundCategories = new ArrayList<Categories>();
 
-        Log.i("out", "Total Results: " + Integer.toString(data.getInt("TotalCount")));
-        _data.setResults(new SearchResults(data.getInt("TotalCount"), data.getInt("Page"),
-                data.getInt("PageSize")));
-
+        //Get array from data
+        JSONArray categoriesFound = data.getJSONArray("FoundCategories");
+        //Iterate over all categories returned
+        for (int i = 0; i < categoriesFound.length(); i++)
+        {
+            //Get category object
+            JSONObject category = categoriesFound.getJSONObject(i);
+            //Add category by pulling from database on the Number string
+            foundCategories.add(new Database(ctx).getSpecCat(category.getString("Category")));
+        }
+        //Create a new Searchresults obj and pass in the general info, and the found categories
+        SearchResults results = new SearchResults(totalCount, page, pageSize, foundCategories);
+        //Get the list of results as an array
         JSONArray listingsData = data.getJSONArray("List");
-        Log.i("out", listingsData.toString());
-
+        //Iterate over the results
         for (int i = 0; i < listingsData.length(); i++)
         {
+            //Get the object at location i
             JSONObject currListing = listingsData.getJSONObject(i);
-            Log.i("out", currListing.getString("Title"));
-            String img;
-            try {
-                img = currListing.getString("PictureHref");
-            } catch (Exception ex) {
-                img = "http://www.tmsandbox.co.nz/images/NewSearchCards/LVIcons/noPhoto_160x120.png";
-            }
 
-            Results res = new Results(currListing.getInt("ListingId"), currListing.getString("Title"),
-                    currListing.getString("Category"), img);
-            _data.getResults().addResult(res);
+            //Create a new Result object
+            Results res = new Results();
+            //Set fields of res from the values in the JSON object
+            res.setListingId(currListing.getInt("ListingId"));
+            res.setTitle(currListing.getString("Title"));
+            res.setCategory(currListing.getString("Category"));
+            res.setPicHref(currListing.optString("PictureHref"));
+            res.setStartDate(JsonDateToDate(currListing.optString("StartDate")));
+            res.setEndDate(JsonDateToDate(currListing.optString("EndDate")));
+            res.setFeatured(currListing.optBoolean("IsFeatured"));
+            res.setHasGallery(currListing.optBoolean("HasGallery"));
+            res.setBold(currListing.optBoolean("IsBold"));
+            res.setHighlighted(currListing.optBoolean("IsHighlighted"));
+            res.setHasHomePageFeature(currListing.optBoolean("HasHomepageFeature"));
+            res.setAsAt(JsonDateToDate(currListing.optString("AsAt")));
+            res.setCategoryPath(currListing.getString("CategoryPath"));
+            res.setRegionId(currListing.optInt("RegionId"));
+            res.setRegion(currListing.optString("Region"));
+            res.setSuburbId(currListing.optInt("SuburbId"));
+            res.setSuburb(currListing.optString("Suburb"));
+            res.setClassified(currListing.optBoolean("IsClassified"));
+            res.setSubtitle(currListing.optString("Subtitle"));
+            res.setOnWatchList(currListing.optBoolean("IsOnWatchList"));
+            res.setTotalReviews(currListing.optInt("TotalReviewCount"));
+            res.setPositiveReviews(currListing.optInt("PositiveReviewCount"));
+            //Add res to the SearchResult object
+            results.addResult(res);
         }
+        //Return all search results
+        return results;
+    }
+
+    //Method to convert JSON date to java date (From stack overflow)
+    public static Date JsonDateToDate(String jsonDate)
+    {
+        //  "/Date(1321867151710+0100)/"
+        int idx1 = jsonDate.indexOf("(");
+        int idx2 = jsonDate.indexOf(")") - 5;
+        String s = jsonDate.substring(idx1+1, idx2);
+        long l = Long.valueOf(s);
+        return new Date(l);
     }
 
     //Method for processing main categories, takes json object and Activity context

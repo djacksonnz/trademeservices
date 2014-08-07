@@ -26,7 +26,8 @@ import com.trademeservices.app.search.Results;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.InputStream;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchResults extends ActionBarActivity {
@@ -36,7 +37,8 @@ public class SearchResults extends ActionBarActivity {
     private int district;
     private int region;
     private String keywords;
-    private Data data = Data.getInstance();
+    private List<com.trademeservices.app.search.SearchResults> searchResultsList = new ArrayList<com.trademeservices.app.search.SearchResults>();
+    //private Data data = Data.getInstance();
     private int page;
 
     @Override
@@ -78,7 +80,7 @@ public class SearchResults extends ActionBarActivity {
     public void jsonCallbackSearch(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
         if(json != null){
-            new DataProcess().ProcessSearchResults(json);
+            searchResultsList.add(new DataProcess().ProcessSearchResults(json, this));
             DisplayResults();
         }else{
             //ajax error, show error code
@@ -93,10 +95,10 @@ public class SearchResults extends ActionBarActivity {
         final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         final TextView infoText = new TextView(this);
         //infoText.setMaxWidth(data.getConstants().getDeviceWidth());
-        int totalPages = data.getResults().getTotal() / data.getResults().getPageSize();
-        int showing = data.getResults().getPage() * data.getResults().getPageSize();
-        infoText.setText("Total results:" + Integer.toString(data.getResults().getTotal()) +
-                " | Page " + Integer.toString(data.getResults().getPage()) + " of " + totalPages + " | " + Integer.toString((showing - 24)) + " - " + Integer.toString(showing));
+        int totalPages = searchResultsList.get(0).getTotal() / searchResultsList.get(0).getPageSize();
+        int showing = searchResultsList.get(0).getPage() * searchResultsList.get(0).getPageSize();
+        infoText.setText("Total results:" + Integer.toString(searchResultsList.get(0).getTotal()) +
+                " | Page " + Integer.toString(searchResultsList.get(0).getPage()) + " of " + totalPages + " | " + Integer.toString((showing - 24)) + " - " + Integer.toString(showing));
         infoText.setTextSize(15);
         infoText.setBackgroundColor(Color.GRAY);
         layout.addView(infoText);
@@ -105,40 +107,40 @@ public class SearchResults extends ActionBarActivity {
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.VERTICAL);
 
-        for (Results r : data.getResults().getResults())
-        {
-            GridLayout rl = new GridLayout(this);
-            rl.setMinimumHeight(200);
-            if (place)
-            {
-                rl.setBackgroundColor(Color.LTGRAY);
-                place = !place;
+        for (com.trademeservices.app.search.SearchResults s : searchResultsList) {
+            for (Results r : s.getResults()) {
+                GridLayout rl = new GridLayout(this);
+                rl.setMinimumHeight(200);
+                if (place) {
+                    rl.setBackgroundColor(Color.LTGRAY);
+                    place = !place;
+                } else {
+                    rl.setBackgroundColor(Color.WHITE);
+                    place = !place;
+                }
+                rl.setOnClickListener(new ResultOnClick(r, this));
+                ImageView img = new ImageView(this);
+                img.setMaxWidth(200);
+                img.setMinimumWidth(200);
+                img.setMinimumHeight(200);
+                img.setMaxHeight(200);
+                img.setBackgroundColor(Color.WHITE);
+                ViewGroup.LayoutParams layoutParams = img.getLayoutParams();
+
+                if (r.getPicHref() == "")
+                    r.setPicHref("http://www.trademe.co.nz/images/NewSearchCards/LVIcons/noPhoto_160x120.png");
+                new DownloadImageTask(img)
+                        .execute(r.getPicHref());
+
+                TextView text = new TextView(this);
+
+                //text.setMaxWidth(data.getConstants().getDeviceWidth() - 200);
+                text.setText(r.getTitle());
+                rl.addView(img);
+                rl.addView(text);
+
+                lay.addView(rl);
             }
-            else
-            {
-                rl.setBackgroundColor(Color.WHITE);
-                place = !place;
-            }
-            rl.setOnClickListener(new ResultOnClick(r,this));
-            ImageView img = new ImageView(this);
-            img.setMaxWidth(200);
-            img.setMinimumWidth(200);
-            img.setMinimumHeight(200);
-            img.setMaxHeight(200);
-            img.setBackgroundColor(Color.WHITE);
-            ViewGroup.LayoutParams layoutParams = img.getLayoutParams();
-
-            new DownloadImageTask(img)
-                    .execute(r.getPic());
-
-            TextView text = new TextView(this);
-
-            //text.setMaxWidth(data.getConstants().getDeviceWidth() - 200);
-            text.setText(r.getTitle());
-                      rl.addView(img);
-                      rl.addView(text);
-
-            lay.addView(rl);
         }
         Button btn =  new Button(this);
             btn.setText("More");
@@ -199,7 +201,7 @@ class ResultOnClick implements View.OnClickListener
     public void onClick(View v)
     {
         Intent intent = new Intent(act, Listing.class);
-        intent.putExtra("id", r.getId());
+        intent.putExtra("id", r.getListingId());
         act.startActivity(intent);
     }
 }

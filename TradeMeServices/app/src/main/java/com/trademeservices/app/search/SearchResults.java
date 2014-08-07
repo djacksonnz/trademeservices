@@ -6,6 +6,8 @@
 
 package com.trademeservices.app.search;
 
+import com.trademeservices.app.cat.Categories;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,15 @@ public class SearchResults {
 	private int page;
 	private int pageSize;
 	private List<Results> results = new ArrayList<Results>();
+    private List<Categories> foundCategories;
+    private int foundCategoriesNum;
 	
-	public SearchResults(int total, int page, int pageSize) {
+	public SearchResults(int total, int page, int pageSize, List<Categories> foundCategories) {
 		this.total = total;
 		this.page = page;
 		this.pageSize = pageSize;
+        this.foundCategories = foundCategories;
+        foundCategoriesNum = foundCategories.size();
 	}
 
 	/**
@@ -75,4 +81,20 @@ public class SearchResults {
 		return pageSize;
 	}
 
+    public void AddFoundCategories(Categories cat)
+    {
+        foundCategories.add(cat);
+    }
+
+    public List<Categories> getFoundCategories() {
+        return foundCategories;
+    }
+
+    public void setFoundCategories(List<Categories> foundCategories) {
+        this.foundCategories = foundCategories;
+    }
+
+    public int getFoundCategoriesNum() {
+        return foundCategoriesNum;
+    }
 }
