@@ -6,6 +6,10 @@
 
 package com.trademeservices.app.listing;
 
+import com.trademeservices.app.gen.ContactDetails;
+import com.trademeservices.app.gen.Member;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,268 +19,205 @@ import java.util.List;
  */
 public class Listing {
 
-	/**
-	 * 
-	 */
-	
-	private int id;
+	private int listingId;
 	private String title;
-	private String cat;
-	private int startPrice;
-	private String startDate;
-	private String endDate;
-	private boolean featured;
+	private String category;
+	private Date startDate;
+	private Date endDate;
+	private boolean isFeatured;
+    private boolean hasGallery;
+    private boolean isBold;
+    private boolean isHighlighted;
+    private boolean hasHomePageFeature;
+    private Date asAt;
+    private String categoryPath;
+    private String photoId;
+    private int regionId;
+    private String region;
+    private String suburb;
+    private int viewCount;
+    private String categoryName;
 	private List<Attribute> attributes;
-	private int regionID;
-	private String region;
-	private String suburb;
-	private String catName;
-	private int reserveState;
-	private boolean classified;
+	private boolean isClassified;
+    private int relistedItemId;
+    private String subtitle;
+    private boolean isOnWatchList;
+    private int totalReviewCount;
+    private int positiveReviewCount;
 	private Member member;
 	private String body;
 	private List<Photo> photos;
+    private ContactDetails contactDetails;
+    private boolean withdrawnBySeller;
+
 	
-	public Listing() {
-		// TODO Auto-generated constructor stub
+	public Listing(int listingId, String title, String category, Date startDate, Date endDate,
+                   boolean isFeatured, boolean hasGallery, boolean isHighlighted, boolean hasHomePageFeature,
+                   Date asAt, String categoryPath, String photoId, int regionId, String region,
+                   String suburb, int viewCount, String categoryName, boolean isClassified, int relistedItemId,
+                   String subtitle, boolean isOnWatchList, int totalReviewCount, int positiveReviewCount,
+                   String body, boolean withdrawnBySeller, boolean isBold) {
+	    this.listingId = listingId;
+        this.title = title;
+        this.category = category;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isFeatured = isFeatured;
+        this.hasGallery = hasGallery;
+        this.isHighlighted = isHighlighted;
+        this.hasHomePageFeature = hasHomePageFeature;
+        this.asAt = asAt;
+        this.categoryPath = categoryPath;
+        this.photoId = photoId;
+        this.regionId = regionId;
+        this.region = region;
+        this.suburb = suburb;
+        this.viewCount = viewCount;
+        this.categoryName = categoryName;
+        this.isClassified = isClassified;
+        this.relistedItemId = relistedItemId;
+        this.subtitle = subtitle;
+        this.isOnWatchList = isOnWatchList;
+        this.totalReviewCount = totalReviewCount;
+        this.positiveReviewCount = positiveReviewCount;
+        this.body = body;
+        this.withdrawnBySeller = withdrawnBySeller;
+        this.isBold = isBold;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    public int getListingId() {
+        return listingId;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	/**
-	 * @return the cat
-	 */
-	public String getCat() {
-		return cat;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	/**
-	 * @param cat the cat to set
-	 */
-	public void setCat(String cat) {
-		this.cat = cat;
-	}
+    public boolean isFeatured() {
+        return isFeatured;
+    }
 
-	/**
-	 * @return the startPrice
-	 */
-	public int getStartPrice() {
-		return startPrice;
-	}
+    public boolean isHasGallery() {
+        return hasGallery;
+    }
 
-	/**
-	 * @param startPrice the startPrice to set
-	 */
-	public void setStartPrice(int startPrice) {
-		this.startPrice = startPrice;
-	}
+    public boolean isBold() {
+        return isBold;
+    }
 
-	/**
-	 * @return the startDate
-	 */
-	public String getStartDate() {
-		return startDate;
-	}
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
 
-	/**
-	 * @param startDate the startDate to set
-	 */
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
+    public boolean isHasHomePageFeature() {
+        return hasHomePageFeature;
+    }
 
-	/**
-	 * @return the endDate
-	 */
-	public String getEndDate() {
-		return endDate;
-	}
+    public Date getAsAt() {
+        return asAt;
+    }
 
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+    public String getCategoryPath() {
+        return categoryPath;
+    }
 
-	/**
-	 * @return the featured
-	 */
-	public boolean isFeatured() {
-		return featured;
-	}
+    public String getPhotoId() {
+        return photoId;
+    }
 
-	/**
-	 * @param featured the featured to set
-	 */
-	public void setFeatured(boolean featured) {
-		this.featured = featured;
-	}
+    public int getRegionId() {
+        return regionId;
+    }
 
-	/**
-	 * @return the attributes
-	 */
-	public List<Attribute> getAttributes() {
-		return attributes;
-	}
+    public String getRegion() {
+        return region;
+    }
 
-	/**
-	 * @param attributes the attributes to set
-	 */
-	public void setAttributes(List<Attribute> attributes) {
-		this.attributes = attributes;
-	}
+    public String getSuburb() {
+        return suburb;
+    }
 
-	/**
-	 * @return the regionID
-	 */
-	public int getRegionID() {
-		return regionID;
-	}
+    public int getViewCount() {
+        return viewCount;
+    }
 
-	/**
-	 * @param regionID the regionID to set
-	 */
-	public void setRegionID(int regionID) {
-		this.regionID = regionID;
-	}
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-	/**
-	 * @return the region
-	 */
-	public String getRegion() {
-		return region;
-	}
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
 
-	/**
-	 * @param region the region to set
-	 */
-	public void setRegion(String region) {
-		this.region = region;
-	}
+    public boolean isClassified() {
+        return isClassified;
+    }
 
-	/**
-	 * @return the suburb
-	 */
-	public String getSuburb() {
-		return suburb;
-	}
+    public int getRelistedItemId() {
+        return relistedItemId;
+    }
 
-	/**
-	 * @param suburb the suburb to set
-	 */
-	public void setSuburb(String suburb) {
-		this.suburb = suburb;
-	}
+    public String getSubtitle() {
+        return subtitle;
+    }
 
-	/**
-	 * @return the catName
-	 */
-	public String getCatName() {
-		return catName;
-	}
+    public boolean isOnWatchList() {
+        return isOnWatchList;
+    }
 
-	/**
-	 * @param catName the catName to set
-	 */
-	public void setCatName(String catName) {
-		this.catName = catName;
-	}
+    public int getTotalReviewCount() {
+        return totalReviewCount;
+    }
 
-	/**
-	 * @return the reserveState
-	 */
-	public int getReserveState() {
-		return reserveState;
-	}
+    public int getPositiveReviewCount() {
+        return positiveReviewCount;
+    }
 
-	/**
-	 * @param reserveState the reserveState to set
-	 */
-	public void setReserveState(int reserveState) {
-		this.reserveState = reserveState;
-	}
+    public Member getMember() {
+        return member;
+    }
 
-	/**
-	 * @return the classified
-	 */
-	public boolean isClassified() {
-		return classified;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	/**
-	 * @param classified the classified to set
-	 */
-	public void setClassified(boolean classified) {
-		this.classified = classified;
-	}
+    public List<Photo> getPhotos() {
+        return photos;
+    }
 
-	/**
-	 * @return the member
-	 */
-	public Member getMember() {
-		return member;
-	}
+    public ContactDetails getContactDetails() {
+        return contactDetails;
+    }
 
-	/**
-	 * @param member the member to set
-	 */
-	public void setMember(Member member) {
-		this.member = member;
-	}
+    public boolean isWithdrawnBySeller() {
+        return withdrawnBySeller;
+    }
 
-	/**
-	 * @return the body
-	 */
-	public String getBody() {
-		return body;
-	}
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
 
-	/**
-	 * @param body the body to set
-	 */
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
-	/**
-	 * @return the photos
-	 */
-	public List<Photo> getPhotos() {
-		return photos;
-	}
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
-	/**
-	 * @param photos the photos to set
-	 */
-	public void setPhotos(List<Photo> photos) {
-		this.photos = photos;
-	}
-
+    public void setContactDetails(ContactDetails contactDetails) {
+        this.contactDetails = contactDetails;
+    }
 }

@@ -17,9 +17,8 @@ public class Photo {
 	/**
 	 * Fields for image locations
 	 */
-	
-	private int key;
-	private int id;
+
+	private int photoId;
 	private String thumb;
 	private String list;
 	private String med;
@@ -28,10 +27,9 @@ public class Photo {
 	private String full;
 	
 	//Constructor
-	public Photo(int key, int id, String thumb, String list, String med,
+	public Photo(int id, String thumb, String list, String med,
 			String gal, String lge, String full) {
-		this.key = key;
-		this.id = id;
+		this.photoId = id;
 		this.thumb = thumb;
 		this.list = list;
 		this.med = med;
@@ -41,17 +39,10 @@ public class Photo {
 	}
 
 	/**
-	 * @return the key
-	 */
-	public int getKey() {
-		return key;
-	}
-
-	/**
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return photoId;
 	}
 
 	/**

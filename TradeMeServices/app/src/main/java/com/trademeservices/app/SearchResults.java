@@ -22,10 +22,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
+import com.trademeservices.app.cat.Categories;
+import com.trademeservices.app.data.Constants;
+import com.trademeservices.app.data.DataProcess;
+import com.trademeservices.app.data.Database;
+import com.trademeservices.app.location.District;
+import com.trademeservices.app.location.Region;
 import com.trademeservices.app.search.Results;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +76,7 @@ public class SearchResults extends ActionBarActivity {
         {
             url += "&region=" + Integer.toString(region);
         }
-        if (district != 0)
+        if (district != 0 && district != 100)
         {
             url += "&district=" + Integer.toString(district);
         }
@@ -92,13 +100,20 @@ public class SearchResults extends ActionBarActivity {
     {
         TextView searchLbl = (TextView) findViewById(R.id.searchingLbl);
         searchLbl.setVisibility(View.GONE);
+
         final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         final TextView infoText = new TextView(this);
-        //infoText.setMaxWidth(data.getConstants().getDeviceWidth());
-        int totalPages = searchResultsList.get(0).getTotal() / searchResultsList.get(0).getPageSize();
-        int showing = searchResultsList.get(0).getPage() * searchResultsList.get(0).getPageSize();
-        infoText.setText("Total results:" + Integer.toString(searchResultsList.get(0).getTotal()) +
-                " | Page " + Integer.toString(searchResultsList.get(0).getPage()) + " of " + totalPages + " | " + Integer.toString((showing - 24)) + " - " + Integer.toString(showing));
+        Categories category = new Database(this).getSpecCat(cat);
+        Region regionData = new Database(this).GetRegion(region);
+        infoText.setText(category.getPath() + " | " + regionData.getName());
+        if (district != 0 && district != 100)
+        {
+            District districtData = new Database(this).GetDistrict(district);
+            infoText.setText(infoText.getText() + "/" + districtData.getName());
+        }
+        if (district == 100) {
+            infoText.setText(infoText.getText() + "/All");
+        }
         infoText.setTextSize(15);
         infoText.setBackgroundColor(Color.GRAY);
         layout.addView(infoText);
@@ -109,16 +124,17 @@ public class SearchResults extends ActionBarActivity {
 
         for (com.trademeservices.app.search.SearchResults s : searchResultsList) {
             for (Results r : s.getResults()) {
-                GridLayout rl = new GridLayout(this);
-                rl.setMinimumHeight(200);
+                GridLayout listingGl = new GridLayout(this);
+                listingGl.setColumnCount(2);
+                listingGl.setMinimumHeight(200);
                 if (place) {
-                    rl.setBackgroundColor(Color.LTGRAY);
+                    listingGl.setBackgroundColor(Color.LTGRAY);
                     place = !place;
                 } else {
-                    rl.setBackgroundColor(Color.WHITE);
+                    listingGl.setBackgroundColor(Color.WHITE);
                     place = !place;
                 }
-                rl.setOnClickListener(new ResultOnClick(r, this));
+                listingGl.setOnClickListener(new ResultOnClick(r, this));
                 ImageView img = new ImageView(this);
                 img.setMaxWidth(200);
                 img.setMinimumWidth(200);
@@ -132,14 +148,53 @@ public class SearchResults extends ActionBarActivity {
                 new DownloadImageTask(img)
                         .execute(r.getPicHref());
 
-                TextView text = new TextView(this);
+                GridLayout gl2 = new GridLayout(this);
+                gl2.setRowCount(4);
+                TextView title = new TextView(this);
+                title.setWidth(880);
+                TextView catLoc = new TextView(this);
+                catLoc.setWidth(880);
+                TextView dateAdded = new TextView(this);
+                dateAdded.setWidth(880);
 
-                //text.setMaxWidth(data.getConstants().getDeviceWidth() - 200);
-                text.setText(r.getTitle());
-                rl.addView(img);
-                rl.addView(text);
+                title.setText(r.getTitle());
+                catLoc.setText(r.getCategory() + " | " + r.getRegion());
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                dateAdded.setText(df.format(r.getStartDate()));
 
-                lay.addView(rl);
+                //gl2.addView(title);
+                //gl2.addView(catLoc);
+                //gl2.addView(dateAdded);
+
+                GridLayout reviewsGl = new GridLayout(this);
+                TextView numReviews = new TextView(this);
+                TextView percentPos = new TextView(this);
+                ImageView thumbUp = new ImageView(this);
+
+                if (r.getTotalReviews() == 0)
+                {
+                    reviewsGl.setColumnCount(1);
+                    numReviews.setText("No Reviews");
+                    reviewsGl.addView(numReviews);
+                }
+                else
+                {
+                    reviewsGl.setColumnCount(3);
+                    numReviews.setText(Integer.toString(r.getTotalReviews()) + " Reviews ");
+                    int posReviews = (r.getPositiveReviews() / r.getTotalReviews()) * 100;
+                    percentPos.setText(Integer.toString(posReviews) + '%');
+                    new DownloadImageTask(thumbUp)
+                            .execute("http://www.trademe.co.nz/Images/services/thumbs_up_featured.gif");
+                    reviewsGl.addView(numReviews);
+                    reviewsGl.addView(percentPos);
+                    reviewsGl.addView(thumbUp);
+                }
+                gl2.addView(reviewsGl);
+
+                listingGl.addView(img);
+                listingGl.addView(gl2);
+
+                lay.addView(listingGl);
             }
         }
         Button btn =  new Button(this);

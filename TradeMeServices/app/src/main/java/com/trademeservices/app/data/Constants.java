@@ -1,4 +1,4 @@
-package com.trademeservices.app;
+package com.trademeservices.app.data;
 
 /**
  * Variables to be used across the application

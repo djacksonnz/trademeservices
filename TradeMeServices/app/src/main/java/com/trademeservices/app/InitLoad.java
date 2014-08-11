@@ -2,6 +2,9 @@ package com.trademeservices.app;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
+import com.trademeservices.app.data.Constants;
+import com.trademeservices.app.data.DataProcess;
+import com.trademeservices.app.data.Database;
 import com.trademeservices.app.util.SystemUiHider;
 
 import android.app.Activity;
@@ -25,7 +28,6 @@ import org.json.JSONObject;
  */
 public class InitLoad extends Activity {
 
-    private Data data = Data.getInstance();
     private AQuery aq = new AQuery(this);
     private SharedPreferences appInfo;
     Database db;

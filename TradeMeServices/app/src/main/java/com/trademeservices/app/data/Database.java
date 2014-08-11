@@ -1,4 +1,4 @@
-package com.trademeservices.app;
+package com.trademeservices.app.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -272,6 +272,51 @@ public class Database extends SQLiteOpenHelper {
 
         //Return the regions
         return regions;
+    }
+
+    public Region GetRegion(int regionId)
+    {
+        Region region = null;
+        //Make db connection and excecute query
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM regions WHERE ID = " + regionId, null);
+
+        //Iterate through all results and insert returned region into regions list
+        if (c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(0);
+                String name = c.getString(1);
+                region = new Region(id,name);
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        //Return the regions
+        return region;
+    }
+
+    public District GetDistrict(int districtId)
+    {
+        District district = null;
+        //Make db connection and excecute query
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM districts WHERE ID = " + districtId, null);
+
+        //Iterate through all results and insert returned region into regions list
+        if (c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(0);
+                String name = c.getString(1);
+                int regionId = c.getInt(2);
+                district = new District(id,name, regionId);
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        //Return the regions
+        return district;
     }
 
     public List<District> GetDistricts(int fromRegionId)

@@ -1,5 +1,6 @@
 package com.trademeservices.app;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
+import com.trademeservices.app.data.Constants;
+import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.listing.Attribute;
 
 import org.json.JSONException;
@@ -27,7 +30,6 @@ import java.util.List;
 
 public class Listing extends ActionBarActivity {
 
-    private Data data = Data.getInstance();
     private AQuery aq = new AQuery(this);
     private int listingId;
 
@@ -38,7 +40,7 @@ public class Listing extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         listingId = bundle.getInt("id");
-
+        Log.i("out", Integer.toString(listingId));
         asyncJsonSearch();
     }
 
@@ -53,15 +55,14 @@ public class Listing extends ActionBarActivity {
     public void jsonCallbackSearch(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
         if(json != null){
-            new DataProcess().ProcessListing(json);
-            DisplayInfo();
+            DisplayInfo(new DataProcess().ProcessListing(json));
         }else{
             //ajax error, show error code
             Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void DisplayInfo()
+    public void DisplayInfo(com.trademeservices.app.listing.Listing listing)
     {
         TextView tv = (TextView) findViewById(R.id.textList);
         tv.setVisibility(View.GONE);
@@ -69,13 +70,13 @@ public class Listing extends ActionBarActivity {
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.linLay);
         TextView nwTxt = new TextView(this);
-        nwTxt.setText(data.getListing().getTitle());
+        nwTxt.setText(listing.getTitle());
         nwTxt.setBackgroundColor(Color.GRAY);
         //nwTxt.setWidth(data.getConstants().getDeviceWidth());
         nwTxt.setTextSize(20);
         layout.addView(nwTxt);
 
-        List<Attribute> att = data.getListing().getAttributes();
+        List<Attribute> att = listing.getAttributes();
         LinearLayout newLin = new LinearLayout(this);
         newLin.setOrientation(LinearLayout.VERTICAL);
         ScrollView sv = new ScrollView(this);
@@ -89,8 +90,6 @@ public class Listing extends ActionBarActivity {
             TextView attVal = new TextView(this);
            // int width =  / 3;
 
-
-
             attText.setText(a.getDisplayName());
             attVal.setText(a.getValue());
 
@@ -102,7 +101,9 @@ public class Listing extends ActionBarActivity {
             ImageView div = new ImageView(this);
 
             div.setMinimumHeight(2);
-            //div.setMinimumWidth(data.getConstants().getDeviceWidth());
+            SharedPreferences appInfo;
+            appInfo = this.getSharedPreferences("appInfo", 0);
+            div.setMinimumWidth(appInfo.getInt("deviceWidth",0));
             div.setBackgroundColor(Color.BLACK);
             attText.setTextColor(Color.DKGRAY);
             attText.setTypeface(null, Typeface.BOLD_ITALIC);
@@ -120,7 +121,7 @@ public class Listing extends ActionBarActivity {
         //body
         TextView body = new TextView(this);
         body.setWidth(1080);
-        body.setText(data.getListing().getBody());
+        body.setText(listing.getBody());
         newLin.addView(body);
         sv.addView(newLin);
         layout.addView(sv);

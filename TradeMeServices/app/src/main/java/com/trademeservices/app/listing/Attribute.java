@@ -21,13 +21,11 @@ public class Attribute {
 	private String name;
 	private String displayName;
 	private String value;
-	private String encodedValue;
 	
-	public Attribute(String name, String displayName, String value, String encodedValue) {
+	public Attribute(String name, String displayName, String value) {
 		this.name = name;
 		this.displayName = displayName;
 		this.value = value;
-		this.encodedValue = encodedValue;
 	}
 
 	/**
@@ -49,13 +47,6 @@ public class Attribute {
 	 */
 	public String getValue() {
 		return value;
-	}
-
-	/**
-	 * @return the encodedValue
-	 */
-	public String getEncodedValue() {
-		return encodedValue;
 	}
 
 }

@@ -8,34 +8,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-import com.androidquery.AQuery;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.androidquery.util.XmlDom;
 import com.trademeservices.app.cat.Categories;
+import com.trademeservices.app.data.Database;
 import com.trademeservices.app.location.District;
 import com.trademeservices.app.location.Region;
-import com.trademeservices.app.search.*;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private Data data = Data.getInstance();
     private Context ctx = this;
 
     @Override

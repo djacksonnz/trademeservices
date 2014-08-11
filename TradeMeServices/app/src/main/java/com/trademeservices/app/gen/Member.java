@@ -4,7 +4,7 @@
  * Created 3/06/2014 David Jackson 
  */
 
-package com.trademeservices.app.listing;
+package com.trademeservices.app.gen;
 
 import java.util.Date;
 
@@ -21,14 +21,16 @@ public class Member {
     private Date joinDate;
     private int uniqueNegative;
     private int uniquePositive;
+    private int feedBackCount;
     private boolean isAddressVerified;
 	private String suburb;
 	private String region;
     private int feedbackCount;
+    private boolean isAuthenticated;
 	
 	public Member(int id, String nickname, String suburb, String region, int feedbackCount,
                   Date addressVerifiedDate, Date joinDate, int uniqueNegative, int uniquePositive,
-                  boolean isAddressVerified) {
+                  boolean isAddressVerified, boolean isAuthenticated) {
 		this.memberId = id;
 		this.nickname = nickname;
 		this.suburb = suburb;
@@ -39,6 +41,7 @@ public class Member {
         this.uniqueNegative = uniqueNegative;
         this.uniquePositive = uniquePositive;
         this.isAddressVerified = isAddressVerified;
+        this.isAuthenticated = isAuthenticated;
 	}
 
 
@@ -92,5 +95,9 @@ public class Member {
 
     public boolean isAddressVerified() {
         return isAddressVerified;
+    }
+
+    public boolean isAuthenticated() {
+        return isAuthenticated;
     }
 }

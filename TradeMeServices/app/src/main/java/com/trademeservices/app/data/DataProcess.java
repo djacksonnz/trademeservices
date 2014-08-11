@@ -1,15 +1,20 @@
-package com.trademeservices.app;
+package com.trademeservices.app.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.trademeservices.app.cat.Categories;
+import com.trademeservices.app.gen.ContactDetails;
 import com.trademeservices.app.listing.Attribute;
+
 import com.trademeservices.app.listing.Listing;
-import com.trademeservices.app.listing.Member;
+import com.trademeservices.app.gen.Member;
 import com.trademeservices.app.listing.Photo;
 import com.trademeservices.app.location.District;
 import com.trademeservices.app.location.Region;
 import com.trademeservices.app.location.Suburb;
+import com.trademeservices.app.reviews.Review;
+import com.trademeservices.app.reviews.ReviewResults;
 import com.trademeservices.app.search.Results;
 import com.trademeservices.app.search.SearchResults;
 
@@ -25,8 +30,6 @@ import java.util.List;
  * Created by jacksdl2 on 11/07/2014.
  */
 public class DataProcess {
-
-    private Data _data = Data.getInstance();
 
     //Method to process through locations and add them to the database
     public void ProcessLocations(JSONArray data, Context ctx) throws JSONException {
@@ -221,59 +224,175 @@ public class DataProcess {
         }
     }
 
-    public void ProcessListing(JSONObject data) throws JSONException
+    //Method to process listing information
+    public Listing ProcessListing(JSONObject data) throws JSONException
     {
-        Listing listing = new Listing();
-        listing.setId(data.getInt("ListingId"));
-        listing.setTitle(data.getString("Title"));
-        listing.setCat(data.getString("Category"));
-        listing.setStartPrice(data.getInt("StartPrice"));
-        listing.setStartDate(data.getString("StartDate"));
-        listing.setEndDate(data.getString("EndDate"));
-        //listing.setFeatured(data.getBoolean("IsFeatured"));
-        listing.setCatName(data.getString("CategoryName"));
-        listing.setRegionID(data.getInt("RegionId"));
-        listing.setRegion(data.getString("Region"));
-        listing.setSuburb(data.getString("Suburb"));
-        listing.setReserveState(data.getInt("ReserveState"));
-        listing.setClassified(data.getBoolean("IsClassified"));
-        listing.setBody(data.getString("Body"));
+        //Get values from json object
+        int listingId = data.getInt("ListingId");
+        String title = data.getString("Title");
+        String category = data.getString("Category");
+        Date startDate = JsonDateToDate(data.getString("StartDate"));
+        Date endDate = JsonDateToDate(data.getString("EndDate"));
+        boolean isFeatured = data.optBoolean("IsFeatured");
+        boolean hasGallery = data.optBoolean("HasGallery");
+        boolean isBold = data.optBoolean("IsBold");
+        boolean isHighlighted = data.optBoolean("IsHighlighted");
+        boolean hasHomePageFeature = data.optBoolean("HasHomePageFeature");
+        Date asAt = JsonDateToDate(data.getString("AsAt"));
+        String categoryPath = data.getString("CategoryPath");
+        String photoId = data.optString("PhotoId");
+        int regionId = data.optInt("RegionId");
+        String region = data.optString("Region");
+        String suburb = data.optString("Suburb");
+        int viewCount = data.optInt("ViewCount");
+        String categoryName = data.getString("CategoryName");
+        boolean isClassified = data.optBoolean("IsClassified");
+        int relistedItemId = data.optInt("RelistedItemId");
+        String subtitle = data.optString("Subtitle");
+        boolean isOnWatchList = data.optBoolean("IsOnWatchList");
+        int totalReviewCount = data.optInt("TotalReviewCount");
+        int positiveReviewCount = data.optInt("PositiveReviewCount");
+        String body = data.getString("Body");
+        boolean withdrawnBySeller = data.optBoolean("WithdrawnBySeller");
+        //Make listing object and pass in values
+        Listing listing = new Listing(listingId, title, category, startDate, endDate,
+                isFeatured, hasGallery, isHighlighted, hasHomePageFeature, asAt,
+                categoryPath, photoId, regionId, region, suburb, viewCount, categoryName,
+                isClassified, relistedItemId, subtitle, isOnWatchList, totalReviewCount,
+                positiveReviewCount, body, withdrawnBySeller, isBold);
 
-        if (data.has("Attributes"))
-        {
-            JSONArray attr = data.getJSONArray("Attributes");
-            List<Attribute> attrList = new ArrayList<Attribute>();
-
-            for (int i = 0; i < attr.length(); i++)
-            {
-                JSONObject attrObj = attr.getJSONObject(i);
-                attrList.add(new Attribute(attrObj.getString("Name"), attrObj.getString("DisplayName"), attrObj.getString("Value"), attrObj.getString("EncodedValue")));
-            }
-            listing.setAttributes(attrList);
+        //check If there is a field for contact details
+        if (data.has("ContactDetails")) {
+            //Get contact details
+            JSONObject contactObj = data.getJSONObject("ContactDetails");
+            //Make a new contact details object passing in info from contactObj
+            ContactDetails contactDetails = new ContactDetails(contactObj.getString("ContactName"),
+                    contactObj.getString("PhoneNumber"), contactObj.getString("MobilePhoneNumber"),
+                    contactObj.getString("BestContactTime"));
+            //Add contact details to listing
+            listing.setContactDetails(contactDetails);
         }
 
+        //Make attribute list
+        List<Attribute> attrList = new ArrayList<Attribute>();
+        //See id listing has attributes
+        if (data.has("Attributes"))
+        {
+            //Get array of attributes
+            JSONArray attr = data.getJSONArray("Attributes");
+            //Iterate through array of attributes
+            for (int i = 0; i < attr.length(); i++)
+            {
+                //Get JSON object at position i
+                JSONObject attrObj = attr.getJSONObject(i);
+                //Add values to attribute list by making a new attribute object
+                attrList.add(new Attribute(attrObj.getString("Name"),
+                        attrObj.getString("DisplayName"), attrObj.getString("Value")));
+            }
+        }
+        //Set the attributes to the listing
+        listing.setAttributes(attrList);
+
+        //Get the member information
         JSONObject memberObj = data.getJSONObject("Member");
-
-        Member member = new Member(memberObj.getInt("MemberId"), memberObj.getString("Nickname"), memberObj.getString("Suburb"), memberObj.getString("Region"), memberObj.getInt("FeedbackCount"));
-
+        //Process member data in ProcessMember method
+        Member member = ProcessMember(memberObj);
+        //Set member for listing
         listing.setMember(member);
-
+        //Make array list for photos
+        List<Photo> photosList = new ArrayList<Photo>();
+        //Check to see if the listing has photos
         if (data.has("Photos"))
         {
+            //Get array of photos
             JSONArray photo = data.getJSONArray("Photos");
-            List<Photo> photosList = new ArrayList<Photo>();
-
+            //iterate over array of photos
             for (int i = 0; i < photo.length(); i++)
             {
+                //Get photo at position i
                 JSONObject photoObj = photo.getJSONObject(i);
+                //Get the values for photos
                 JSONObject photoDetObj = photoObj.getJSONObject("Value");
-                photosList.add(new Photo(photoObj.getInt("Key"), photoDetObj.getInt("PhotoId"), photoDetObj.getString("Thumbnail"),
+                //Add a photos to the photo list
+                photosList.add(new Photo(photoDetObj.getInt("PhotoId"), photoDetObj.getString("Thumbnail"),
                         photoDetObj.getString("List"), photoDetObj.getString("Medium"), photoDetObj.getString("Gallery"),
                         photoDetObj.getString("Large"), photoDetObj.getString("FullSize")));
             }
-
-            listing.setPhotos(photosList);
         }
-        _data.setListing(listing);
+        //Set the photos to the listing
+        listing.setPhotos(photosList);
+        //return the listing
+        return listing;
+    }
+
+    //Method that processes member information for listings, and reviews etc
+    private Member ProcessMember(JSONObject memberObj) throws JSONException {
+        //Get fields from memberObj passed in
+        int memberId = memberObj.getInt("MemberId");
+        String nickname = memberObj.getString("Nickname");
+
+        Date addressVerifiedDate;
+        String date = memberObj.optString("DateAddressVerified");
+        Log.i("out", date);
+        if (!date.equals("/Date(0)/") && memberObj.has("DateAddressVerified"))
+            addressVerifiedDate = JsonDateToDate(memberObj.optString("DateAddressVerified"));
+        else
+            addressVerifiedDate = null;
+
+        Date joinDate;
+        if (memberObj.has("DateJoined"))
+            joinDate = JsonDateToDate(memberObj.getString("DateJoined"));
+        else
+            joinDate = null;
+
+        int uniqueNegative = memberObj.optInt("UniqueNegative");
+        int uniquePositive = memberObj.optInt("UniquePositive");
+        boolean isAddressVerified = memberObj.optBoolean("IsAddressVerified");
+        String suburb = memberObj.optString("Suburb");
+        String region = memberObj.optString("Region");
+        int feedbackCount = memberObj.optInt("FeedbackCount");
+        boolean isAuthenticated = memberObj.optBoolean("IsAuthenticated");
+        //Return a new Member object using above fields
+        return new Member(memberId,nickname,suburb,region,feedbackCount,addressVerifiedDate,
+                joinDate, uniqueNegative,uniquePositive,isAddressVerified,isAuthenticated);
+    }
+
+    //Method for processing data for reviews
+    public ReviewResults ProcessReviews(JSONObject data) throws JSONException {
+        //Get general information for review pull
+        int totalCount = data.getInt("TotalCount");
+        int page = data.optInt("Page");
+        int pageSize = data.optInt("PageSize");
+        //Create new ReviewResults obj and pass in above values
+        ReviewResults reviewResults = new ReviewResults(totalCount,page,pageSize);
+        //Get array of reviews
+        JSONArray resultsArray = data.getJSONArray("List");
+        //Check to see if there are reviews in the list
+        if (resultsArray.length() > 0) {
+            //Iterate over all items in the list
+            for (int i = 0; i < resultsArray.length(); i++) {
+                //Get review at position i
+                JSONObject resultObj = resultsArray.getJSONObject(i);
+                //Get review information
+                int reviewId = resultObj.getInt("ReviewId");
+                Date date = JsonDateToDate(resultObj.getString("Date"));
+                boolean positive = resultObj.getBoolean("Positive");
+                String reviewText = resultObj.getString("ReviewText");
+                String response = resultObj.optString("Response");
+                Date responseDate = JsonDateToDate(resultObj.optString("ResponseDate"));
+                //Get member object
+
+                JSONObject memberObj = resultObj.getJSONObject("Member");
+                //Pass to member process method to get the information
+                Member member = ProcessMember(memberObj);
+                //Create new review object with the information gathered
+                Review review = new Review(reviewId, date, positive, reviewText, member, response,
+                        responseDate);
+                //Add it to our ReviewResults object
+                reviewResults.AddReview(review);
+            }
+        }
+        //Return review Results object
+        return reviewResults;
     }
 }
