@@ -379,7 +379,12 @@ public class DataProcess {
                 boolean positive = resultObj.getBoolean("Positive");
                 String reviewText = resultObj.getString("ReviewText");
                 String response = resultObj.optString("Response");
-                Date responseDate = JsonDateToDate(resultObj.optString("ResponseDate"));
+                String resDateStr = resultObj.optString("ResponseDate");
+                Date responseDate = null;
+                if (!resDateStr.equals("/Date(0)/") && resultObj.has("ResponseDate")) {
+                    responseDate = JsonDateToDate(resultObj.optString("ResponseDate"));
+                }
+
                 //Get member object
 
                 JSONObject memberObj = resultObj.getJSONObject("Member");

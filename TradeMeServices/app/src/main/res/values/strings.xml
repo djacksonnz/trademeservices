@@ -10,5 +10,6 @@
     <string name="title_activity_init_load">InitLoad</string>
     <string name="title_activity_search_results">Trade Me Services</string>
     <string name="title_activity_listing">Trade Me Services</string>
+    <string name="title_activity_reviews">Reviews</string>
 
 </resources>

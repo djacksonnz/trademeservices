@@ -26,6 +26,7 @@ import com.trademeservices.app.cat.Categories;
 import com.trademeservices.app.data.Constants;
 import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.data.Database;
+import com.trademeservices.app.data.DownloadImage;
 import com.trademeservices.app.location.District;
 import com.trademeservices.app.location.Region;
 import com.trademeservices.app.search.Results;
@@ -145,11 +146,11 @@ public class SearchResults extends ActionBarActivity {
 
                 if (r.getPicHref() == "")
                     r.setPicHref("http://www.trademe.co.nz/images/NewSearchCards/LVIcons/noPhoto_160x120.png");
-                new DownloadImageTask(img)
-                        .execute(r.getPicHref());
+                new DownloadImage(img).execute(r.getPicHref());
 
                 GridLayout gl2 = new GridLayout(this);
                 gl2.setRowCount(4);
+                gl2.setColumnCount(1);
                 TextView title = new TextView(this);
                 title.setWidth(880);
                 TextView catLoc = new TextView(this);
@@ -160,13 +161,14 @@ public class SearchResults extends ActionBarActivity {
                 title.setText(r.getTitle());
                 catLoc.setText(r.getCategory() + " | " + r.getRegion());
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                dateAdded.setText(df.format(r.getStartDate()));
+                dateAdded.setText(r.getStartDate().toString());
 
-                //gl2.addView(title);
-                //gl2.addView(catLoc);
-                //gl2.addView(dateAdded);
+                gl2.addView(title);
+                gl2.addView(catLoc);
+                gl2.addView(dateAdded);
 
                 GridLayout reviewsGl = new GridLayout(this);
+                reviewsGl.setRowCount(1);
                 TextView numReviews = new TextView(this);
                 TextView percentPos = new TextView(this);
                 ImageView thumbUp = new ImageView(this);
@@ -183,7 +185,7 @@ public class SearchResults extends ActionBarActivity {
                     numReviews.setText(Integer.toString(r.getTotalReviews()) + " Reviews ");
                     int posReviews = (r.getPositiveReviews() / r.getTotalReviews()) * 100;
                     percentPos.setText(Integer.toString(posReviews) + '%');
-                    new DownloadImageTask(thumbUp)
+                    new DownloadImage(thumbUp)
                             .execute("http://www.trademe.co.nz/Images/services/thumbs_up_featured.gif");
                     reviewsGl.addView(numReviews);
                     reviewsGl.addView(percentPos);
@@ -261,27 +263,3 @@ class ResultOnClick implements View.OnClickListener
     }
 }
 
-class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
-
-    public DownloadImageTask(ImageView bmImage) {
-        this.bmImage = bmImage;
-    }
-
-    protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
-        try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
-        return mIcon11;
-    }
-
-    protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
-    }
-}

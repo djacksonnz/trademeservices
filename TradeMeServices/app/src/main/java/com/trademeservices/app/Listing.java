@@ -1,5 +1,7 @@
 package com.trademeservices.app;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +24,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.trademeservices.app.data.Constants;
 import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.listing.Attribute;
+import com.trademeservices.app.search.Results;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,9 +127,16 @@ public class Listing extends ActionBarActivity {
         body.setWidth(1080);
         body.setText(listing.getBody());
         newLin.addView(body);
+        Button btn = new Button(this);
+        btn.setText("Reviews");
+        btn.setMinHeight(200);
+        btn.setMaxHeight(200);
+        btn.setOnClickListener(new ReviewsOnClick(listing, this));
+        newLin.addView(btn);
         sv.addView(newLin);
         layout.addView(sv);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -146,4 +157,27 @@ public class Listing extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+}
+
+class ReviewsOnClick implements View.OnClickListener
+{
+    private Activity act;
+    private com.trademeservices.app.listing.Listing l;
+
+    public ReviewsOnClick(com.trademeservices.app.listing.Listing l, Activity act)
+    {
+        this.l = l;
+        this.act = act;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        Intent intent = new Intent(act, Reviews.class);
+        intent.putExtra("id", l.getListingId());
+        intent.putExtra("totalReviews", l.getTotalReviewCount());
+        intent.putExtra("posReviews", l.getPositiveReviewCount());
+        intent.putExtra("title", l.getTitle());
+        act.startActivity(intent);
+    }
 }
