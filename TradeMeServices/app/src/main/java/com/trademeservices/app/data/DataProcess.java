@@ -380,6 +380,7 @@ public class DataProcess {
                 String reviewText = resultObj.getString("ReviewText");
                 String response = resultObj.optString("Response");
                 String resDateStr = resultObj.optString("ResponseDate");
+                Log.i("out", response);
                 Date responseDate = null;
                 if (!resDateStr.equals("/Date(0)/") && resultObj.has("ResponseDate")) {
                     responseDate = JsonDateToDate(resultObj.optString("ResponseDate"));
