@@ -2,10 +2,8 @@ package com.trademeservices.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,15 +89,10 @@ public class Reviews extends ActionBarActivity {
         totalPages = (int) Math.floor(totalReviews / pageSize) + 1;
 
         LinearLayout mainLayout = (LinearLayout) this.findViewById(R.id.layout);
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout dataLayout = new LinearLayout(this);
-        dataLayout.setOrientation(LinearLayout.VERTICAL);
-
         TextView titleText = new TextView(this);
-        titleText.setWidth(dataLayout.getWidth());
-        titleText.setText(listingTitle);
-
-        dataLayout.addView(titleText);
+        titleText.setWidth(mainLayout.getWidth());
+        titleText.setText("Reviews for " + listingTitle);
+        mainLayout.addView(titleText);
 
         GridLayout reviewIconsBar = new GridLayout(this);
         reviewIconsBar.setRowCount(1);
@@ -117,10 +109,7 @@ public class Reviews extends ActionBarActivity {
                 .execute("http://www.trademe.co.nz/Images/services/thumbs_up_icon_white.gif");
         reviewIconsBar.addView(posImg);
         reviewIconsBar.addView(posText);
-        dataLayout.addView(reviewIconsBar);
-        scrollView.addView(dataLayout);
-        mainLayout.addView(scrollView);
-
+        mainLayout.addView(reviewIconsBar);
         firstPull = false;
         DisplayInfo(results);
     }
@@ -136,10 +125,6 @@ public class Reviews extends ActionBarActivity {
     public void DisplayInfo(ReviewResults results)
     {
         LinearLayout mainLayout = (LinearLayout) this.findViewById(R.id.layout);
-        ScrollView scrollView = (ScrollView) mainLayout.getChildAt(0);
-        mainLayout.removeAllViews();
-        LinearLayout dataLayout = (LinearLayout) scrollView.getChildAt(0);
-        scrollView.removeAllViews();
 
         for (Review r : results.getReviewsList())
         {
@@ -175,30 +160,18 @@ public class Reviews extends ActionBarActivity {
             reviewTextGrid.addView(reviewText);
             reviewTextGrid.addView(reviewDateMem);
 
-            if (!r.getResponse().equals(""))
+            if (r.getResponse().equals(""))
             {
                 TextView responseText = new TextView(this);
                 responseText.setText(r.getResponse());
                 reviewTextGrid.addView(responseText);
             }
 
-            ImageView div = new ImageView(this);
-
-            div.setMinimumHeight(2);
-            SharedPreferences appInfo;
-            appInfo = this.getSharedPreferences("appInfo", 0);
-            div.setMinimumWidth(appInfo.getInt("deviceWidth",0));
-            div.setBackgroundColor(Color.BLACK);
-
             reviewGrid.addView(thumbImg);
             reviewGrid.addView(reviewTextGrid);
 
-            dataLayout.addView(reviewGrid);
-            dataLayout.addView(div);
+            mainLayout.addView(reviewGrid);
         }
-
-        scrollView.addView(dataLayout);
-        mainLayout.addView(scrollView);
     }
 
     @Override
