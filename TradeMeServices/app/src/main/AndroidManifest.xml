@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/CustomActionBarTheme" >
+        android:theme="@style/Theme.Example" >
         <activity
             android:name=".MainActivity"
             android:label="Search" >
@@ -37,6 +37,10 @@
         <activity
             android:name=".Reviews"
             android:label="@string/title_activity_reviews" >
+        </activity>
+        <activity
+            android:name=".act.Search"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 

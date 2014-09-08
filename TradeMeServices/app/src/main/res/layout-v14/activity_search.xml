@@ -1,0 +1,80 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="1"
+            android:columnCount="5"
+            android:background="#00ffffff"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/menu_grid_search" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_menu_search"
+                android:clickable="true"
+                android:src="@drawable/ic_notification" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_search_search"
+                android:clickable="true"
+                android:src="@drawable/ic_search" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_watchlist_search"
+                android:clickable="true"
+                android:longClickable="true"
+                android:src="@drawable/ic_watchlist" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_list_service_search"
+                android:clickable="true"
+                android:src="@drawable/ic_list_service" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_account_search"
+                android:clickable="true"
+                android:src="@drawable/ic_account" />
+        </GridLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:baselineAligned="false"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linearLayout" >
+
+            <SearchView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchView2"
+                android:background="#ffd6d7db"
+                android:longClickable="false"
+                android:iconifiedByDefault="false" />
+
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

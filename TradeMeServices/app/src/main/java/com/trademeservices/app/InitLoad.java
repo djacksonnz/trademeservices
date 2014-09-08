@@ -2,6 +2,7 @@ package com.trademeservices.app;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
+import com.trademeservices.app.act.Search;
 import com.trademeservices.app.data.Constants;
 import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.data.Database;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.widget.Toast;
 
@@ -54,7 +56,7 @@ public class InitLoad extends Activity {
             GetDeviceScreenSize();
         } else {
             //If app has already been installed or no update, just start main activity
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, Search.class);
             startActivity(intent);
         }
 
@@ -62,13 +64,16 @@ public class InitLoad extends Activity {
 
     //Method that gets device screen size and stores it in local vars
     private void GetDeviceScreenSize() {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+
         //Add to shared prefrences appInfo
         SharedPreferences.Editor editor = appInfo.edit();
-        editor.putInt("deviceHeight", size.x);
-        editor.putInt("deviceWidth", size.y);
+        editor.putInt("deviceHeight", height);
+        editor.putInt("deviceWidth", width);
         editor.commit();
     }
 
