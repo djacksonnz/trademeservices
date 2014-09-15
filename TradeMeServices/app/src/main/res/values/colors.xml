@@ -10,5 +10,6 @@
     <color name="TMGrey">#989898</color>
     <color name="TMStroke">#d2962a</color>
     <color name="TMBottomBG">#333333</color>
+    <color name="Grey">#ffd6d7db</color>
 
 </resources>

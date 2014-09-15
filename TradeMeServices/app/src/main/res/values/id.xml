@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="main_text" />
+    <item type="id" name="count_text" />
+    <item type="id" name="selected_grid" />
+    <item type="id" name="cat_scroll" />
+    <item type="id" name="cat_layout" />
+    <item type="id" name="cat_list" />
+</resources>

@@ -16,6 +16,7 @@ import com.trademeservices.app.location.Suburb;
 import com.trademeservices.app.reviews.Review;
 import com.trademeservices.app.reviews.ReviewResults;
 import com.trademeservices.app.search.Results;
+import com.trademeservices.app.search.SearchCounts;
 import com.trademeservices.app.search.SearchResults;
 
 import org.json.JSONArray;
@@ -80,6 +81,26 @@ public class DataProcess {
                 }
             }
         }
+    }
+
+    //Method that returns counts of results used for displaying more information on search screens
+    public List<SearchCounts> ProcessSearchCounts(JSONObject data, Context ctx, String baseCat) throws JSONException {
+        List<SearchCounts> searchCounts = new ArrayList<SearchCounts>();
+
+        int totalCount = data.optInt("TotalCount");
+        searchCounts.add(new SearchCounts(totalCount, baseCat));
+
+        JSONArray foundCatArray = data.getJSONArray("FoundCategories");
+
+        for (int i = 0; i < foundCatArray.length(); i++)
+        {
+            JSONObject catObj = foundCatArray.getJSONObject(i);
+            int catCount = catObj.optInt("Count");
+            String category = catObj.optString("Category");
+            searchCounts.add(new SearchCounts(catCount, category));
+        }
+
+        return  searchCounts;
     }
 
     //Method that takes the response of the search results and puts it into a SearchResult class and returns

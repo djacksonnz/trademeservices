@@ -17,8 +17,8 @@ public class LocationTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.search_tabs, container, false);
-        TextView textview = (TextView) view.findViewById(R.id.tabtextview);
-        textview.setText("Location go here");
+        //TextView textview = (TextView) view.findViewById(R.id.tabtextview);
+        //textview.setText("Location go here");
         return view;
     }
 }

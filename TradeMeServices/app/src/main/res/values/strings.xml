@@ -12,5 +12,7 @@
     <string name="title_activity_listing">Trade Me Services</string>
     <string name="title_activity_reviews">Reviews</string>
     <string name="title_activity_search">Search</string>
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">"Close Drawer"</string>
 
 </resources>
