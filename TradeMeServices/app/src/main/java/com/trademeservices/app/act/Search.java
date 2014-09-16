@@ -167,3 +167,18 @@ public class Search extends Activity {
         }
     }
 }
+
+ class OnItemClickListenerCat implements View.OnClickListener {
+    private int mPosition;
+    private Activity act;
+
+    OnItemClickListener(int position, Activity act){
+        mPosition = position;
+        this.act = act;
+    }
+
+    @Override
+    public void onClick(View arg0) {
+        act
+    }
+}
