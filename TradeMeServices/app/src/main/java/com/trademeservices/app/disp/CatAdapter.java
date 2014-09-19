@@ -13,13 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trademeservices.app.R;
+import com.trademeservices.app.act.search_tabs.CategoryTab;
 
 import java.util.ArrayList;
 
 /**
  * Created by jacksdl2 on 17/09/2014.
  */
-public class CatAdapter extends BaseAdapter implements View.OnClickListener {
+public class CatAdapter extends BaseAdapter {
 
     private Activity act;
     private ArrayList data;
@@ -94,6 +95,23 @@ public class CatAdapter extends BaseAdapter implements View.OnClickListener {
         else
             holder.moreIcon.setImageResource(R.drawable.moreGrey);
 
+        vi.setOnClickListener(new OnCatClick(tempValues.getPath()));
 
+        return vi;
+    }
+
+    public class OnCatClick implements View.OnClickListener
+    {
+        private String cat;
+
+        public OnCatClick(String cat){
+            this.cat = cat;
+        }
+
+        @Override
+        public void onClick(View view) {
+            CategoryTab ct = act;
+
+        }
     }
 }

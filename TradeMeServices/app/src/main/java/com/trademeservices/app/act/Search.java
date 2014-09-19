@@ -77,50 +77,7 @@ public class Search extends Activity {
         actionBar.addTab(categoryTab);
         actionBar.addTab(locationTab);
         actionBar.addTab(refineTab);
-
-        searchCat = "9334-";
-
-        updateView("");
     }
-
-    public void updateView(String baseCat)
-    {
-        List<Categories> cats = new Database(this).getCat(baseCat);
-        TextView tv = new TextView(this);
-        tv.setText("test");
-
-//
-//        Fragment mf = (Fragment) getFragmentManager().findFragmentById(R.id.fragment_container);
-//        fragmentCategoryTab
-//
-//
-//
-//       LinearLayout ll = (LinearLayout) frag.findViewById(R.id.search_tabs_layout);
-        //ll.addView(tv);
-
-    }
-
-//    public void asyncJsonCat(){
-//        //Set url getting address from constants class
-//        String url = new Constants().getBASE_ADDR() + "Categories/" + searchCat + ".json";
-//        //Run AndroidQuery AJAX call running to jsonCallbackCat when it is completed
-//        aq.ajax(url, JSONObject.class, this, "jsonCallbackCat");
-//    }
-//
-//    //Method called when cat async call is completed
-//    public void jsonCallbackCat(String url, JSONObject json, AjaxStatus status) throws JSONException
-//    {
-//        //Check to see if there was a JSON object returned
-//        if(json != null){
-//            //Process category data via DataProcess class passing in the recieved JSON and this
-//            new DataProcess().ProcessSearchCounts(json, this, searchCat);
-//
-//        }else{
-//            //ajax error, show error code if there is no JSON
-//            Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
-//        }
-//    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,20 +122,5 @@ public class Search extends Activity {
             currImg.setBackgroundColor(getResources().getColor(R.color.TMBottomBG));
 
         }
-    }
-}
-
- class OnItemClickListenerCat implements View.OnClickListener {
-    private int mPosition;
-    private Activity act;
-
-    OnItemClickListener(int position, Activity act){
-        mPosition = position;
-        this.act = act;
-    }
-
-    @Override
-    public void onClick(View arg0) {
-        act
     }
 }

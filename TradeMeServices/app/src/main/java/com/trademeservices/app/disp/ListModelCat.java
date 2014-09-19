@@ -13,11 +13,13 @@ import com.trademeservices.app.R;
 public class ListModelCat {
     private String name;
     private int listings;
+    private String path;
 
-    public ListModelCat(String name, int listings)
+    public ListModelCat(String name, int listings, String path)
     {
         this.name = name;
         this.listings = listings;
+        this.path = path;
     }
 
     public String getName() {
@@ -26,5 +28,9 @@ public class ListModelCat {
 
     public int getListings() {
         return listings;
+    }
+
+    public String getPath() {
+        return path;
     }
 }

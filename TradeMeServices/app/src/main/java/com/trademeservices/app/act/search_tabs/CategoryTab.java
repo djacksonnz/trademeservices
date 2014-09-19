@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.trademeservices.app.data.Constants;
 import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.data.Database;
 import com.trademeservices.app.data.SearchVariables;
+import com.trademeservices.app.disp.ListModelCat;
 import com.trademeservices.app.location.Region;
 import com.trademeservices.app.search.SearchCounts;
 
@@ -144,11 +146,9 @@ public class CategoryTab extends Fragment {
         }
 
 
-
-
-
-
     }
+
+
 
     public void asyncJsonCat(){
 //        //Set url getting address from constants class
