@@ -6,4 +6,8 @@
     android:id="@+id/search_tabs_layout">
 
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_view_tab" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.trademeservices.app.data.Constants;
 import com.trademeservices.app.data.DataProcess;
 import com.trademeservices.app.data.Database;
 import com.trademeservices.app.data.SearchVariables;
+import com.trademeservices.app.disp.CatAdapter;
 import com.trademeservices.app.disp.ListModelCat;
 import com.trademeservices.app.location.Region;
 import com.trademeservices.app.search.SearchCounts;
@@ -37,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.Inet4Address;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,9 +49,14 @@ public class CategoryTab extends Fragment {
 
     private SearchVariables searchVariables = SearchVariables.getInstance();
     private Context ctx;
+    private Activity act;
     private String baseCat;
     private List<SearchCounts> searchCounts;
     private View view;
+    private ListView list;
+    private CatAdapter adapter;
+    private ArrayList<ListModelCat> listModelCat = new ArrayList<ListModelCat>();
+
 
     private AQuery aq;
 
@@ -56,13 +64,14 @@ public class CategoryTab extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ctx=activity;
+        act = activity;
         aq = new AQuery(ctx);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        asyncJsonCat();
+
     }
 
     @Override
@@ -77,6 +86,7 @@ public class CategoryTab extends Fragment {
         LinearLayout mainLayout = new LinearLayout(ctx);
         mainLayout.setId(R.id.cat_layout);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
+        mainLayout.setMinimumHeight(ViewGroup.LayoutParams.MATCH_PARENT);
 
         GridLayout selectedGrid = new GridLayout(ctx);
         selectedGrid.setId(R.id.selected_grid);
@@ -121,10 +131,38 @@ public class CategoryTab extends Fragment {
 
     public void PopulateDisp()
     {
+
         searchVariables.setCategory(baseCat);
         List<Categories> categories = new Database(ctx).getCat(baseCat);
         Categories baseCatObj = new Database(ctx).getSpecCat(baseCat);
 
+
+        for (int i = 1; i < categories.size(); i++)
+        {
+            String name = categories.get(i).getName();
+            String path = categories.get(i).getNumber();
+            int listNo = 0;
+            for (int y = 0; y < searchCounts.size(); y++)
+            {
+                if (searchCounts.get(y).getCat().equals(path))
+                    listNo = searchCounts.get(y).getCount();
+            }
+
+
+
+            ListModelCat lmc = new ListModelCat(name, listNo, path);
+            listModelCat.add(lmc);
+            Log.i("out", lmc.getName() + " " + lmc.getListings());
+        }
+
+        Resources res = getResources();
+
+        list = new ListView(ctx);
+
+        adapter = new CatAdapter(act, listModelCat, res );
+        list.setAdapter(new CatAdapter(act, listModelCat, res));
+        ViewGroup.LayoutParams listLay = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        list.setLayoutParams(listLay);
         TextView mainText = (TextView) view.findViewById(R.id.main_text);
         if (baseCatObj.getName().equals("All"))
             mainText.setText("Services");
@@ -135,17 +173,8 @@ public class CategoryTab extends Fragment {
         countText.setText(Integer.toString(searchCounts.get(0).getCount()) + " Listings");
 
         LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.cat_layout);
-        for (Categories c : categories)
-        {
-            RelativeLayout layoutObj = new RelativeLayout(ctx);
-            TextView catText = new TextView(ctx);
-            catText.setText(c.getName());
-            catText.setTag(c.getNumber());
-            layoutObj.addView(catText);
-            mainLayout.addView(layoutObj);
-        }
 
-
+        mainLayout.addView(list);
     }
 
 
@@ -172,10 +201,18 @@ String url = new Constants().getBASE_ADDR() + "Search/General.json?category="+ba
         }
     }
 
-    public void addView(View v)
+    public static class OnCatClick implements View.OnClickListener
     {
-        LinearLayout ll = (LinearLayout) this.getView().findViewById(R.id.search_tabs_layout);
-        ll.addView(v);
-    }
+        private String cat;
 
+        public OnCatClick(String cat){
+            this.cat = cat;
+        }
+
+        @Override
+        public void onClick(View view) {
+
+
+        }
+    }
 }

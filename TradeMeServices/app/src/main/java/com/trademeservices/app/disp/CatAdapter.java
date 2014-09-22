@@ -2,9 +2,7 @@ package com.trademeservices.app.disp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,30 +86,17 @@ public class CatAdapter extends BaseAdapter {
         tempValues = (ListModelCat) data.get(position);
 
         holder.catName.setText(tempValues.getName());
-        holder.listingCount.setText(tempValues.getListings());
+        holder.listingCount.setText(Integer.toString(tempValues.getListings()));
 
         if (tempValues.getListings() == 0)
             holder.moreIcon.setImageResource(R.drawable.none);
         else
-            holder.moreIcon.setImageResource(R.drawable.moreGrey);
+            holder.moreIcon.setImageResource(R.drawable.more_grey);
 
-        vi.setOnClickListener(new OnCatClick(tempValues.getPath()));
+        vi.setOnClickListener(new CategoryTab.OnCatClick(tempValues.getPath()));
 
         return vi;
     }
 
-    public class OnCatClick implements View.OnClickListener
-    {
-        private String cat;
 
-        public OnCatClick(String cat){
-            this.cat = cat;
-        }
-
-        @Override
-        public void onClick(View view) {
-            CategoryTab ct = act;
-
-        }
-    }
 }
