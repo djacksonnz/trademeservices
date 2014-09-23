@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -79,52 +80,11 @@ public class CategoryTab extends Fragment {
                              Bundle savedInstanceState){
         this.baseCat = "9334-";
 
-        view = inflater.inflate(R.layout.search_tabs, container, false);
-        LinearLayout containerLayout = (LinearLayout) view.findViewById(R.id.search_tabs_layout);
-        ScrollView scrollView = new ScrollView(ctx);
-        scrollView.setId(R.id.cat_scroll);
-        LinearLayout mainLayout = new LinearLayout(ctx);
-        mainLayout.setId(R.id.cat_layout);
-        mainLayout.setOrientation(LinearLayout.VERTICAL);
-        mainLayout.setMinimumHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        view = inflater.inflate(R.layout.search_tabs_cat, container, false);
 
-        GridLayout selectedGrid = new GridLayout(ctx);
-        selectedGrid.setId(R.id.selected_grid);
-        selectedGrid.setBackgroundColor(getResources().getColor(R.color.Grey));
-        selectedGrid.setColumnCount(1);
-        selectedGrid.setRowCount(2);
-        GridLayout.LayoutParams gridLayout = new GridLayout.LayoutParams();
-        gridLayout.setGravity(Gravity.CENTER);
-        gridLayout.setMargins(0, 100, 0, 100);
-        gridLayout.width = GridLayout.LayoutParams.MATCH_PARENT;
-        gridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
-        selectedGrid.setLayoutParams(gridLayout);
-
-        TextView mainText = new TextView(ctx);
-        ViewGroup.LayoutParams textParams = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mainText.setLayoutParams(textParams);
-        mainText.setGravity(Gravity.CENTER);
-        mainText.setId(R.id.main_text);
-        mainText.setTextSize(20);
-        mainText.setTypeface(null, Typeface.BOLD);
-
-        TextView countText = new TextView(ctx);
-        countText.setLayoutParams(textParams);
-        countText.setId(R.id.count_text);
-        countText.setTextSize(10);
-        countText.setGravity(Gravity.CENTER);
-
-
-        selectedGrid.addView(mainText);
-        selectedGrid.addView(countText);
-
-        mainLayout.addView(selectedGrid);
-
-        scrollView.addView(mainLayout);
-        containerLayout.addView(scrollView);
 
         asyncJsonCat();
+
 
         return view;
     }
@@ -157,24 +117,21 @@ public class CategoryTab extends Fragment {
 
         Resources res = getResources();
 
-        list = new ListView(ctx);
+        list = (ListView) act.findViewById(R.id.search_cat_list);
 
         adapter = new CatAdapter(act, listModelCat, res );
         list.setAdapter(new CatAdapter(act, listModelCat, res));
-        ViewGroup.LayoutParams listLay = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        list.setLayoutParams(listLay);
-        TextView mainText = (TextView) view.findViewById(R.id.main_text);
+//        ViewGroup.LayoutParams listLay = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        list.setLayoutParams(listLay);
+        TextView mainText = (TextView) view.findViewById(R.id.search_title_main);
         if (baseCatObj.getName().equals("All"))
             mainText.setText("Services");
         else
             mainText.setText(baseCatObj.getName());
 
-        TextView countText = (TextView) view.findViewById(R.id.count_text);
+        TextView countText = (TextView) view.findViewById(R.id.search_title_count);
         countText.setText(Integer.toString(searchCounts.get(0).getCount()) + " Listings");
 
-        LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.cat_layout);
-
-        mainLayout.addView(list);
     }
 
 
