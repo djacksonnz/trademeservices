@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="id" name="search_cat_title" />
-    <item name="search_cat_count" type="id" />
-    <item name="search_cat_back" type="id" />
-</resources>

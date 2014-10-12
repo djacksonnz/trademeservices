@@ -1,0 +1,15 @@
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splashFrame"
+    android:background="@color/TMYellow">
+
+    <ImageView
+        android:layout_width="256dp"
+        android:layout_height="94dp"
+        android:id="@+id/logoImg"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/logo"
+        android:layout_marginTop="150dp" />
+</FrameLayout>

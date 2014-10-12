@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listItemSR">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listingImgSR"
+        android:layout_alignParentStart="true"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:src="@drawable/no_photo_sr"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp" />
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listingInfoSR"
+        android:layout_toEndOf="@id/listingImgSR"
+        android:rowCount="4"
+        android:columnCount="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Location"
+            android:id="@+id/locationTextSR"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Listing Title"
+            android:id="@+id/listingTitleSR"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Date Listed"
+            android:id="@+id/listedDateSR"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/reviewInfoSR">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0%"
+                android:id="@+id/reviewPercentSR"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:textStyle="bold"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/thumbsUpImgSR"
+                android:src="@drawable/thumb_up"
+                android:layout_toEndOf="@id/reviewPercentSR"
+                android:layout_centerVertical="true"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0 Reviews"
+                android:id="@+id/numReviewsSR"
+                android:layout_alignParentEnd="false"
+                android:paddingRight="10dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="italic"
+                android:textSize="15dp" />
+        </RelativeLayout>
+    </GridLayout>
+</RelativeLayout>

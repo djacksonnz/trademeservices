@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black">#000000</color>
+
+    <color name="TMYellow">#ffD900</color>
+    <color name="TMBlue">#2e67b2</color>
+    <color name="TMRed">#ef3c24</color>
+    <color name="TMGreyBG">#eeeeee</color>
+    <color name="TMGrey">#989898</color>
+    <color name="TMStroke">#d2962a</color>
+    <color name="TMBottomBG">#333333</color>
+    <color name="Grey">#ffd6d7db</color>
+    <color name="TMFeatured">#FEFDE3</color>
+    <color name="TMGreyFont">#989898</color>
+    <color name="TMYellowFont">#c60</color>
+
+</resources>

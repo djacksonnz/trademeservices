@@ -1,0 +1,108 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:background="@color/TMBottomBG"
+        android:id="@+id/menuGridSR"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notificationsImgSR"
+            android:src="@drawable/notifications" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchImgSR"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/search" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/watchlistImgSR"
+            android:src="@drawable/watchlist" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listServiceImgSR"
+            android:src="@drawable/list_service" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/accountImgSR"
+            android:src="@drawable/account" />
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/backArrowL"
+        android:background="@color/TMYellow">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Search Results"
+            android:id="@+id/searchTextSR"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backImgSR"
+            android:src="@drawable/back_brown"
+            android:layout_centerVertical="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lineImgSR"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/searchTextSR"
+            android:src="@drawable/line_separator" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchInfoSR"
+        android:background="@color/TMYellow"
+        android:layout_below="@+id/backArrowL">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="in"
+            android:id="@+id/detailsTextSR"
+            android:layout_centerInParent="true"
+            android:padding="5dp"
+            android:typeface="normal"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultListSR"
+        android:layout_below="@+id/searchInfoSR"
+        android:layout_above="@+id/menuGridSR" />
+</RelativeLayout>
