@@ -21,21 +21,21 @@
     <sdk:vendor-display>Intel Corporation</sdk:vendor-display>
     <sdk:name-display>Intel x86 Emulator Accelerator (HAXM installer)</sdk:name-display>
     <sdk:path>Hardware_Accelerated_Execution_Manager</sdk:path>
-    <sdk:revision>4</sdk:revision>
+    <sdk:revision>5</sdk:revision>
     <sdk:description>Emulation speedup using Intel® VT processor technology. Read more at www.intel.com/software/android</sdk:description>
     <sdk:desc-url>http://software.intel.com/</sdk:desc-url>
     <sdk:uses-license ref="intel-android-extra-license"/>
 
     <sdk:archives>
         <sdk:archive os="windows">
-            <sdk:size>2028228</sdk:size>
-            <sdk:checksum type="sha1">cc72b38962fc53823f969d4fb9155f9efa3558b8</sdk:checksum>
-            <sdk:url>haxm-windows_r04.zip</sdk:url>
+            <sdk:size>1756483</sdk:size>
+            <sdk:checksum type="sha1">2023b23f8f06af889b81babff3f69055e05ae2ea</sdk:checksum>
+            <sdk:url>haxm-windows_r05.zip</sdk:url>
         </sdk:archive>
         <sdk:archive os="macosx">
-            <sdk:size>251211</sdk:size>
-            <sdk:checksum type="sha1">e3d68c7d59f0f8b289cdc38e203d0952917bf2cb</sdk:checksum>
-            <sdk:url>haxm-macosx_r04.zip</sdk:url>
+            <sdk:size>464764</sdk:size>
+            <sdk:checksum type="sha1">7d273a932938b6cf59bc81fc1d093a24db5e353e</sdk:checksum>
+            <sdk:url>haxm-macosx_r05.zip</sdk:url>
         </sdk:archive>
     </sdk:archives>
 </sdk:extra>

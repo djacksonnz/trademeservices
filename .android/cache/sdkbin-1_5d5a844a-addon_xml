@@ -169,15 +169,15 @@ November 19, 2013
         <sdk:name-id>google_gdk</sdk:name-id>
         <sdk:name-display>Glass Development Kit Preview</sdk:name-display>
         <sdk:api-level>19</sdk:api-level>
-        <sdk:revision>8</sdk:revision>
+        <sdk:revision>9</sdk:revision>
         <sdk:description>Preview of the Glass Development Kit</sdk:description>
         <sdk:desc-url>https://developers.google.com/glass/develop/gdk/</sdk:desc-url>
         <sdk:uses-license ref="google-gdk-license"/>
         <sdk:archives>
             <sdk:archive os="any">
-                <sdk:size>463611</sdk:size>
-                <sdk:checksum type="sha1">66791884771f671dcedc9bc2ab09193333923adb</sdk:checksum>
-                <sdk:url>https://dl-ssl.google.com/glass/xe18.3/google-gdk.zip</sdk:url>
+                <sdk:size>780288</sdk:size>
+                <sdk:checksum type="sha1">084c82d774a096b868248ae02b32895a8886b036</sdk:checksum>
+                <sdk:url>https://dl.google.com/glass/xe21/google-gdk.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         

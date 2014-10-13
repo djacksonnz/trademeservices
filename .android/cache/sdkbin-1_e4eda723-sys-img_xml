@@ -270,8 +270,8 @@ June 2014.
     </sdk:license>
 
     <sdk:system-image>
-        <!-- Generated at Mon Jun 23 19:23:52 2014 from git_lmp-preview-release @ 1242878 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Thu Sep 25 22:25:59 2014 from git_lmp-preview-release @ 1455902 -->
+        <sdk:revision>2</sdk:revision>
         <sdk:description>Android SDK Platform L</sdk:description>
         <sdk:api-level>20</sdk:api-level>
         <sdk:codename>L</sdk:codename>
@@ -280,17 +280,17 @@ June 2014.
         <sdk:tag-display>Android TV</sdk:tag-display>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>254034546</sdk:size>
-                <sdk:checksum type="sha1">c3cfffa85bd335f16ab5de03e6119622466f81ba</sdk:checksum>
-                <sdk:url>sysimg_tv_arm-L_r01.zip</sdk:url>
+                <sdk:size>253410350</sdk:size>
+                <sdk:checksum type="sha1">d484dd762643ea3c798cd90df01a99304ad308b4</sdk:checksum>
+                <sdk:url>sysimg_tv_arm-L_r02.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-preview-license"/>
     </sdk:system-image>
 
     <sdk:system-image>
-        <!-- Generated at Mon Jun 23 19:24:35 2014 from git_lmp-preview-release @ 1242878 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Thu Sep 25 22:26:00 2014 from git_lmp-preview-release @ 1455902 -->
+        <sdk:revision>2</sdk:revision>
         <sdk:description>Android SDK Platform L</sdk:description>
         <sdk:api-level>20</sdk:api-level>
         <sdk:codename>L</sdk:codename>
@@ -299,9 +299,9 @@ June 2014.
         <sdk:tag-display>Android TV</sdk:tag-display>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>277183824</sdk:size>
-                <sdk:checksum type="sha1">1fc2ff0a0e8d3447d0407c21543c8e34e0abb325</sdk:checksum>
-                <sdk:url>sysimg_tv_x86-L_r01.zip</sdk:url>
+                <sdk:size>276468132</sdk:size>
+                <sdk:checksum type="sha1">319766f779c292bbe6e24e570545c7256ea3057b</sdk:checksum>
+                <sdk:url>sysimg_tv_x86-L_r02.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-preview-license"/>

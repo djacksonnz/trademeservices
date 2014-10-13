@@ -71,6 +71,14 @@
             android:padding="5dp"
             android:layout_centerVertical="true" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/watchlistL"
+            android:src="@drawable/line_separator" />
+
     </RelativeLayout>
 
     <ScrollView

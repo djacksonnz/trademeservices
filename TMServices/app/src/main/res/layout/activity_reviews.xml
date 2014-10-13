@@ -29,6 +29,14 @@
             android:layout_centerInParent="true"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/backBtnR"
+            android:src="@drawable/line_separator" />
+
     </RelativeLayout>
 
     <ScrollView

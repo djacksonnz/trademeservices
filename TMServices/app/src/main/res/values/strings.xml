@@ -9,5 +9,7 @@
     <string name="title_activity_member">Member</string>
     <string name="title_activity_reviews">Reviews</string>
     <string name="title_activity_send_message">Send Message</string>
+    <string name="title_activity_watchlist">Watchlist</string>
+    <string name="title_activity_notifications">Notifications</string>
 
 </resources>

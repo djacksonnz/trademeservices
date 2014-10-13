@@ -270,8 +270,8 @@ June 2014.
     </sdk:license>
 
     <sdk:system-image>
-        <!-- Generated at Mon Jun 23 19:21:33 2014 from git_klp-modular-release @ 1246132 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Mon Oct  6 10:31:47 2014 from git_klp-modular-release @ 1476732 -->
+        <sdk:revision>2</sdk:revision>
         <sdk:description>Android SDK Platform 4.4W</sdk:description>
         <sdk:api-level>20</sdk:api-level>
         <sdk:abi>armeabi-v7a</sdk:abi>
@@ -279,17 +279,17 @@ June 2014.
         <sdk:tag-display>Android Wear</sdk:tag-display>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>108291293</sdk:size>
-                <sdk:checksum type="sha1">1d824850455fbccfabd789f308c108e89acba4f9</sdk:checksum>
-                <sdk:url>sysimg_wear_arm-20_r01.zip</sdk:url>
+                <sdk:size>111004921</sdk:size>
+                <sdk:checksum type="sha1">c0be69d973858944f5e04bcae5c6374a68d0513f</sdk:checksum>
+                <sdk:url>sysimg_wear_arm-20_r02.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-license"/>
     </sdk:system-image>
 
     <sdk:system-image>
-        <!-- Generated at Mon Jun 23 19:22:00 2014 from git_klp-modular-release @ 1246132 -->
-        <sdk:revision>1</sdk:revision>
+        <!-- Generated at Mon Oct  6 10:31:47 2014 from git_klp-modular-release @ 1476732 -->
+        <sdk:revision>2</sdk:revision>
         <sdk:description>Android SDK Platform 4.4W</sdk:description>
         <sdk:api-level>20</sdk:api-level>
         <sdk:abi>x86</sdk:abi>
@@ -297,9 +297,9 @@ June 2014.
         <sdk:tag-display>Android Wear</sdk:tag-display>
         <sdk:archives>
             <sdk:archive>
-                <sdk:size>120935655</sdk:size>
-                <sdk:checksum type="sha1">99d133cafb914713db0d777f78545eb64c8d7367</sdk:checksum>
-                <sdk:url>sysimg_wear_x86-20_r01.zip</sdk:url>
+                <sdk:size>123648441</sdk:size>
+                <sdk:checksum type="sha1">98b8585aa0e616ea54eb4f984464c8fc33733200</sdk:checksum>
+                <sdk:url>sysimg_wear_x86-20_r02.zip</sdk:url>
             </sdk:archive>
         </sdk:archives>
         <sdk:uses-license ref="android-sdk-license"/>
