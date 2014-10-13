@@ -345,7 +345,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="20dp"
                     android:background="@color/TMGreyBG"
-                    android:id="@+id/relativeLayout2" />
+                    android:id="@+id/locLayS" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"

@@ -47,7 +47,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/locLayS"
         android:layout_below="@+id/relativeLayout">
 
         <TextView
@@ -62,7 +62,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout2"
+        android:layout_below="@+id/locLayS"
         android:id="@+id/subInSM">
 
         <EditText
@@ -86,7 +86,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
-        android:id="@+id/relativeLayout3"
+        android:id="@+id/statusLocS"
         android:layout_below="@+id/subInSM">
 
         <TextView
@@ -101,8 +101,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout3"
-        android:id="@+id/relativeLayout4" >
+        android:layout_below="@+id/statusLocS"
+        android:id="@+id/statusLocS" >
 
         <EditText
             android:layout_width="fill_parent"
@@ -122,7 +122,7 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:id="@+id/relativeLayout5"
-        android:layout_below="@+id/relativeLayout4" >
+        android:layout_below="@+id/statusLocS" >
 
         <TextView
             android:layout_width="wrap_content"

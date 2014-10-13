@@ -59,6 +59,11 @@ public class Watchlist extends Activity {
         DisplayMenu();
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void PopDisp() {
 
         for (int i: items)

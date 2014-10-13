@@ -1,0 +1,449 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cdapps.tmservices.Search"
+    android:background="#ffffffff">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:background="@color/TMBottomBG"
+        android:id="@+id/menuS"
+        android:visibility="visible" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notificationsImgS"
+            android:src="@drawable/notifications" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchImgS"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/search" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/watchlistImgS"
+            android:src="@drawable/watchlist" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listServiceImgS"
+            android:src="@drawable/list_service" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/accountImgS"
+            android:src="@drawable/account" />
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/relativeLayout"
+        android:background="@color/TMYellow" >
+
+        <SearchView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/keywordsInS"
+            android:iconifiedByDefault="false"
+            android:orientation="vertical"
+            android:queryHint="Search Services" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lineImgSR"
+            android:layout_alignParentBottom="false"
+            android:src="@drawable/line_separator"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/keywordsInS" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:background="@color/TMYellow"
+        android:layout_marginBottom="-5dp"
+        android:id="@+id/tabLayoutS">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:gravity="center_horizontal"
+            android:id="@+id/tabViewS">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/catTabS"
+                android:src="@drawable/cat" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/locTabS"
+                android:src="@drawable/location" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/refineTabS"
+                android:src="@drawable/sort" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/line_separator"
+            android:layout_below="@+id/tabViewS" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/contentLayoutS"
+        android:layout_below="@+id/tabLayoutS"
+        android:layout_above="@+id/menuS"
+        android:layout_marginTop="5dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/searchBtnS">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Listings"
+                android:id="@+id/buttonS"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffffff"
+                android:background="@color/TMBlue"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/catLayS"
+            android:layout_above="@+id/searchBtnS"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/TMGreyBG"
+                android:id="@+id/statusCatS">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Category Name"
+                    android:id="@+id/catTitleS"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:paddingTop="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/catTitleCountS"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/catTitleS"
+                    android:textColor="@color/TMGreyFont"
+                    android:paddingBottom="10dp"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blueBackImgS"
+                    android:src="@drawable/back_blue"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/catListS"
+                android:layout_below="@+id/statusCatS" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/locLayS"
+            android:layout_above="@+id/searchBtnS"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/TMGreyBG"
+                android:id="@+id/statusLocS"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Category Name"
+                    android:id="@+id/locTitleS"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:layout_centerInParent="true" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blueBackLocS"
+                    android:src="@drawable/back_blue"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/locListS"
+                android:layout_below="@+id/statusLocS" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/refineLayS"
+            android:layout_above="@+id/searchBtnS"
+            android:visibility="invisible">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:id="@+id/featuredS">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Featured first"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="25dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/featuredTickS"
+                    android:layout_alignParentEnd="false"
+                    android:src="@drawable/blue_tick"
+                    android:padding="10dp"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_toRightOf="@+id/textView"
+                    android:layout_toEndOf="@+id/textView"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/separator"
+                    android:layout_below="@+id/featuredTickS" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/latestS"
+                android:layout_below="@+id/mostS"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/latestTickS"
+                    android:layout_alignParentEnd="false"
+                    android:src="@drawable/blue_tick"
+                    android:padding="10dp"
+                    android:layout_alignBottom="@+id/textView2"
+                    android:layout_toRightOf="@+id/textView2"
+                    android:layout_toEndOf="@+id/textView2"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Latest lisiting"
+                    android:id="@+id/textView2"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="25dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mostS"
+                android:layout_below="@+id/viewS"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mostTickS"
+                    android:layout_alignParentEnd="false"
+                    android:src="@drawable/blue_tick"
+                    android:padding="10dp"
+                    android:layout_alignBottom="@+id/textView4"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:layout_toEndOf="@+id/textView4"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Most reviews"
+                    android:id="@+id/textView4"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="25dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView7"
+                    android:src="@drawable/separator"
+                    android:layout_below="@+id/textView4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewS"
+                android:layout_below="@+id/titleS"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/viewTickS"
+                    android:layout_alignParentEnd="false"
+                    android:src="@drawable/blue_tick"
+                    android:padding="10dp"
+                    android:layout_alignBottom="@+id/textView5"
+                    android:layout_toRightOf="@+id/textView5"
+                    android:layout_toEndOf="@+id/textView5"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Most views"
+                    android:id="@+id/textView5"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="25dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView9"
+                    android:src="@drawable/separator"
+                    android:layout_below="@+id/textView5" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleS"
+                android:layout_below="@+id/featuredS"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titleTickS"
+                    android:layout_alignParentEnd="false"
+                    android:src="@drawable/blue_tick"
+                    android:padding="10dp"
+                    android:layout_alignBottom="@+id/textView6"
+                    android:layout_toEndOf="@+id/textView6"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Title"
+                    android:id="@+id/textView6"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="25dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView11"
+                    android:src="@drawable/separator"
+                    android:layout_below="@+id/textView6" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

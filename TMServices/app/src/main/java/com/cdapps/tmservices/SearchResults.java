@@ -37,10 +37,11 @@ public class SearchResults extends Activity {
 
     private AQuery aq = new AQuery(this);
 
-    String cat = "9334-";
-    int page = 1;
-    int region = 0;
-    int district = 0;
+    String cat;
+    String keywords;
+    int page;
+    int region;
+    int district;
     boolean featured = true;
 
     ListView list;
@@ -56,6 +57,13 @@ public class SearchResults extends Activity {
         DisplayMenu();
 
         sr = this;
+
+        Bundle bundle = getIntent().getExtras();
+        cat = bundle.getString("cat");
+        region = bundle.getInt("region");
+        district = bundle.getInt("district");
+        keywords = bundle.getString("keywords");
+        page = 1;
 
         displayInfo();
         asyncJson();
@@ -106,7 +114,8 @@ public class SearchResults extends Activity {
                 "&return_metadat=false" +
                 "&shipping_method=All" +
                 "&rows=" + Integer.toString(new Constants().getPAGE_SIZE()) +
-                "&page=" + Integer.toString(page);
+                "&page=" + Integer.toString(page) +
+                "&search_string=" + keywords;
 //
         if (region != 0 && region != 100)
         {
@@ -117,6 +126,7 @@ public class SearchResults extends Activity {
         {
             url += "&district=" + Integer.toString(district);
         }
+
 
 //        if (featured)
 //        {
