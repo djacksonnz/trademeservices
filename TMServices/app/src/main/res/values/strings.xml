@@ -14,5 +14,6 @@
     <string name="title_activity_search">Search</string>
     <string name="title_activity_account">Account</string>
     <string name="title_activity_add_credit">AddCredit</string>
+    <string name="title_activity_list_service_menu">ListServiceMenu</string>
 
 </resources>

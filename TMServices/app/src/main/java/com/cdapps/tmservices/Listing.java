@@ -305,14 +305,14 @@ public class Listing extends Activity {
                 startActivity(intent);
             }});
 
-//        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), Search.class);
-//                finish();
-//                startActivity(intent);
-//            }
-//        });
+        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Search.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
             @Override
