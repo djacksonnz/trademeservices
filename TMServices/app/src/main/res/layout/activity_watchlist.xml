@@ -17,33 +17,33 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/notificationsImgW"
+            android:id="@+id/notificationsImg"
             android:src="@drawable/notifications"
             android:focusableInTouchMode="false" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/searchImgW"
+            android:id="@+id/searchImg"
             android:focusableInTouchMode="false"
             android:src="@drawable/search" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/watchlistImgW"
-            android:src="@drawable/watchlist" />
+            android:id="@+id/watchlistImg"
+            android:src="@drawable/watchlist_selected" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listServiceImgW"
+            android:id="@+id/listServiceImg"
             android:src="@drawable/list_service" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/accountImgW"
+            android:id="@+id/accountImg"
             android:src="@drawable/account" />
     </GridLayout>
 

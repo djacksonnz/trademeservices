@@ -140,7 +140,7 @@ public class Member extends Activity {
 
     protected void DisplayMenu()
     {
-        GridLayout menuGrid = (GridLayout) this.findViewById(R.id.menuM);
+        GridLayout menuGrid = (GridLayout) this.findViewById(R.id.menuME);
         int childCount = menuGrid.getChildCount();
 
         SharedPreferences appInfo = getSharedPreferences("appInfo", 0);

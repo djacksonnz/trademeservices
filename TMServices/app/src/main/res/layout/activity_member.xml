@@ -4,49 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.cdapps.tmservices.Member">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:columnCount="5"
-        android:rowCount="1"
-        android:background="@color/TMBottomBG"
-        android:id="@+id/menuM"
-        android:visibility="visible"
-        android:layout_alignParentStart="false" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notificationsImgM"
-            android:src="@drawable/notifications" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/searchImgM"
-            android:focusableInTouchMode="false"
-            android:src="@drawable/search" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/watchlistImgM"
-            android:src="@drawable/watchlist" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listServiceImgM"
-            android:src="@drawable/list_service" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/accountImM"
-            android:src="@drawable/account" />
-    </GridLayout>
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -86,7 +43,6 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/menuM"
         android:background="@color/TMGreyBG"
         android:id="@+id/relativeLayout7"
         android:layout_below="@+id/scrollView" />
@@ -168,7 +124,8 @@
                     android:text="Small Text"
                     android:id="@+id/positiveM"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp" />
+                    android:paddingRight="10dp"
+                    android:textColor="@color/TMGreyFont" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,7 +135,8 @@
                     android:id="@+id/joinDateM"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/TMGreyFont" />
             </GridLayout>
 
             <RelativeLayout
@@ -196,9 +154,8 @@
                     android:text="Name"
                     android:id="@+id/textView6"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp" />
 
@@ -213,7 +170,8 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="2dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/TMGreyFont" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -238,9 +196,8 @@
                     android:text="Location"
                     android:id="@+id/textView8"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp" />
 
@@ -255,8 +212,9 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="2dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="10dp"
-                    android:focusableInTouchMode="false" />
+                    android:paddingBottom="5dp"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/TMGreyFont" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -281,9 +239,8 @@
                     android:text="Occupation"
                     android:id="@+id/textView10"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp" />
 
@@ -298,7 +255,8 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="2dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/TMGreyFont" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -323,9 +281,8 @@
                     android:text="Biography"
                     android:id="@+id/textView12"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp" />
 
@@ -340,7 +297,8 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="2dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/TMGreyFont" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -365,9 +323,8 @@
                     android:text="Quote"
                     android:id="@+id/textView14"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp" />
 
@@ -382,7 +339,8 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="2dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/TMGreyFont" />
             </RelativeLayout>
 
         </LinearLayout>

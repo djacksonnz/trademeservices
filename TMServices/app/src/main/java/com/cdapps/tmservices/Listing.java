@@ -72,6 +72,11 @@ public class Listing extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -280,6 +285,50 @@ public class Listing extends Activity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    private void SetupMenu() {
+        findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Notifications.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
+                finish();
+                startActivity(intent);
+            }});
+
+//        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), Search.class);
+//                finish();
+//                startActivity(intent);
+//            }
+//        });
+
+        findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(v.getContext(), Notifications.class);
+                //finish();
+                //startActivity(intent);
+            }});
+
+        findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
 
     }
 

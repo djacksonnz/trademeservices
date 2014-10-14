@@ -1,0 +1,368 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cdapps.tmservices.AddCredit"
+    android:background="#ffffffff">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/titleBar"
+        android:background="@color/TMYellow" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Add Credit"
+            android:id="@+id/titleText"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/separator"
+            android:layout_alignParentBottom="false"
+            android:src="@drawable/line_separator"
+            android:layout_below="@+id/cancelText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Cancel"
+            android:id="@+id/cancelText"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:textColor="@color/TMYellowFont" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/titleBar">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/base">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:background="@color/TMGreyBG"
+                android:id="@+id/sep1" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sep1"
+                android:id="@+id/balance" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/balCont" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Current Balance"
+                        android:id="@+id/currBal"
+                        android:layout_alignParentStart="true"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="$150.00"
+                        android:id="@+id/balAmm"
+                        android:layout_alignParentEnd="true"
+                        android:padding="10dp"
+                        android:textColor="@color/TMGreyFont" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/separatorBal"
+                        android:src="@drawable/separator"
+                        android:layout_below="@+id/balAmm" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ammountCont"
+                    android:layout_below="@+id/balCont" >
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:id="@+id/valueToUpdate"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/note"
+                        android:layout_marginLeft="80dp"
+                        android:hint="$10.00"
+                        android:gravity="end"
+                        android:text="$10.00"
+                        android:numeric="decimal"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Amount to Pay"
+                        android:id="@+id/ammountTitle"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Minimum amount: $10.00"
+                        android:id="@+id/note"
+                        android:layout_below="@+id/ammountTitle"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/TMGreyFont" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sepAmm"
+                        android:src="@drawable/separator"
+                        android:layout_below="@+id/note" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/total"
+                android:layout_below="@+id/balance" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Total After Payment"
+                    android:id="@+id/totalTxt"
+                    android:layout_alignParentStart="true"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="$160.00"
+                    android:id="@+id/totalVal"
+                    android:layout_alignParentEnd="true"
+                    android:padding="10dp"
+                    android:textColor="@color/TMGreyFont" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/total"
+                android:background="@color/TMGreyBG"
+                android:id="@+id/sep2" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/saved"
+                android:layout_below="@+id/sep2" >
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox"
+                    android:layout_alignParentEnd="true"
+                    android:checked="true"
+                    android:padding="10dp"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Saved card"
+                    android:id="@+id/textView"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" xxxx xxxx xxxx 4866"
+                    android:id="@+id/textView2"
+                    android:textColor="@color/TMGreyFont"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_below="@+id/textView" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/separator"
+                    android:layout_below="@+id/textView2" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayout6"
+                android:layout_below="@+id/saved"
+                android:visibility="gone" >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/name"
+                    android:hint="Cardholder Name"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_below="@+id/newcc"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/cardNum"
+                    android:layout_below="@+id/name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Card Number" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberSigned"
+                    android:ems="10"
+                    android:id="@+id/expiry"
+                    android:layout_below="@+id/cardNum"
+                    android:width="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Expiry MM/YY"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/csv"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/cardNum"
+                    android:width="150dp"
+                    android:hint="CSV"
+                    android:layout_marginRight="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:layout_below="@+id/checkBox2"
+                    android:src="@drawable/separator" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="New Credit Card"
+                    android:id="@+id/newcc"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save Card"
+                    android:id="@+id/checkBox2"
+                    android:checked="true"
+                    android:textColor="@color/TMGreyFont"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/csv"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pass"
+                android:layout_below="@+id/relativeLayout6" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Password"
+                    android:id="@+id/textView4"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_alignParentEnd="true"
+                    android:hint="Your Trade Me Password"
+                    android:textSize="15dp"
+                    android:width="250dp"
+                    android:padding="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirm"
+                android:background="@color/TMGreyBG"
+                android:layout_below="@+id/pass"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Confirm Payment"
+                    android:id="@+id/button"
+                    android:textColor="#ffffffff"
+                    android:background="@color/TMBlue" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/sep3"
+                android:layout_below="@+id/confirm"
+                android:background="@color/TMGreyBG" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

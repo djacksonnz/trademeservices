@@ -57,6 +57,7 @@ public class Watchlist extends Activity {
         PopDisp();
 
         DisplayMenu();
+        SetupMenu();
     }
 
     @Override
@@ -160,6 +161,41 @@ public class Watchlist extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void SetupMenu() {
+        findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Notifications.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Search.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(v.getContext(), Notifications.class);
+                //finish();
+                //startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
+                finish();
+                startActivity(intent);
+            }});
+
     }
 
     protected void DisplayMenu()
