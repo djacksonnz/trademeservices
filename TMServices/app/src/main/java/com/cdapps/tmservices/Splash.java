@@ -53,7 +53,7 @@ public class Splash extends Activity {
 
     private void DisplaySearch()
     {
-        Intent intent = new Intent(this, Account.class);
+        Intent intent = new Intent(this, Search.class);
         startActivity(intent);
     }
 

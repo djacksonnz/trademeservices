@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cdapps.tmservices.ListServiceMenu">
+    tools:context="com.cdapps.tmservices.ListServiceMenu"
+    android:background="#ffffffff">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -11,38 +12,38 @@
         android:columnCount="5"
         android:rowCount="1"
         android:background="@color/TMBottomBG"
-        android:id="@+id/gridLayout"
+        android:id="@+id/menu"
         android:visibility="visible" >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/notificationsImgS"
+            android:id="@+id/notificationsImg"
             android:src="@drawable/notifications" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/searchImgS"
+            android:id="@+id/searchImg"
             android:focusableInTouchMode="false"
             android:src="@drawable/search" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/watchlistImgS"
+            android:id="@+id/watchlistImg"
             android:src="@drawable/watchlist" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listServiceImgS"
+            android:id="@+id/listServiceImg"
             android:src="@drawable/list_service_selected" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/accountImgS"
+            android:id="@+id/accountImg"
             android:src="@drawable/account" />
     </GridLayout>
 
@@ -117,6 +118,6 @@
         android:layout_height="fill_parent"
         android:id="@+id/greyFill"
         android:layout_below="@+id/myServicesCont"
-        android:layout_above="@+id/gridLayout"
+        android:layout_above="@+id/menu"
         android:background="@color/TMGreyBG"></RelativeLayout>
 </RelativeLayout>

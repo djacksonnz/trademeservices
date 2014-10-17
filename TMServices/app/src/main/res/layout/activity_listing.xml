@@ -350,23 +350,23 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/addToWatchlistTextL" >
+                    android:id="@+id/addToWatchlistText" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Add to Watchlist"
-                        android:id="@+id/joinDateM"
+                        android:id="@+id/watchlistTxt"
                         android:layout_centerInParent="true"
                         android:padding="10dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/thumbImgRE"
+                        android:id="@+id/thumbImg"
                         android:src="@drawable/separator"
-                        android:layout_below="@+id/joinDateM" />
+                        android:layout_below="@+id/watchlistTxt" />
                 </RelativeLayout>
 
                 <RelativeLayout

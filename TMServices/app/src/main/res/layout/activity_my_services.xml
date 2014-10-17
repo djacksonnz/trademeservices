@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cdapps.tmservices.Notifications"
-    android:id="@+id/mainLayN">
+    tools:context="com.cdapps.tmservices.MyServices"
+    android:id="@+id/layout"
+    android:background="#ffffffff">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -12,14 +13,14 @@
         android:columnCount="5"
         android:rowCount="1"
         android:background="@color/TMBottomBG"
-        android:id="@+id/menuN"
+        android:id="@+id/gridLayout"
         android:visibility="visible" >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/notificationsImg"
-            android:src="@drawable/notifications_selected"
+            android:src="@drawable/notifications"
             android:focusableInTouchMode="false" />
 
         <ImageView
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/watchlistImg"
-            android:src="@drawable/watchlist" />
+            android:src="@drawable/watchlist_selected" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,64 +60,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Notifications"
+            android:text="Services I've Listed"
             android:id="@+id/searchTextSR"
             android:padding="10dp"
             android:layout_centerInParent="true"
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lineImgSR"
             android:layout_alignParentBottom="false"
             android:layout_below="@+id/searchTextSR"
             android:src="@drawable/line_separator" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Clear"
-            android:id="@+id/clearN"
-            android:layout_alignParentEnd="true"
+            android:id="@+id/imageView"
             android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:textColor="@color/TMYellowFont" />
+            android:src="@drawable/back_brown" />
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
         android:layout_below="@+id/relativeLayout"
-        android:id="@+id/noteN">
+        android:layout_above="@+id/menuW" >
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/info"
-            android:padding="10dp"
-            android:layout_centerVertical="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="A service you have listed is expiring soon"
-            android:id="@+id/textView2"
-            android:layout_toRightOf="@+id/imageView"
-            android:layout_centerInParent="true"
-            android:textStyle="italic"
-            android:padding="10dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/featuredTickS"
-            android:src="@drawable/separator"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/textView2" />
-    </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/myListingsLay"
+            android:background="#ffffffff" />
+    </ScrollView>
 </RelativeLayout>

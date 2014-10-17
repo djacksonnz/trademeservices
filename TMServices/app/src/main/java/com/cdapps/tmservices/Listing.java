@@ -26,6 +26,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.data.Constants;
 import com.cdapps.tmservices.data.DataProcess;
 import com.cdapps.tmservices.data.DownloadImage;
+import com.cdapps.tmservices.dummy.UserDataDummy;
 import com.cdapps.tmservices.gen.ContactDetails;
 import com.cdapps.tmservices.listing.Attribute;
 import com.cdapps.tmservices.listing.Photo;
@@ -41,7 +42,10 @@ public class Listing extends Activity {
     private AQuery aq = new AQuery(this);
     private Context ctx;
 
+    UserDataDummy data = UserDataDummy.getInstance();
+
     private int listingId;
+    private boolean onWatchlist;
     private int memberId;
     private int totalReviews;
     private int posReviews;
@@ -53,12 +57,19 @@ public class Listing extends Activity {
         setContentView(R.layout.activity_listing);
         ctx = this;
 
+
+
         DisplayMenu();
         SetLinks();
+        SetupMenu();
 
         Bundle bundle = getIntent().getExtras();
         listingId = bundle.getInt("id");
         Log.i("out", Integer.toString(listingId));
+        if (data.getMyWatchlist().contains(listingId))
+            onWatchlist = true;
+        else
+            onWatchlist = false;
         asyncJsonSearch();
     }
 
@@ -69,11 +80,6 @@ public class Listing extends Activity {
         getMenuInflater().inflate(R.menu.listing, menu);
 
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 
     @Override
@@ -106,12 +112,23 @@ public class Listing extends Activity {
         }
     }
 
+    private void ChangeWatchText()
+    {
+        TextView watchlist = (TextView) findViewById(R.id.watchlistTxt);
+        if (onWatchlist)
+            watchlist.setText("Remove from Watchlist");
+        else
+            watchlist.setText("Add to Watchlist");
+    }
+
     private void DisplayInfo(com.cdapps.tmservices.listing.Listing listing)
     {
         memberId = listing.getMember().getMemberId();
         totalReviews = listing.getTotalReviewCount();
         posReviews = listing.getPositiveReviewCount();
         listingTitle = listing.getTitle();
+
+        ChangeWatchText();
 
         TextView title = (TextView) findViewById(R.id.titleTextL);
         title.setText(listing.getTitle());
@@ -213,17 +230,55 @@ public class Listing extends Activity {
         addWatchlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ctx, "Listing added to Watchlist\n(Not implemented)",
-                        Toast.LENGTH_LONG).show();
+                if (onWatchlist)
+                {
+                    new AlertDialog.Builder(ctx)
+                            .setMessage("Remove listing from watchlist?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(ctx, "Listing removed from Watchlist",
+                                            Toast.LENGTH_LONG).show();
+                                    data.removeFromWatchlist(listingId);
+                                    onWatchlist = !onWatchlist;
+                                    ChangeWatchText();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                }
+                else {
+                    Toast.makeText(ctx, "Listing added to Watchlist",
+                            Toast.LENGTH_LONG).show();
+                    data.addToWatchlist(listingId);
+                    onWatchlist = !onWatchlist;
+                    ChangeWatchText();
+                }
+
+
             }
         });
 
-        RelativeLayout addWatchlistText = (RelativeLayout) findViewById(R.id.addToWatchlistTextL);
+        RelativeLayout addWatchlistText = (RelativeLayout) findViewById(R.id.addToWatchlistText);
         addWatchlistText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ctx, "Listing added to Watchlist\n(Not implemented)",
-                        Toast.LENGTH_LONG).show();
+                if (onWatchlist)
+                {
+                    Toast.makeText(ctx, "Listing removed from Watchlist",
+                            Toast.LENGTH_LONG).show();
+                    data.removeFromWatchlist(listingId);
+
+                }
+                else {
+                    Toast.makeText(ctx, "Listing added to Watchlist",
+                            Toast.LENGTH_LONG).show();
+                    data.addToWatchlist(listingId);
+                }
+
+                onWatchlist = !onWatchlist;
+                ChangeWatchText();
+
             }
         });
 
@@ -289,6 +344,7 @@ public class Listing extends Activity {
     }
 
     private void SetupMenu() {
+
         findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,35 +353,26 @@ public class Listing extends Activity {
                 startActivity(intent);
             }});
 
-        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Account.class);
-                finish();
-                startActivity(intent);
-            }});
-
-        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Search.class);
-                finish();
-                startActivity(intent);
-            }
-        });
-
         findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(), Notifications.class);
-                //finish();
-                //startActivity(intent);
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
             }});
 
         findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
                 finish();
                 startActivity(intent);
             }});

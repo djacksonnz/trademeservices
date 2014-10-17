@@ -15,5 +15,9 @@
     <string name="title_activity_account">Account</string>
     <string name="title_activity_add_credit">AddCredit</string>
     <string name="title_activity_list_service_menu">ListServiceMenu</string>
+    <string name="title_activity_my_services">MyServices</string>
+    <string name="title_activity_list_service">ListService</string>
+    <string name="title_activity_service_summary">ServiceSummary</string>
+    <string name="title_activity_cat_selection">CatSelection</string>
 
 </resources>

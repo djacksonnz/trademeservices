@@ -1,8 +1,6 @@
 package com.cdapps.tmservices;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -90,7 +87,7 @@ public class Reviews extends Activity {
         {
             view = LayoutInflater.from(this).inflate(R.layout.reviews_layout, null);
 
-            ImageView thumb = (ImageView) view.findViewById(R.id.thumbImgRE);
+            ImageView thumb = (ImageView) view.findViewById(R.id.thumbImg);
             if (r.isPositive())
                 thumb.setImageResource(R.drawable.thumb_up);
             else

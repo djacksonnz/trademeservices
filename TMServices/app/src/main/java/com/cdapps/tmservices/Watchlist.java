@@ -25,6 +25,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.data.Constants;
 import com.cdapps.tmservices.data.DataProcess;
 import com.cdapps.tmservices.data.DownloadImage;
+import com.cdapps.tmservices.dummy.UserDataDummy;
 import com.cdapps.tmservices.listing.*;
 import com.cdapps.tmservices.reviews.Review;
 
@@ -38,7 +39,9 @@ import java.util.List;
 
 public class Watchlist extends Activity {
 
-    List<Integer> items = new ArrayList<Integer>();
+    UserDataDummy data = UserDataDummy.getInstance();
+
+    List<Integer> items = data.getMyWatchlist();
 
     Context ctx;
 
@@ -50,9 +53,6 @@ public class Watchlist extends Activity {
         setContentView(R.layout.activity_watchlist);
 
         ctx = this;
-
-        items.add(721027156);
-        items.add(724549825);
 
         PopDisp();
 
@@ -67,15 +67,27 @@ public class Watchlist extends Activity {
 
     private void PopDisp() {
 
+        ViewGroup v = (ViewGroup) findViewById(R.id.watchItemsW);
+                v.removeAllViews();
+
+
         for (int i: items)
         {
             asyncJsonSearch(i);
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        PopDisp();
+    }
+
     private void DisplayInfo(final com.cdapps.tmservices.listing.Listing l) {
         final View view;
         final ViewGroup parent = (ViewGroup) findViewById(R.id.watchItemsW);
+
 
         view = LayoutInflater.from(this).inflate(R.layout.watchlist_item, null);
 
@@ -104,6 +116,8 @@ public class Watchlist extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 parent.removeView(view);
+                                items.remove((Integer) l.getListingId());
+                                data.setMyWatchlist(items);
                             }
                         })
                         .setNegativeButton("No", null)
@@ -164,6 +178,7 @@ public class Watchlist extends Activity {
     }
 
     private void SetupMenu() {
+
         findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,9 +198,9 @@ public class Watchlist extends Activity {
         findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(), Notifications.class);
-                //finish();
-                //startActivity(intent);
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
             }});
 
         findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {

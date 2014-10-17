@@ -65,7 +65,7 @@
                 android:rowCount="3"
                 android:layout_below="@+id/topMenuM"
                 android:background="@color/TMGreyBG"
-                android:id="@+id/gridLayout" >
+                android:id="@+id/menu" >
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -75,7 +75,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/thumbImgRE"
+                        android:id="@+id/thumbImg"
                         android:src="@drawable/star"
                         android:layout_toRightOf="@+id/nicknameM"
                         android:layout_centerVertical="true" />
@@ -108,7 +108,7 @@
                         android:text="0"
                         android:id="@+id/feedbackM"
                         android:textColor="@color/TMGreyFont"
-                        android:layout_toRightOf="@+id/thumbImgRE"
+                        android:layout_toRightOf="@+id/thumbImg"
                         android:paddingLeft="5dp"
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Small Text"
-                    android:id="@+id/joinDateM"
+                    android:id="@+id/watchlistTxt"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
@@ -142,7 +142,7 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/gridLayout"
+                android:layout_below="@+id/menu"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/locLayS" >

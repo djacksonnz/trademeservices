@@ -2,7 +2,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/layW">
+    android:id="@+id/layW"
+    android:background="#ffffffff">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -32,8 +33,7 @@
             android:rowCount="4"
             android:columnCount="2"
             android:layout_alignParentTop="false"
-            android:layout_alignParentBottom="false"
-            android:layout_toLeftOf="@+id/removeFromW">
+            android:layout_alignParentBottom="false">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,23 +109,38 @@
 
         </GridLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/removeFromW"
-            android:src="@drawable/minus"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp" />
-
     </RelativeLayout>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sepW"
+        android:src="@drawable/separator"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/edit" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/watchImgW"
-        android:src="@drawable/separator" />
+        android:id="@+id/edit">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/edit"
+            android:layout_marginLeft="50dp"
+            android:padding="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/trash"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="50dp"
+            android:padding="10dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

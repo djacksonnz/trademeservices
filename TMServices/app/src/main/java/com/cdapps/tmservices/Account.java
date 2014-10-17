@@ -54,6 +54,7 @@ public class Account extends Activity {
     }
 
     private void SetupMenu() {
+
         findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,15 +74,23 @@ public class Account extends Activity {
         findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(), Notifications.class);
-                //finish();
-                //startActivity(intent);
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
             }});
 
         findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
                 finish();
                 startActivity(intent);
             }});

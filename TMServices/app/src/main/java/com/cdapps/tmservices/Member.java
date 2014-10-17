@@ -38,7 +38,6 @@ public class Member extends Activity {
         Bundle bundle = getIntent().getExtras();
         memberId = bundle.getInt("id");
 
-        DisplayMenu();
         SetLinks();
         asyncJson();
     }
@@ -89,7 +88,7 @@ public class Member extends Activity {
         TextView positiveCount = (TextView) findViewById(R.id.positiveM);
         positiveCount.setText(((positiveFeedback / totalFeedback) * 100) + "% positive feedback");
 
-        TextView joinDate = (TextView) findViewById(R.id.joinDateM);
+        TextView joinDate = (TextView) findViewById(R.id.watchlistTxt);
         joinDate.setText(m.getMember().getJoinDate().toString());
 
         TextView name = (TextView) findViewById(R.id.nameM);
@@ -136,26 +135,5 @@ public class Member extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    protected void DisplayMenu()
-    {
-        GridLayout menuGrid = (GridLayout) this.findViewById(R.id.menuME);
-        int childCount = menuGrid.getChildCount();
-
-        SharedPreferences appInfo = getSharedPreferences("appInfo", 0);
-
-        int deviceWidth = appInfo.getInt("deviceWidth", 0);
-        int deviceHeight = appInfo.getInt("deviceHeight", 0);
-
-        int gridHeight = deviceHeight / 10;
-        int gridItemWidth = deviceWidth / 5;
-
-        for (int i = 0; i < childCount; i++)
-        {
-            ImageView currImg = (ImageView) menuGrid.getChildAt(i);
-            currImg.getLayoutParams().width = gridItemWidth;
-            currImg.getLayoutParams().height = gridHeight;
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.cdapps.tmservices;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +22,7 @@ public class Notifications extends Activity {
 
         SetLinks();
         DisplayMenu();
+        SetupMenu();
     }
 
 
@@ -33,6 +35,42 @@ public class Notifications extends Activity {
 
     @Override
     public void onBackPressed() {
+
+    }
+
+    private void SetupMenu() {
+
+        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Search.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
+                finish();
+                startActivity(intent);
+            }});
 
     }
 

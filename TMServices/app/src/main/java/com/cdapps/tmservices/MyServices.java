@@ -1,37 +1,44 @@
 package com.cdapps.tmservices;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cdapps.tmservices.data.DownloadImage;
 import com.cdapps.tmservices.dummy.UserDataDummy;
+import com.cdapps.tmservices.listing.*;
 
 
-public class ListServiceMenu extends Activity {
+public class MyServices extends Activity {
 
     UserDataDummy data = UserDataDummy.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_service_menu);
+        setContentView(R.layout.activity_my_services);
 
-        DisplayMenu();
         SetupMenu();
-        PageSetup();
+        DisplayMenu();
+        PopList();
 
-        findViewById(R.id.listServiceBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ListService.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
@@ -40,27 +47,71 @@ public class ListServiceMenu extends Activity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-       PageSetup();
+       PopList();
     }
 
-    private void PageSetup() {
-        TextView servicesCount = (TextView) findViewById(R.id.textView2);
-        servicesCount.setText(Integer.toString(data.getMyListings().size()));
+    private void PopList() {
+        LinearLayout listings = (LinearLayout) findViewById(R.id.myListingsLay);
+        listings.removeAllViews();
 
-        findViewById(R.id.myServicesCont).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MyServices.class);
-                startActivity(intent);
+        View view;
+        final ViewGroup parent = listings;
+
+
+
+        for (final com.cdapps.tmservices.listing.Listing l : data.getMyListings()) {
+            view = LayoutInflater.from(this).inflate(R.layout.my_services_item, null);
+
+            TextView title = (TextView) view.findViewById(R.id.listingTitleW);
+            title.setText(l.getTitle());
+
+            TextView location = (TextView) view.findViewById(R.id.locationTextW);
+            location.setText(l.getSuburb());
+
+            TextView reviewNum = (TextView) view.findViewById(R.id.numReviewsW);
+            TextView reviewPercent = (TextView) view.findViewById(R.id.reviewPercentW);
+            if (l.getTotalReviewCount() == 0)
+            {
+                reviewNum.setText("No Reviews");
+                reviewPercent.setVisibility(View.GONE);
+                view.findViewById(R.id.thumbsUpImgW).setVisibility(View.GONE);
             }
-        });
-    }
+            else {
+                reviewNum.setText(Integer.toString(l.getTotalReviewCount()) + " Reviews");
+                double percent = l.getPositiveReviewCount() / l.getTotalReviewCount();
+                reviewPercent.setText(Double.toString(percent) + "%");
+            }
 
+            ImageView thumb = (ImageView) view.findViewById(R.id.watchImgW);
+            thumb.setImageResource(R.drawable.no_photo_sr);
+
+            final View v2 = view;
+
+            view.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(v.getContext())
+                            .setMessage("Delete this listing? You will not receive a refund for your listing fees")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    parent.removeView(v2);
+                                    data.removeMyListing(l.getListingId());
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                }
+            });
+
+            parent.addView(view);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_service_menu, menu);
+        getMenuInflater().inflate(R.menu.my_services, menu);
         return true;
     }
 
@@ -73,16 +124,7 @@ public class ListServiceMenu extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
-
-
-
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 
     private void SetupMenu() {
@@ -123,7 +165,7 @@ public class ListServiceMenu extends Activity {
 
     protected void DisplayMenu()
     {
-        GridLayout menuGrid = (GridLayout) this.findViewById(R.id.menu);
+        GridLayout menuGrid = (GridLayout) this.findViewById(R.id.gridLayout);
         int childCount = menuGrid.getChildCount();
 
         SharedPreferences appInfo = getSharedPreferences("appInfo", 0);

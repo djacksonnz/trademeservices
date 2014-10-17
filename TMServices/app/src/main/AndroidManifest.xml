@@ -13,13 +13,12 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="Trade Me Services" >
         <activity
             android:name=".Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,13 +29,13 @@
             android:name=".SearchResults"
             android:label="@string/title_activity_search_results"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".Listing"
             android:label="@string/title_activity_listing"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".Member"
@@ -60,25 +59,25 @@
             android:name=".Watchlist"
             android:label="@string/title_activity_watchlist"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".Notifications"
             android:label="@string/title_activity_notifications"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".Search"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".Account"
             android:label="@string/title_activity_account"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@style/NoAni" >
         </activity>
         <activity
             android:name=".AddCredit"
@@ -90,7 +89,29 @@
             android:name=".ListServiceMenu"
             android:label="@string/title_activity_list_service_menu"
             android:screenOrientation="portrait"
+            android:theme="@style/NoAni" >
+        </activity>
+        <activity
+            android:name=".MyServices"
+            android:label="@string/title_activity_my_services"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ListService"
+            android:label="@string/title_activity_list_service"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoAni" >
+        </activity>
+        <activity
+            android:name=".ServiceSummary"
+            android:label="@string/title_activity_service_summary"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".CatSelection"
+            android:label="@string/title_activity_cat_selection" >
         </activity>
     </application>
 

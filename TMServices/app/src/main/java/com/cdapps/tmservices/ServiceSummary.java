@@ -1,6 +1,8 @@
 package com.cdapps.tmservices;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,47 +13,93 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cdapps.tmservices.data.ListingOptions;
 import com.cdapps.tmservices.dummy.UserDataDummy;
 
 
-public class ListServiceMenu extends Activity {
+public class ServiceSummary extends Activity {
 
-    UserDataDummy data = UserDataDummy.getInstance();
+    ListingOptions data = ListingOptions.getInstance();
+    UserDataDummy dummy = UserDataDummy.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_service_menu);
+        setContentView(R.layout.activity_service_summary);
 
         DisplayMenu();
         SetupMenu();
-        PageSetup();
+        LinkSetup();
+        TextSetup();
+    }
 
-        findViewById(R.id.listServiceBtn).setOnClickListener(new View.OnClickListener() {
+    private void TextSetup() {
+        TextView cat = (TextView) findViewById(R.id.catname);
+        cat.setText(data.getListing().getCategoryName());
+
+        TextView title = (TextView) findViewById(R.id.textView2);
+        title.setText(data.getListing().getTitle());
+
+        TextView location = (TextView) findViewById(R.id.textView3);
+        location.setText(data.getListing().getRegion());
+
+        if (!data.getListing().isFeatured())
+        {
+            TextView featuredText = (TextView) findViewById(R.id.textView5);
+            featuredText.setText("Not featured");
+
+            TextView total = (TextView) findViewById(R.id.textView9);
+            total.setText("$39.00");
+        }
+
+    }
+
+    private void LinkSetup() {
+        findViewById(R.id.backText).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ListService.class);
-                startActivity(intent);
+                finish();
             }
         });
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        findViewById(R.id.textView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                new AlertDialog.Builder(view.getContext())
+                        .setMessage("Listing created")
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(view.getContext(), ListServiceMenu.class);
+                                dummy.addMyListing(data.getListing());
+                                finish();
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
 
-       PageSetup();
-    }
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                new AlertDialog.Builder(view.getContext())
+                        .setMessage("Listing created")
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(view.getContext(), ListServiceMenu.class);
+                                dummy.addMyListing(data.getListing());
+                                finish();
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
 
-    private void PageSetup() {
-        TextView servicesCount = (TextView) findViewById(R.id.textView2);
-        servicesCount.setText(Integer.toString(data.getMyListings().size()));
-
-        findViewById(R.id.myServicesCont).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MyServices.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
@@ -60,7 +108,7 @@ public class ListServiceMenu extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_service_menu, menu);
+        getMenuInflater().inflate(R.menu.service_summary, menu);
         return true;
     }
 
@@ -73,10 +121,6 @@ public class ListServiceMenu extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
-
-
-
         return super.onOptionsItemSelected(item);
     }
 

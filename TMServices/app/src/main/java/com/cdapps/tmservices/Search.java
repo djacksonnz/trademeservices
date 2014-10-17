@@ -51,6 +51,7 @@ public class Search extends Activity {
 
         DisplayMenu();
         DisplayTabs();
+        SetupMenu();
 
         InitSetup();
     }
@@ -116,6 +117,50 @@ public class Search extends Activity {
 
     @Override
     public void onBackPressed() {
+
+    }
+
+    private void SetupMenu() {
+
+        findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Notifications.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Search.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
+                finish();
+                startActivity(intent);
+            }});
 
     }
 

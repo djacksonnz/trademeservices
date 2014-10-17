@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -55,6 +56,7 @@ public class SearchResults extends Activity {
         setContentView(R.layout.activity_search_results);
 
         DisplayMenu();
+        SetupMenu();
 
         sr = this;
 
@@ -64,6 +66,13 @@ public class SearchResults extends Activity {
         district = bundle.getInt("district");
         keywords = bundle.getString("keywords");
         page = 1;
+
+        findViewById(R.id.backImgSR).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         displayInfo();
         asyncJson();
@@ -198,6 +207,50 @@ public class SearchResults extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void SetupMenu() {
+
+        findViewById(R.id.notificationsImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Notifications.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.searchImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Search.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.listServiceImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ListServiceMenu.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.watchlistImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Watchlist.class);
+                finish();
+                startActivity(intent);
+            }});
+
+        findViewById(R.id.accountImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Account.class);
+                finish();
+                startActivity(intent);
+            }});
+
     }
 
     protected void DisplayMenu()

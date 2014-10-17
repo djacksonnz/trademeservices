@@ -12,7 +12,7 @@
         android:rowCount="3"
         android:layout_below="@+id/relativeLayout"
         android:background="@color/TMGreyBG"
-        android:id="@+id/gridLayout" >
+        android:id="@+id/menu" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Member since 03/13"
-            android:id="@+id/joinDateM"
+            android:id="@+id/watchlistTxt"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
@@ -130,7 +130,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gridLayout"
+        android:layout_below="@+id/menu"
         android:id="@+id/moneyAccME">
 
         <TextView
