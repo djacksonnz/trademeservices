@@ -1,0 +1,302 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cdapps.tmservices.LocSelection"
+    android:background="#ffffffff">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/relativeLayout"
+        android:background="@color/TMYellow" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/yelLine"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/titleText"
+            android:src="@drawable/line_separator" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backImg"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_brown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Location"
+            android:id="@+id/titleText"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Back"
+            android:id="@+id/backText"
+            android:layout_toRightOf="@+id/backImg"
+            android:layout_centerVertical="true"
+            android:textColor="@color/TMYellowFont" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:id="@+id/data"
+        android:layout_below="@+id/relativeLayout">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:id="@+id/info">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/TMGreyBG"
+                        android:id="@+id/relativeLayout2" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="BUSINESS"
+                            android:id="@+id/textView5"
+                            android:textColor="@color/TMGreyFont"
+                            android:textIsSelectable="false"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="10dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Street number"
+                            android:id="@+id/textView"
+                            android:padding="10dp" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:id="@+id/editText"
+                            android:layout_alignParentEnd="true"
+                            android:padding="10dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView"
+                            android:src="@drawable/separator"
+                            android:layout_alignBottom="@+id/editText" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/relativeLayout3">
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:id="@+id/editText2"
+                            android:layout_alignParentEnd="true"
+                            android:padding="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Uni/flat"
+                            android:id="@+id/textView2"
+                            android:padding="10dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView2"
+                            android:src="@drawable/separator"
+                            android:layout_alignBottom="@+id/editText2" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/relativeLayout4">
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress"
+                            android:ems="10"
+                            android:id="@+id/editText3"
+                            android:layout_alignParentEnd="true"
+                            android:padding="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Street name"
+                            android:id="@+id/textView3"
+                            android:padding="10dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/TMGreyBG"
+                        android:id="@+id/relativeLayout5" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Service"
+                            android:id="@+id/textView4"
+                            android:textColor="@color/TMGreyFont"
+                            android:textIsSelectable="false"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="10dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/relativeLayout6">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView3"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/more_grey"
+                            android:layout_centerVertical="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Region"
+                            android:id="@+id/tt"
+                            android:padding="10dp"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView4"
+                            android:src="@drawable/separator"
+                            android:layout_below="@+id/catNameMD" />
+                    </RelativeLayout>
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/relativeLayout7">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView5"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/more_grey"
+                            android:layout_centerVertical="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="District"
+                            android:id="@+id/textView6"
+                            android:padding="10dp"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/region"
+            android:visibility="gone">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView2" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/rLay"></LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/district"
+            android:visibility="gone">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView3" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/dLay" />
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/padd"
+        android:layout_below="@+id/data"
+        android:background="@color/TMGreyBG"></RelativeLayout>
+
+</RelativeLayout>

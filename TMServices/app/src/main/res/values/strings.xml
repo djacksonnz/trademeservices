@@ -19,5 +19,7 @@
     <string name="title_activity_list_service">ListService</string>
     <string name="title_activity_service_summary">ServiceSummary</string>
     <string name="title_activity_cat_selection">CatSelection</string>
+    <string name="title_activity_list_data">ListData</string>
+    <string name="title_activity_loc_selection">LocSelection</string>
 
 </resources>

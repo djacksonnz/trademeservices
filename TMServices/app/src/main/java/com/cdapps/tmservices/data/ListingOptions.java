@@ -24,6 +24,10 @@ public class ListingOptions {
     private String availability;
     private String description;
 
+    private int streetNum;
+    private int flat;
+    private String street;
+
 
     protected ListingOptions() {
 
@@ -115,5 +119,29 @@ public class ListingOptions {
 
     public void setServices(String services) {
         this.services = services;
+    }
+
+    public int getStreetNum() {
+        return streetNum;
+    }
+
+    public void setStreetNum(int streetNum) {
+        this.streetNum = streetNum;
+    }
+
+    public int getFlat() {
+        return flat;
+    }
+
+    public void setFlat(int flat) {
+        this.flat = flat;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 }

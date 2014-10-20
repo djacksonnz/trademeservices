@@ -16,7 +16,7 @@
         android:label="Trade Me Services" >
         <activity
             android:name=".Splash"
-            android:label="@string/app_name"
+            android:label="Trade Me Services"
             android:screenOrientation="portrait"
             android:theme="@style/NoAni" >
             <intent-filter>
@@ -111,7 +111,21 @@
         </activity>
         <activity
             android:name=".CatSelection"
-            android:label="@string/title_activity_cat_selection" >
+            android:label="@string/title_activity_cat_selection"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ListData"
+            android:label="@string/title_activity_list_data"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".LocSelection"
+            android:label="@string/title_activity_loc_selection"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         </activity>
     </application>
 

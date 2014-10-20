@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cdapps.tmservices.ListData">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/relativeLayout"
+        android:background="@color/TMYellow" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/yelLine"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/titleText"
+            android:src="@drawable/line_separator" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backImg"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_brown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="List a Service"
+            android:id="@+id/titleText"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Back"
+            android:id="@+id/backText"
+            android:layout_toRightOf="@+id/backImg"
+            android:layout_centerVertical="true"
+            android:textColor="@color/TMYellowFont" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Done"
+            android:id="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/TMYellowFont"
+            android:padding="10dp"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="2044"
+            android:id="@+id/textView2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/editText" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:maxLength="2044" />
+    </RelativeLayout>
+</RelativeLayout>

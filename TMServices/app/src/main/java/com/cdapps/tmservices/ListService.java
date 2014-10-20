@@ -60,6 +60,69 @@ public class ListService extends Activity {
                 ControlBack();
             }
         });
+
+        SetLinks();
+    }
+
+    private void SetLinks() {
+
+        findViewById(R.id.catSel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CatSelection.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.relativeLayout4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LocSelection.class);
+                startActivity(intent);
+            }
+        });
+
+
+        findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartData(1);
+            }
+        });
+
+        findViewById(R.id.relativeLayout7).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartData(2);
+            }
+        });
+
+        findViewById(R.id.relativeLayout8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartData(3);
+            }
+        });
+
+        findViewById(R.id.relativeLayout9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartData(4);
+            }
+        });
+
+        findViewById(R.id.relativeLayout10).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartData(5);
+            }
+        });
+    }
+
+    private void StartData(int page) {
+        Intent intent = new Intent(this, ListData.class);
+        intent.putExtra("page", page);
+        startActivity(intent);
     }
 
     private void ControlBack() {
@@ -214,10 +277,6 @@ public class ListService extends Activity {
         }
     }
 
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -235,11 +294,6 @@ public class ListService extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 
     private void SetupMenu() {

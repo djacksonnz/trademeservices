@@ -65,7 +65,7 @@
         android:layout_below="@+id/banner"
         android:layout_above="@+id/gridLayout"
         android:id="@+id/pg1lay"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -605,7 +605,7 @@
         android:id="@+id/pg3lay"
         android:layout_below="@+id/banner"
         android:layout_above="@+id/gridLayout"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ScrollView
             android:layout_width="fill_parent"
