@@ -206,9 +206,6 @@ public class Search extends Activity {
             catTitle.setText(selectedCategory.getName());
 
 
-        TextView catCount = (TextView) findViewById(R.id.catTitleCountS);
-        catCount.setText("### listings");
-
         List<Categories> catList = new Database(this).getCat(selectedCat);
 
         ListView list;
@@ -232,10 +229,7 @@ public class Search extends Activity {
 
         adapter = new ListAdapterCat(this, customView, res);
 
-        if (catList.size() == 0)
-            list.setAdapter(null);
-        else
-            list.setAdapter(adapter);
+        list.setAdapter(adapter);
 
     }
 
@@ -267,10 +261,9 @@ public class Search extends Activity {
 
             adapter = new ListAdapterLoc(this, customView, res);
 
-            if (regionList.size() == 0)
-                list.setAdapter(null);
-            else
+
                 list.setAdapter(adapter);
+            customView = new ArrayList<ListModelLoc>();
 
         }
         else if (district == 0)
@@ -291,17 +284,19 @@ public class Search extends Activity {
             Resources res = getResources();
             adapter = new ListAdapterLoc(this, customView, res);
 
-            if (districtList.size() == 0)
-                list.setAdapter(null);
-            else
+
                 list.setAdapter(adapter);
+            customView = new ArrayList<ListModelLoc>();
         }
         else
         {
             District d = new Database(this).GetDistrict(district);
             TextView title = (TextView) findViewById(R.id.locTitleS);
             title.setText(d.getName());
-            list.setAdapter(null);
+            Resources res = getResources();
+            adapter = new ListAdapterLoc(this, customView, res);
+            list.setAdapter(adapter);
+            customView = new ArrayList<ListModelLoc>();
         }
 
     }

@@ -160,7 +160,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/TMGreyBG"
-                android:id="@+id/statusCatS">
+                android:id="@+id/statusCatS"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,18 +174,6 @@
                     android:textStyle="bold"
                     android:singleLine="true"
                     android:paddingTop="10dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/catTitleCountS"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/catTitleS"
-                    android:textColor="@color/TMGreyFont"
-                    android:paddingBottom="10dp"
-                    android:textSize="15dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"

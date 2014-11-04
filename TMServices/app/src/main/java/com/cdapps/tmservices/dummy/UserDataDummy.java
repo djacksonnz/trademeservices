@@ -21,7 +21,7 @@ public class UserDataDummy {
     private List<Integer> myWatchlist = new ArrayList<Integer>();
 
     protected UserDataDummy() {
-        myWatchlist.add(721027156);
+
         myWatchlist.add(724549825);
 
         Listing l = new Listing(1000000001, "Randys Toolshed", "9334-9349-9357-", new Date(2014, 9, 10),

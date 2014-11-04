@@ -55,8 +55,9 @@ public class ListAdapterCat extends BaseAdapter implements View.OnClickListener 
     }
 
     public static class ViewHolder {
-        public TextView count;
+        public ImageView more;
         public TextView name;
+        public TextView selected;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -67,8 +68,9 @@ public class ListAdapterCat extends BaseAdapter implements View.OnClickListener 
             vi = inflater.inflate(R.layout.search_list_item, null);
 
             holder = new ViewHolder();
-            holder.count = (TextView) vi.findViewById(R.id.catCountMD);
+            holder.more = (ImageView) vi.findViewById(R.id.imageView);
             holder.name = (TextView) vi.findViewById(R.id.catNameMD);
+            holder.selected = (TextView) vi.findViewById(R.id.textView);
 
             vi.setTag(holder);
         } else {
@@ -76,13 +78,14 @@ public class ListAdapterCat extends BaseAdapter implements View.OnClickListener 
         }
 
         if (data.size() <= 0) {
-            //display none
+            holder.more.setVisibility(View.GONE);
+            holder.selected.setVisibility(View.VISIBLE);
+            holder.name.setVisibility(View.GONE);
         } else {
             tempValues = null;
             tempValues = (ListModelCat) data.get(position);
 
             holder.name.setText(tempValues.getCatName());
-            holder.count.setText(Integer.toString(tempValues.getResults()));
 
             vi.setOnClickListener(new OnItemClickListener(tempValues.getCatNumber()));
         }

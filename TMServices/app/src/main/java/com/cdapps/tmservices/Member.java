@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.data.Constants;
 import com.cdapps.tmservices.data.DataProcess;
@@ -50,8 +51,14 @@ public class Member extends Activity {
 
         Log.i("out", url);
 
-        //Run AndroidQuery AJAX call running to jsonCallbackCat when it is completed
-        aq.ajax(url, JSONObject.class, this, "jsonCallback");
+        //Setup new Ajax call back as a JSON object
+        AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>();
+        //Pass in url return type and callback method
+        cb.url(url).type(JSONObject.class).weakHandler(this, "jsonCallback");
+        //Add authentication header
+        cb.header("Authorization", "OAuth oauth_consumer_key=" + new Constants().getCONSUMER_KEY() + ", oauth_signature_method=\"PLAINTEXT\", oauth_signature=" + new Constants().getCONSUMER_SECRET() + '&');
+        //Run aq call on the ajax callback object
+        aq.ajax(cb);
     }
 
     //Method called when cat async call is completed

@@ -101,4 +101,14 @@
                 android:textSize="15dp" />
         </RelativeLayout>
     </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No Results"
+        android:id="@+id/textView"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:textIsSelectable="false" />
 </RelativeLayout>

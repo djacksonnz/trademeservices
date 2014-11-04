@@ -9,18 +9,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/catNameMD"
-        android:textStyle="bold"
         android:padding="10dp"
         android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/more_grey"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="00000"
-        android:id="@+id/catCountMD"
-        android:layout_alignParentEnd="true"
-        android:padding="10dp"
-        android:textColor="@color/TMGreyFont"
-        android:inputType="number" />
+        android:text="Category Selected"
+        android:id="@+id/textView"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

@@ -17,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.auth.AccountHandle;
+import com.androidquery.auth.BasicHandle;
+import com.androidquery.callback.AbstractAjaxCallback;
+import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.cat.Categories;
 import com.cdapps.tmservices.data.Constants;
@@ -112,7 +116,6 @@ public class SearchResults extends Activity {
     //Async method to call for the categories from the API
     public void asyncJson(){
         //Set url getting address from constants class
-        //String url = "http://api.trademe.co.nz/v1/Search/General.json?buy=All&category=9334&condition=All&expired=false&photo_size=thumbnail&return_metadata=false&shipping_method=All&rows=25&page=1";
         String url = new Constants().getBASE_ADDR() +
                 "Search/General.json?" +
                 "buy=All" +
@@ -125,7 +128,7 @@ public class SearchResults extends Activity {
                 "&rows=" + Integer.toString(new Constants().getPAGE_SIZE()) +
                 "&page=" + Integer.toString(page) +
                 "&search_string=" + keywords;
-//
+
         if (region != 0 && region != 100)
         {
             url += "&region=" + Integer.toString(region);
@@ -136,16 +139,15 @@ public class SearchResults extends Activity {
             url += "&district=" + Integer.toString(district);
         }
 
-
-//        if (featured)
-//        {
-//            url += "&sort_order=FeaturedFirst";
-//        }
-
         Log.i("out", url);
-
-        //Run AndroidQuery AJAX call running to jsonCallbackCat when it is completed
-        aq.ajax(url, JSONObject.class, this, "jsonCallback");
+        //Setup new Ajax call back as a JSON object
+        AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>();
+        //Pass in url return type and callback method
+        cb.url(url).type(JSONObject.class).weakHandler(this, "jsonCallback");
+        //Add authentication header
+        cb.header("Authorization", "OAuth oauth_consumer_key=" + new Constants().getCONSUMER_KEY() + ", oauth_signature_method=\"PLAINTEXT\", oauth_signature=" + new Constants().getCONSUMER_SECRET() + '&');
+        //Run aq call on the ajax callback object
+        aq.ajax(cb);
     }
 
     //Method called when cat async call is completed
@@ -160,6 +162,7 @@ public class SearchResults extends Activity {
         }else{
             //ajax error, show error code if there is no JSON
             Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
+           // Log.i("out", json.toString());
         }
     }
 

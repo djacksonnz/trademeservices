@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.data.Constants;
 import com.cdapps.tmservices.data.DataProcess;
@@ -58,12 +59,18 @@ public class Reviews extends Activity {
         String url = new Constants().getBASE_ADDR() + "Listings/"
                 + Integer.toString(listingId) + "/reviews.json?page=" + page;
 
-        Log.i("out", url);
-        aq.ajax(url, JSONObject.class, this, "jsonCallbackSearch");
+        //Setup new Ajax call back as a JSON object
+        AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>();
+        //Pass in url return type and callback method
+        cb.url(url).type(JSONObject.class).weakHandler(this, "jsonCallback");
+        //Add authentication header
+        cb.header("Authorization", "OAuth oauth_consumer_key=" + new Constants().getCONSUMER_KEY() + ", oauth_signature_method=\"PLAINTEXT\", oauth_signature=" + new Constants().getCONSUMER_SECRET() + '&');
+        //Run aq call on the ajax callback object
+        aq.ajax(cb);
 
     }
 
-    public void jsonCallbackSearch(String url, JSONObject json, AjaxStatus status) throws JSONException
+    public void jsonCallback(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
         if(json != null){
             ProcessCall(new DataProcess().ProcessReviews(json));
@@ -75,49 +82,56 @@ public class Reviews extends Activity {
 
     private void ProcessCall(ReviewResults rr)
     {
-        TextView reviewNum = (TextView) findViewById(R.id.reviewNumR);
-        double percent = 100;
-        String text = percent + "% positive reviews from " + totalReviews;
-        reviewNum.setText(text);
-
-        View view;
-        ViewGroup parent = (ViewGroup) findViewById(R.id.reviewLayR);
-
-        for (Review r : rr.getReviewsList())
+        if (rr.getReviewsList().size() <= 0)
         {
-            view = LayoutInflater.from(this).inflate(R.layout.reviews_layout, null);
-
-            ImageView thumb = (ImageView) view.findViewById(R.id.thumbImg);
-            if (r.isPositive())
-                thumb.setImageResource(R.drawable.thumb_up);
-            else
-                thumb.setImageResource(R.drawable.thumb_dwn);
-
-            TextView reviewText = (TextView) view.findViewById(R.id.reviewRE);
-            reviewText.setText(r.getReviewText());
-
-            TextView member = (TextView) view.findViewById(R.id.nicknameRE);
-            member.setText(r.getMember().getNickname());
-
-            TextView feedback = (TextView) view.findViewById(R.id.feedbackRE);
-            feedback.setText(Integer.toString(r.getMember().getFeedbackCount()));
-
-            ImageView av = (ImageView) view.findViewById(R.id.avRE);
-            if (!r.getMember().isAddressVerified())
-                av.setVisibility(View.GONE);
-
-            TextView response = (TextView) view.findViewById(R.id.responseRE);
-            if (r.getResponse() == "")
-                response.setVisibility(View.GONE);
-            else
-                response.setText(r.getResponse());
-
-            parent.addView(view);
-
+            findViewById(R.id.textView2).setVisibility(View.VISIBLE);
+            findViewById(R.id.reviewNumR).setVisibility(View.GONE);
+            findViewById(R.id.addPhotoSM).setVisibility(View.GONE);
         }
+        else {
+            TextView reviewNum = (TextView) findViewById(R.id.reviewNumR);
+            double percent = 100;
+            String text = percent + "% positive reviews from " + totalReviews;
+            reviewNum.setText(text);
 
-        RelativeLayout relativeLayout = (RelativeLayout) parent.getChildAt(parent.getChildCount() - 1);
-        relativeLayout.removeViewAt(1);
+            View view;
+            ViewGroup parent = (ViewGroup) findViewById(R.id.reviewLayR);
+
+            for (Review r : rr.getReviewsList()) {
+                view = LayoutInflater.from(this).inflate(R.layout.reviews_layout, null);
+
+                ImageView thumb = (ImageView) view.findViewById(R.id.thumbImg);
+                if (r.isPositive())
+                    thumb.setImageResource(R.drawable.thumb_up);
+                else
+                    thumb.setImageResource(R.drawable.thumb_dwn);
+
+                TextView reviewText = (TextView) view.findViewById(R.id.reviewRE);
+                reviewText.setText(r.getReviewText());
+
+                TextView member = (TextView) view.findViewById(R.id.nicknameRE);
+                member.setText(r.getMember().getNickname());
+
+                TextView feedback = (TextView) view.findViewById(R.id.feedbackRE);
+                feedback.setText(Integer.toString(r.getMember().getFeedbackCount()));
+
+                ImageView av = (ImageView) view.findViewById(R.id.avRE);
+                if (!r.getMember().isAddressVerified())
+                    av.setVisibility(View.GONE);
+
+                TextView response = (TextView) view.findViewById(R.id.responseRE);
+                if (r.getResponse() == "")
+                    response.setVisibility(View.GONE);
+                else
+                    response.setText(r.getResponse());
+
+                parent.addView(view);
+
+            }
+
+            RelativeLayout relativeLayout = (RelativeLayout) parent.getChildAt(parent.getChildCount() - 1);
+            relativeLayout.removeViewAt(1);
+        }
     }
 
 

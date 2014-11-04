@@ -67,6 +67,7 @@ public class ListAdapterSR extends BaseAdapter implements View.OnClickListener {
         public TextView reviewCount;
         public ImageView reviewImg;
         public RelativeLayout infoLay;
+        public TextView noResults;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
@@ -86,6 +87,7 @@ public class ListAdapterSR extends BaseAdapter implements View.OnClickListener {
             holder.reviewCount = (TextView) vi.findViewById(R.id.numReviewsSR);
             holder.reviewImg = (ImageView) vi.findViewById(R.id.thumbsUpImgSR);
             holder.infoLay = (RelativeLayout) vi.findViewById(R.id.listItemSR);
+            holder.noResults = (TextView) vi.findViewById(R.id.textView);
 
             vi.setTag(holder);
         }
@@ -96,7 +98,15 @@ public class ListAdapterSR extends BaseAdapter implements View.OnClickListener {
 
         if (data.size() <= 0)
         {
-            //display none
+            holder.listingImg.setVisibility(View.GONE);
+            holder.location.setVisibility(View.GONE);
+            holder.listingTitle.setVisibility(View.GONE);
+            holder.listedDate.setVisibility(View.GONE);
+            holder.reviewPercent.setVisibility(View.GONE);
+            holder.reviewCount.setVisibility(View.GONE);
+            holder.reviewImg.setVisibility(View.GONE);
+            holder.infoLay.setVisibility(View.GONE);
+            holder.noResults.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -113,6 +123,18 @@ public class ListAdapterSR extends BaseAdapter implements View.OnClickListener {
             holder.listedDate.setText(tempValues.getListedDate());
             holder.reviewPercent.setText(tempValues.getReviewRating() + "%");
             holder.location.setText(tempValues.getLocation());
+
+            if (tempValues.getTotalReviews() == 0)
+            {
+                holder.reviewCount.setText("No Reviews");
+                holder.reviewPercent.setVisibility(View.INVISIBLE);
+                holder.reviewImg.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                holder.reviewPercent.setVisibility(View.VISIBLE);
+                holder.reviewImg.setVisibility(View.VISIBLE);
+            }
 
             vi.setOnClickListener(new OnItemClickListener(tempValues.getListingId()));
         }

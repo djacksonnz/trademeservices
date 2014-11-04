@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cdapps.tmservices.data.Constants;
 import com.cdapps.tmservices.data.DataProcess;
@@ -41,7 +42,7 @@ public class Watchlist extends Activity {
 
     UserDataDummy data = UserDataDummy.getInstance();
 
-    List<Integer> items = data.getMyWatchlist();
+    List<Integer> items;
 
     Context ctx;
 
@@ -70,6 +71,7 @@ public class Watchlist extends Activity {
         ViewGroup v = (ViewGroup) findViewById(R.id.watchItemsW);
                 v.removeAllViews();
 
+        items = data.getMyWatchlist();
 
         for (int i: items)
         {
@@ -81,7 +83,7 @@ public class Watchlist extends Activity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        PopDisp();
+        //PopDisp();
     }
 
     private void DisplayInfo(final com.cdapps.tmservices.listing.Listing l) {
@@ -143,11 +145,18 @@ public class Watchlist extends Activity {
         String url = new Constants().getBASE_ADDR() + "Listings/" + Integer.toString(id) + ".json";
 
         Log.i("out", url);
-        aq.ajax(url, JSONObject.class, this, "jsonCallbackSearch");
+        //Setup new Ajax call back as a JSON object
+        AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>();
+        //Pass in url return type and callback method
+        cb.url(url).type(JSONObject.class).weakHandler(this, "jsonCallback");
+        //Add authentication header
+        cb.header("Authorization", "OAuth oauth_consumer_key=" + new Constants().getCONSUMER_KEY() + ", oauth_signature_method=\"PLAINTEXT\", oauth_signature=" + new Constants().getCONSUMER_SECRET() + '&');
+        //Run aq call on the ajax callback object
+        aq.ajax(cb);
 
     }
 
-    public void jsonCallbackSearch(String url, JSONObject json, AjaxStatus status) throws JSONException
+    public void jsonCallback(String url, JSONObject json, AjaxStatus status) throws JSONException
     {
         if(json != null){
             DisplayInfo(new DataProcess().ProcessListing(json));

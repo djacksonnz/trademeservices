@@ -3,11 +3,13 @@ package com.cdapps.tmservices.models;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cdapps.tmservices.R;
@@ -52,6 +54,9 @@ public class ListAdapterLoc extends BaseAdapter implements View.OnClickListener{
 
     public static class ViewHolder {
         public TextView name;
+        public TextView selected;
+        public ImageView more;
+
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -63,6 +68,8 @@ public class ListAdapterLoc extends BaseAdapter implements View.OnClickListener{
 
             holder = new ViewHolder();
             holder.name = (TextView) vi.findViewById(R.id.locNameMD);
+            holder.selected = (TextView) vi.findViewById(R.id.textView);
+            holder.more = (ImageView) vi.findViewById(R.id.imageView);
 
             vi.setTag(holder);
         } else {
@@ -70,7 +77,9 @@ public class ListAdapterLoc extends BaseAdapter implements View.OnClickListener{
         }
 
         if (data.size() <= 0) {
-            //display none
+            holder.name.setVisibility(View.GONE);
+            holder.more.setVisibility(View.GONE);
+            holder.selected.setVisibility(View.VISIBLE);
         } else {
             tempValues = null;
             tempValues = (ListModelLoc) data.get(position);
